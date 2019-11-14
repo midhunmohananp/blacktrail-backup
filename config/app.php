@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,7 +121,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -173,9 +173,13 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ViewServicePRovider::class,
+        'Webpatser\Countries\CountriesServiceProvider',
+        // Srmklive\PayPal\Providers\PayPalServiceProvider::class
+
 
     ],
 
@@ -225,6 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Countries' => 'Webpatser\Countries\CountriesFacade',
+        // 'PayPal' => Srmklive\PayPal\Facades\PayPal::class
 
     ],
 

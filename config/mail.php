@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,9 +83,7 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-
     'username' => env('MAIL_USERNAME'),
-
     'password' => env('MAIL_PASSWORD'),
 
     /*
