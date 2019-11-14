@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
+/*
+using beyondcode
+*/
+
+use BeyondCode\EmailConfirmation\Traits\AuthenticatesUsers;
+
 
 class LoginController extends Controller
 {

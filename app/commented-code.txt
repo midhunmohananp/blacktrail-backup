@@ -1,0 +1,40 @@
+
+// Don't run this as of the moment..
+// DB::table("criminal_profiles")->truncate() ; 
+
+// this will seed bounty and currency in the criminal_profiles which are null..
+
+// $criminals = CriminalInfo::where("bounty",null)->orWhere("currency",null)->get()->toArray(); // 
+
+//     returns criminal_id of the $criminals only.
+// $criminals = CriminalInfo::where("bounty",null)->orWhere("currency",nul
+// l)->select("criminal_id")->get()->toArray(); getting criminals which
+// have bounty
+
+//     $criminals = CriminalInfo::where("bounty",null)->orWhere("currency",null)->select("criminal_id")->get();
+/*     foreach ($criminal->profile as $profile) {
+dd($profile);                
+}*/
+// if bounty or currency has no value / null
+
+
+// dd($crim->toArray());
+
+
+
+
+//  if ( is_null($crim->profile()->bounty)){
+//      $crim->profile()->bounty = mt_rand(100,10000);
+//  }
+//  else if ( is_null($crim->profile()->currency)) {
+//      $crim->profile()->currency  = Country::pluck('currency_symbol'); 
+//  }
+
+//  else {
+//     dd("Nothing to update");       
+// }
+
+}
+
+
+// shoudl return 
