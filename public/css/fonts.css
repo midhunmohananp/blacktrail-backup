@@ -1,0 +1,199 @@
+/*Sans fons 
+'hairline': 100,
+'thin': 200,
+'light': 300,
+'normal': 400,
+'medium': 500,
+'semibold': 600,
+'bold': 700,
+'extrabold': 800,
+'black': 900,
+*/
+
+
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-Light.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-light;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-SemiBold.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-semibold;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-Italic.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-normal;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-Bold.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-bold;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-Black.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-black;
+}
+
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-ExtraLight.ttf) format("truetype");
+  font-style: normal;
+  @apply .font-hairline;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(../assets/fonts/sans/SSPro-Regular.ttf) format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  @apply .font-normal;
+}
+
+
+
+
+
+@font-face {
+ font-family : 'Gotham';
+ src: url(../assets/fonts/display/GothamLight.ttf) format('truetype');
+ font-style: normal;
+}
+
+
+
+@font-face {
+ font-family : 'Gotham';
+ src: url(../assets/fonts/display/GothamBook.ttf) format('truetype');
+ font-style: normal;
+}
+
+
+
+@font-face {
+ font-family : 'Gotham';
+ src: url(../assets/fonts/display/GothamMedium.ttf) format('truetype');
+ font-style: normal;
+}
+
+@font-face {
+ font-family : 'Gotham';
+ src: url(../assets/fonts/display/GothamBold.ttf) format('truetype');
+ font-style: normal;
+ font-weight: 700 ;
+}
+
+
+
+
+@font-face {
+ font-family : 'Gotham';
+ src: url(../assets/fonts/display/GothamBook.ttf) format('truetype');
+ font-style: normal;
+}
+
+
+/* @font-face {
+font-family : 'Proxima_Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Light.ttf) format('truetype');
+font-style: normal;
+}
+
+@font-face {
+font-family : 'Proxima_Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Light_Italic.ttf) format('truetype');
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family : 'Proxima_Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Regular_Italic.ttf) format('truetype');
+font-style: normal;
+}
+
+
+@font-face {
+font-family : 'Proxima Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Bold_Italic.ttf) format('truetype');
+font-style: normal;
+}
+
+
+
+
+@font-face {
+font-family : 'Proxima_Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Bold.ttf) format('truetype');
+font-style: normal;
+} */
+
+
+@font-face {
+  font-family : 'Proxima_Nova';
+  src: url(../assets/fonts/display/Proxima_Nova_Regular.ttf) format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family : 'Proxima_Nova';
+  src: url(../assets/fonts/display/Proxima_Nova_Light.ttf) format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family : 'Proxima_Nova';
+  src: url(../assets/fonts/display/Proxima_Nova_Bold.ttf) format('truetype');
+  font-style: normal;
+} 
+
+
+
+
+/*@font-face {
+font-family : 'Proxima Nova';
+src: url(../assets/fonts/display/Proxima_Nova_Condensed_Thin.otf) format('opentype');
+font-style: normal;
+}
+
+
+
+@font-face {
+font-family : 'Proxima Nova';
+src: url(../assets/fonts/display/Proxima-Nova-Cond-Sbold.otf) format('opentype');
+font-style: normal;
+}
+
+*/
+
+/*@font-face {
+font-family : 'Open Sans';
+src: url(../assets/fonts/display/OpenSans-SemiboldItalic.ttf) format('truetype');
+font-style: normal;
+font-weight: 500 ;
+}
+*/
+
+/*
+@font-face {
+font-family : 'Open Sans';
+src: url(../fonts/OpenSans-BoldItalic.ttf) format('truetype');
+font-style: normal;
+font-weight: 600 ;
+}
+*/
+

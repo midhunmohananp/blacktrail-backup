@@ -10,7 +10,7 @@ use App\CriminalInfo ;
 
 class BountyController extends Controller
 {
-		use ConvertsCurrencies;
+	use ConvertsCurrencies;
 		/*** Used for updating the bounty of the criminal based from USD
 		*/
 
@@ -25,27 +25,26 @@ class BountyController extends Controller
 		]	
 		*/
 
-
-			$items = collect(request()->all());
-			$amount = floatval($items->get('params')['total_amount']);
-			$criminal_id = intval($items->get('params')['criminal_id']);
-			$to_currency = $items->get('params')['used_currency'];	
-			
-			$apiKey 					=			$this->currencyApiKey() ; 
-			$payment_currency   		= 			urlencode("USD");
-			$to_currency_code  	        = 			urlencode($to_currency);
-			
+		$items = collect(request()->all());
+		$amount = floatval($items->get('params')['total_amount']);
+		$criminal_id = intval($items->get('params')['criminal_id']);
+		$to_currency = $items->get('params')['used_currency'];	
+		
+		$apiKey 					=			$this->currencyApiKey() ; 
+		$payment_currency   		= 			urlencode("USD");
+		$to_currency_code  	        = 			urlencode($to_currency);
+		
 			// /*this one's going fine..*/
-			if ( $to_currency == "USD"){
+		if ( $to_currency == "USD"){
 				// update it right away..
 
-				$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $amount);
-	
-				return response()->json([
-					'criminal' => $criminal_id ,
-					'amount' => $amount,
-					'currency' => "USD"
-				]); 
+			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $amount);
+			
+			return response()->json([
+				'criminal' => $criminal_id ,
+				'amount' => $amount,
+				'currency' => "USD"
+			]); 
 
 
 		/*	// return response("It's a USD");
@@ -77,7 +76,7 @@ class BountyController extends Controller
 			$info = json_decode($response);
 			
 			$rate = $info->$query ;
-				
+			
 			$total = $rate * $amount ;
 			// return response($total) ; 
 
@@ -100,22 +99,22 @@ class BountyController extends Controller
 		// return response()->json($value);
 
 		/*some of the params are in here..*/
-	
+		
 		/*
 			$criminal_info = CriminalInfo::findOrFailById($criminal_id) ;
 			$criminal_info->bounty += $amo
 		*/
-	}
+		}
 
 
 
-	public function test(){
-		$amount = 10 ; 
-		$criminal_id = 3 ; 
-		$from_currency = "USD";
-		$val = $this->testing_convert_currency($amount, $criminal_id, $from_currency);
-		dd($val);
-	}
+		public function test(){
+			$amount = 10 ; 
+			$criminal_id = 3 ; 
+			$from_currency = "USD";
+			$val = $this->testing_convert_currency($amount, $criminal_id, $from_currency);
+			dd($val);
+		}
 
 
 	/*

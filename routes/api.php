@@ -12,7 +12,34 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['prefix' => 'v1'], function(){
+	Route::get('/groups', 'GroupsController@getAll');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
+
+	
+	Route::get('/criminals/{criminal}', 'Api\CriminalsController@getById')->name("criminals.info.get");
+	Route::get('/currencies', 'Api\CountriesController@getAllCurrencies')->name("currencies");
+	Route::put("bounty/add","Api\BountyController@updateCriminalBounty")->name("bounty.update");
+	Route::put("bounty/update/fixer","Api\BountyController@convertCurrencyUsingFixer")->name("bounty.update.fixer");
+
+	// Route::put("bounty/update","Api\BountyController@convertCurrencyUsingCurrencyLayerApi")->name("bounty.update.currency");
+
+	Route::put("/update/bounty","Api\BountyController@update_the_bounty_of_the_criminal");
+	// Route::get("test/update",'Api\BountyController@update_the_bounty_of_the_criminal');
+
+/*	
+	Route::get('/schools/student/{student}','Api\SchoolsController@getAllSchoolsByAStudent')->name("schools.student");
+*/
+
+	
+
 });
+
+/*
+routes are now api/payment/excute
+*/
+Route::post('payment/create',"PaypalController@create_payment");
+Route::post('payment/execute',"PaypalController@execute_payment");	
+
+

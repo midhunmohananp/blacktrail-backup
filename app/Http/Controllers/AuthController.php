@@ -63,8 +63,7 @@ class AuthController extends Controller
 	public function registerForm()
 	{
 		$roles = Role::select(['id','role_title'])->get() ;
-		// $countries = Country::all(); 
-		$countries = Country::all();
+		$countries = Country::select(['id','name'])->get();
 		return view("auth.register", compact('roles','countries'));
 	}
 
@@ -94,7 +93,7 @@ class AuthController extends Controller
 
 				 // blacktrail.com/confirm/email/?=jose@mail.comVi2sdebxXIGdHvz04IOB
 				$confirmation_code = str_random(10);
-				
+
 				$user = User::create([
 					'role_id' => request('role_id'),
 					'display_name' => request('display_name'),

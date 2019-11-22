@@ -1,0 +1,113 @@
+<section class="w-1/2 ml-2 font-basic" id="pageView">
+	<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+		Criminal Profile of {{ $criminal->full_name }} 
+	</p>
+
+	<div class="bg-white px-8 py-8 pt-4">
+		<div class="text-center">
+			<div id="avatar" class="inline-block mb-6 w-full" >
+				<img src="{{ asset('assets/images/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
+				<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
+				<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
+			</div>
+		</div>
+
+		<div class="row mb-4">
+			<div class="column">
+				<div>
+					<label for="basic-profile-text" class="text-xl font-semibold">Basic Profile</label>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="blue-column">
+					<label class="text-xl font-bold">Profile</label>
+				</div>
+			</div>
+
+
+		</div>
+
+
+		{{-- used for basic profile --}}
+		<div class="row " class="mb-4">
+			<div class="column">
+				<div class="blue-column">
+					<label for="">First Name</label>
+					<p class="font-bold text-md">{{  $criminal->first_name }}</p>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="blue-column">
+					<label for="" class="mb-1">Birthplace</label>
+					<p class="font-bold text-md">{{  $criminal->profile->birthplace }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row " class="mb-4 mt-8">
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Middle Name</label>
+					<p class="font-bold text-md">{{  $criminal->middle_name }}</p>
+
+				</div>
+			</div>
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Country Last Seen</label>
+					<p class="font-bold text-md">{{  $criminal->profile->country->name }}</p>
+				</div>
+			</div>
+
+		</div>	
+
+		<div class="row " class="mb-4 mt-8">
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Last Name</label>
+					<p class="font-bold text-md">{{  $criminal->last_name }}</p>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Birthdate</label>
+					<p class="font-bold text-md">{{  $criminal->profile->birthdate }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row " class="mb-4 mt-8">
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Status</label>
+					<p class="font-bold text-md">{{  $criminal->status == 1 ? 'At Large' : 'Captured' }}</p>
+				</div>
+			</div>	
+
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Age</label>
+					<p class="font-bold text-md">{{  $criminal->profile->age }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row " class="mb-4 mt-8">
+			<div class="column">
+				<div class="blue-column">
+					<label for="">Country</label>
+					<p class="font-bold text-md">{{  $criminal->country->name }}</p>				
+				</div>
+			</div>	
+			<div class="column">
+				<div class="blue-column">
+					<label for=""></label>
+					<p class="font-bold text-md">{{  $criminal->profile->last_seen }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

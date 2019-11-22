@@ -1,0 +1,78 @@
+<section class="w-full">
+	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black ml-6">Edit Criminal Page</p>
+	<div class="bg-white shadow-md w-1/2">
+		<form action="this" class="font-basic ml-6 mt-2 p-2">
+			<h3>Edit Criminal : {{ criminal.display_name }} </h3>
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Display Name</label>
+				<input name="display_name" value="{{  criminal.display_name }}" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" name="display_name" placeholder="Criminal Name">	
+			</div>	
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Alias</label>
+				<input name="display_name" value="{{  $criminal->alias }}" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" name="display_name" placeholder="Criminal Name" >	
+			</div>	
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name</label>
+				<input name="display_name" value="{{  $criminal->first_name }}" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" name="display_name" placeholder="Criminal Name" >	
+			</div>
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Middle Name</label>
+				<input name="display_name" value="{{  $criminal->middle_name }}" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" name="display_name" placeholder="Criminal Name" >	
+			</div>	
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Name</label>
+				<input name="display_name" value="{{  criminal.last_name }}" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" name="display_name" placeholder="Criminal Name" >	
+			</div>		
+
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal Status</label>
+				<select name="status" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="">
+					<option value="0" {{ old('status', criminal.status) ? '' : 'selected' }}>Captured</option>
+					<option value="1" {{ old('status', $criminal->status) ? 'selected' : '' }}>At Large</option>
+				</select>
+			</div>
+
+
+			<div class="mt-4">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Country of Origin</label>
+				<selectv-model="country" name="country" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="">
+				<!-- @foreach ($countries as $country) -->
+				<option v-for="country in countries" value="{{ country.id }}">{{ country.name }}
+				</option>
+				<!-- @endforeach -->
+			</select>
+		</div>
+
+
+		<div class="mt-4">
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">If Found, Contact Immediately
+			</label>
+			<select class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" v-model="posted_by" name="posted_by" id="">
+				<!-- @foreach ($admins as $admin) -->
+				<option v-for="admin in admins" value="{{ admin.id }}">{{  admin.display_name }}
+				</option>				
+				<!-- @endforeach -->
+			</select>
+		</div>
+
+
+		<div class="mt-4">
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload Main Photo
+			</label>
+		</div>
+
+		<div class="mt-4">
+		</div>
+
+
+		<div class="mb-2">
+			<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Update Criminal</button>
+		</div>
+	</form>
+</div>
+</section>

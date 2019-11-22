@@ -5,8 +5,14 @@
 /vendor
 /.idea
 /.vagrant
+/yarn-offline-cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+project.md
+/.phpintel
+composer.
+resources/crud-generator
+test-app.md

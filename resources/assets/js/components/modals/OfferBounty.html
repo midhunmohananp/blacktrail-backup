@@ -1,0 +1,69 @@
+<div id="modals">
+	<modal name="offer-bounty" height="auto" @closed="resetForm">
+		<div class="bg-black-v2 p-4"> 
+			<div class="init-row">
+				<div class="item">
+					<h3 style="width:200%" class="text-normal font-basic tracking-normal ml-4 text-white">Offer Bounty to Criminal :  {{ this.criminals.full_name }}
+					</h3>
+				</div>
+				<div class="item">
+					<svg id="closeButton" @click="$modal.hide('offer-bounty')" xmlns="http://www.w3.org/2000/svg" class="ml-10 mt-1 fill-current text-white h-4 w-4" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L 11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<div class="p-4">
+			<p class="font-semibold text-lg ml-4">Current Bounty : {{ currentBounty }}</p>
+			<p class="font-semibold text-sm ml-4 mt-2" v-show="bountyInUsd != null">Additional Bounty (in USD) : {{ bountyInUsd }}</p>
+			<form @submit.prevent="updateBounty" id="offerBountyForm" class="ml-4 mt-2">
+				<!-- <input type="text" v-model="offerBounty" class="bg-grey-lighten p-4" placeholder="How much would you offer ? "> -->
+
+				<div class="input-group mb-2">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Currency / Currency /  Country</label>		
+					<select @change="attempt_to_convert" v-model="form.currencyCode" class="bg-grey-lighter w-1/2 mb-2 p-2 leading-normal">
+						<option  :selected="form.toCurrencyCode" :value="currency.currency_code" v-for="currency in currencies">{{  currency.name }} - {{  currency.currency }}  -- {{  currency.currency_symbol }} 	
+						</option>
+					</select>
+
+				</div>
+
+
+				<div class="input-group mb-2">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">How much would you offer ?</label>		
+					<input @keypress="isNumber($event)" @input="attempt_to_convert" type="text" v-model="form.offer_bounty" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Any value..">
+				</div>
+				
+				<div class="input-group mb-2">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Pay via....</label>
+					<select v-model="form.payment_option" class="bg-grey-lighter w-1/2 mb-2 p-2 leading-normal">
+						<option selected value="1">Paypal</option>
+						<option value="2">Bank Deposit</option>
+						<option value="3">Bitcoin</option>
+					</select>
+				</div>
+
+				
+				<div class="input-group" v-show="form.offer_bounty != 0.00">
+					<small v-text="textStatus" class="text-green-theme text-sm font-sans font-semibold"></small>	
+				</div>
+
+				<div class="input-group mt-2" v-show="form.offer_bounty != 0.00">	
+					<button @click="notify_user" v-show="form.payment_option != 1" class="bg-blue pt-4 py-4 px-2 w-full text-white font-bold">Offer this bounty
+					</button>
+					<paypal-checkout
+					class="mt-4 p-2"
+					v-show="form.payment_option == 1"
+					:amount="bounty_in_usd"
+					currency="USD"
+					@payment-authorized="pay_authorized"
+					@payment-completed="pay_completed"
+					@payment-cancelled="pay_cancelled"
+					:env="environment"
+					:style="button_style"
+					:client="paypal">
+					</paypal-checkout>
+			</div>
+		</form>
+	</div>
+</modal>
+</div>

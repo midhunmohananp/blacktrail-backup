@@ -1,0 +1,28 @@
+Project Specs : 
+
+Registration 
+	- Email verification won't redirect me to the page wherein 	
+	- 
+
+Login 
+	- 
+
+Admins : 
+1. Criminals 
+
+		[x] Browse
+		[x] Read
+		[] Edit 
+		[] New 
+		[] Delete 
+
+2. 
+
+How ordinary citizens can earn cash ? 
+
+First Option : 
+
+1. Pledge Money
+	 - They can pledge money now then pay later.
+	 
+2. Automatically deduct money from their current cash.

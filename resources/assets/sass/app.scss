@@ -1,9 +1,152 @@
+@tailwind preflight;
+@import "components/btn";
+// @import "components/fonts"; 
+@import "components/feeds";
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+// Global Variables
+html, body { 
+	@apply .h-full;
+}
 
-// Variables
-@import "variables";
+.app-container {
+	@apply .max-w-app-container .min-h-full .m-auto .flex-col .justify-between;
+}	
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+a { 
+	@apply .font-basic .no-underline .font-normal .text-base .text-black;
+}
+
+.avatarImg {
+	width: 500px; 
+	height: 150px; 
+	position: relative
+}
+
+
+.alert-success {
+	@apply .bg-green-theme .p-2 
+}
+
+.listStyle {
+	@apply .mb-4 .ml-4 .w-3/4 .p-2;
+}
+
+.mainHeader { 	
+	@apply .relative .bg-white .p-5 .flex ;
+}
+
+.dropdown-menu {
+	padding-right: 8px;
+	padding-left: 8px;
+	border-radius: 2px;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 10rem;
+	padding: 8px 0;
+	margin: .125rem 0 0;
+	font-size: 1rem;
+	color: #575757;
+	text-align: left;
+	list-style: none;
+	background-clip: padding-box;
+	will-change: transform;	
+}
+
+.dropdown-menu {
+	@apply .bg-white .shadow-md;
+}
+
+
+.dropdown-menu.show {
+	display: block;
+	position: absolute; left: 0; bottom: 0;
+}
+
+.circular_image {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: black;
+/* commented for demo
+float: left;
+margin-left: 125px;
+margin-top: 20px;
+*/
+
+/*for demo*/
+display:inline-block;
+vertical-align:middle;
+}
+
+
+.circular_image img{
+	width:100%;
+}
+
+
+.circled { 
+	display: inline-block;
+	padding: 0;
+	font-size: 10px;
+	font-weight: lighter !important;
+	line-height: 50px;
+	color: #fff !important;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #d73d33;
+	border-radius:50px;
+	position: relative;
+	top: -3px;
+	@apply .h-8 .w-8 ;
+}
+
+
+#sidebarNav {
+	@apply .mb-4 .p-4 .h-16 .bg-grey-lighten .font-bold;
+	a { 
+		@apply .font-basic .font-bold .no-underline .text-xl .tracking-wide ;
+	}
+}
+
+li { 
+	@apply .mb-1 ; 
+}
+
+
+/* .grid { 
+@apply .min-h-full .flex .flex-wrap .flex-row ; 
+
+div { 
+
+	@apply .flex .justify-center 
+
+ }
+}
+*/
+
+.init-row {
+	@apply .flex .flex-row
+}
+
+/* 	display: flex;
+flex-direction: row; */
+
+
+.col {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.item {
+	flex: 1;
+}
+
+@tailwind utilities

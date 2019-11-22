@@ -1,55 +1,51 @@
-
 window._ = require('lodash');
+window.Pusher = require('pusher-js');
 
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
+import axios from 'axios';
+import Vue from 'vue' ;
+import VueInputMultiple from 'vue-input-multiple';
+import VueRouter from 'vue-router';
+import moment from 'moment' ; 
+import VModal from 'vue-js-modal'
+import VeeValidate from 'vee-validate' ;
+import VueSweetalert2 from 'vue-sweetalert2';
+// import "vue-trix";
+// import Vuetify from 'vuetify';
+// import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
-try {
-    window.$ = window.jQuery = require('jquery');
+window.Vue = Vue ; 
+window.axios = axios ;	
+window.axios.defaults.headers.common = {
+	'X-Requested-With': 'XMLHttpRequest'
+};
 
-    require('bootstrap-sass');
-} catch (e) {}
 
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
+Vue.use(VModal, { dialog: true })
+Vue.use(VeeValidate);
+Vue.use(VueRouter);
+Vue.use(VueInputMultiple);
 
-window.axios = require('axios');
+// Vue.use(InstantSearch);
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+const options = {
+	confirmButtonColor: '#519E8A',
+	cancelButtonColor: '#ff7674'
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+Vue.use(VueSweetalert2, options);
 
-// import Echo from 'laravel-echo'
+Vue.config.devtools = true ; 
+Vue.config.performance  = true ; 
+Vue.prototype.user = window.App.user;
 
-// window.Pusher = require('pusher-js');
+/*
+import Echo from "laravel-echo" ;
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key',
-//     cluster: 'mt1',
-//     encrypted: true
-// });
+window.Echo = new Echo({
+	broadcaster: 'pusher',
+	key: '1232b570ab3e504b5e9d',
+	cluster : 'ap1',
+	encrypted : true
+});*/
+
+

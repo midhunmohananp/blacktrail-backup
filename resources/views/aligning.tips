@@ -1,0 +1,13 @@
+The four steps to centering horizontally and vertically with Flexbox are the following:
+
+HTML, body, and parent container need to have a height of 100%
+Set display to flex on parent container
+Set align-items to center on parent container
+Set justify-content to center on parent container
+Setting display to flex on the parent defines it as a flex container.
+
+By setting align-items to center, we’re saying that the children or flex items are to be centered vertically within the parent.
+
+Justify-content works in the same way, but in the horizontal direction for our example.
+
+I like using this method as well because again, it’s both responsive and doesn’t require any margin calculations.

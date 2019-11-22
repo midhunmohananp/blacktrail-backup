@@ -61,7 +61,7 @@ class DashboardController extends Controller {
 	public function postedCriminals($admin)
 	{
 		$criminals = Criminal::postedByLoggedOnUser()->with('crimes','profile')->paginate(5);	
-
+		dd($criminals);
 		// dd($criminals);
 		
 		// $criminals = Criminal::paginate(5);
@@ -73,7 +73,6 @@ class DashboardController extends Controller {
 		// ->distinct()
 		// ->paginate(5);
 
-		
 		return view('admin.criminals.posted',compact('criminals'));
 	}
 

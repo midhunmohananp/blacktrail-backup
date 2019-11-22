@@ -1,0 +1,9 @@
+<div class="mb-2">
+	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-4">How much would you offer ?</label>
+	<!-- 	<p class="mb-2 text-xs ">Don't mind if the value would change we'll convert it to US Dollars</p> -->
+	<input @keypress="isNumber($event)" @input="isTyping = true" type="text" v-model="form.price" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Any value.." required>
+
+	<div v-if="isConverting" class="input-group mb-2">
+		<p>Converting..</p>
+	</div>
+</div>	

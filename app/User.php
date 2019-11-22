@@ -75,11 +75,6 @@ public function isNormalUser(){
     } 
 }
 
-
-public function messages(){
-    return $this->hasMany(Message::class);
-}
-
 public function confirm()
 {
     $this->update([

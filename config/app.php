@@ -176,7 +176,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ViewServicePRovider::class,
+        App\Providers\ViewServiceProvider::class,
         'Webpatser\Countries\CountriesServiceProvider',
         // Srmklive\PayPal\Providers\PayPalServiceProvider::class
 
