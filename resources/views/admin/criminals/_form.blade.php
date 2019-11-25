@@ -66,7 +66,6 @@
 		<option value="0">Captured</option>
 		<option value="1">At Large</option>
 	</select>
-
 </div>	
 
 <div class="mb-2">
@@ -82,8 +81,10 @@
 </div>	
 
 <div class="mb-2 w-3/4">
-	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Complete Details
+	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Complete Background and Details
 	</label>
+	@trix(App\CriminalInfo::class, 'complete_description',[ 'hideButtonIcons' => ['attach', 'bold'] ])
+</div>
 	{{-- <VueTrix
 	:local-storage="localStorage"
 	v-model="form.body"
@@ -92,8 +93,7 @@
 	@trix-attachment-add="handleAttachmentAdd"
 	@trix-attachment-remove="handleAttachmentRemove"
 	/> --}}
-	<VueTrix inputId="editor1" v-model="editorContent" placeholder="enter your content..."/>
-</div>
+	{{-- <VueTrix inputId="editor1" v-model="editorContent" placeholder="enter your content..."/> --}}
 	
 
 <div class="mb-2">

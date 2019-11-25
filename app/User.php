@@ -19,6 +19,33 @@ class User extends Authenticatable
     public function messages(){
         return $this->hasMany(Message::class);
     }
+
+  
+    /**
+     * User has one Role.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasOne(Role::class,'id','role_id');
+    }
+
+
+    /**
+     * User belongs to Country.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        // belongsTo(RelatedModel, foreignKey = country_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Country::class,'country_id','id');
+    }
+
+
+
 /**
 * 
 * The attributes that are mass assignable.
@@ -63,6 +90,31 @@ public function is_active(){
     return $this->confirmed_at == NULL ? 0 : 1 ; 
 }
 
+/**
+ * User has many traced Criminals.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+    public function traced_criminals()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(Criminal::class,'posted_by','id');
+    }
+
+
+// public function confirmed(){
+//     return $this->status == 1 ? false : true;  
+// }
+
+public function scopeInactive($query){
+    return $query->where('status', '0');
+}
+
+public function scopeThatHasPhoneNumbers($query){
+    return $query->whereNotNull('phone_number');
+}
+
+
 
 protected function roleId(){ 
     return auth()->user()->role_id ; 
@@ -95,6 +147,17 @@ public function isAdmin()
         return false ; 
     }
 }  
+
+public function postedThis()
+{
+    if ( $this->roleId() === 1 || $this->roleId() === 2) { 
+        return true ;
+    }
+    else {
+        return false ; 
+    }
+}  
+
 
 /* A member only belongs to a single group*/
 public function group()

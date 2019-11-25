@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin',
 	'namespace' => 'Admin'
 ], function () {
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
-	Route::get("pending","DashboardController@pending_users")->name('admin.pending.users');
+	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 
 	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
@@ -133,7 +133,7 @@ Route::get("/dashboard",function()
 
 
 
-Auth::routes();
+// Auth::routes();
 
 Route::post("/login",'AuthController@postLogin')->name('postLogin');
 Route::get('/logout','AuthController@logout')->name('logout');

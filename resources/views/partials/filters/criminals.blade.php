@@ -10,10 +10,11 @@
 				<option value="4">Sort By Bounty/Reward</option>
 			</select>
 
+			<input type="text" class="border p-2 border-gray mr-4 h-10 w-1/3x rounded-sm font-basic mt-2 mb-4">	
+
 			<label for="Country"></label>
 			<select v-model="criminal.country" class="border p-2 border-gray mr-4 h-10 w-1/3 rounded-sm font-basic mt-2 mb-4">
-				<option>--------------</option>
-				
+				<option >--------------</option>
 				@foreach ($countries as $country)
 				<option value="{{  $country->id }}">{{ $country->name }}</option>
 				@endforeach

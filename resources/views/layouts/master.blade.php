@@ -10,8 +10,7 @@
   <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
   <link rel="icon" href="{{  asset('assets/images/group_avatar.jpg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">  
-  {{--     <link href="{{ asset('css/styles.css')}}" rel="stylesheet" data-turbolinks-track="true">
-  --}}
+  {{--  <link href="{{ asset('css/styles.css')}}" rel="stylesheet" data-turbolinks-track="true">--}}
   <link href="{{ asset('css/app.css')}}" rel="stylesheet" data-turbolinks-track="true">
   <link rel="stylesheet" href="{{ asset('css/animate.css') }}">  
   {{-- when using microsoft edge as a developer tools..--}}
@@ -20,6 +19,9 @@
   <script>    
     window.App = @include("partials.stubs.global-vars")
   </script>     
+
+@yield('styles')
+
 </head>
 <body class="bg-grey-lighter-2 tracking-normal font-basic">
   <div id="app">
@@ -42,11 +44,10 @@
 
      <main class="flex m-auto">
       @if (auth()->check())            
-      @include('partials.sidebar')
+          @include('partials.sidebar')
       @endif
-      @yield("content")
+          @yield("content")
     </main>
-
   </div>
 </div>
 <script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>

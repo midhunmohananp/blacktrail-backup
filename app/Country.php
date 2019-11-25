@@ -12,6 +12,17 @@ class Country extends Model
 		return $this->hasMany(Group::class);
 	}
 
+	/**
+	 * Country has many Users.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function users()
+	{
+		// hasMany(RelatedModel, foreignKeyOnRelatedModel = country_id, localKey = id)
+		return $this->hasMany(User::class,'country_id','id');
+	}
+
 
 	public function criminal_groups()
 	{

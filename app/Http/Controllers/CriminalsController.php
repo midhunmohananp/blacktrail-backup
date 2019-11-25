@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Criminal ; 
 use App\User ; 
 use App\Exceptions\UserRegistrationException; 
 use Rule ; 
-
+use App\Country ; 
 class CriminalsController extends Controller
 {
 
@@ -21,9 +18,9 @@ class CriminalsController extends Controller
 		->with('profile','crimes')
 		->paginate(5) ; 
 
-		// dd($criminals);
+		$countries = Country::all();
 
-		return view('criminals',compact('criminals'));
+		return view('criminals',compact('criminals','countries'));
 	}
 
 	
@@ -97,15 +94,16 @@ class CriminalsController extends Controller
 	updating posted_by column
 */
 
-	/*
-	To rank the criminals by their criminality_level ->  points  => 100
-	->  reward /bounty => 300,000 $ or 	
+/*
+To rank the criminals by their criminality_level ->  points  => 100
+->  reward /bounty => 300,000 $ or 	
 */
-
-	public function show(Criminal $criminal)
-	{
-		$user = Criminal::with('profile','crimes','country')->findOrFail($criminal);
-		return view("criminals.show",['criminal' => $user]) ; 
-	}
+public function show($criminal)
+{
+		// $user = Criminal::findOrFail($criminal)->with('profile','crimes','country')->get();
+	$criminal = Criminal::with('profile','crimes','country')->findOrFail($criminal);
+		// dd($criminal);
+	return view("criminals.show",['criminal' => $criminal]) ; 
+}
 
 }

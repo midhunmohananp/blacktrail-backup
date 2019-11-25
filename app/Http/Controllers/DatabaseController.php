@@ -23,7 +23,6 @@ class DatabaseController extends Controller
 		// $criminalsWithNoProfile = Criminal::doesntHave("profile")->get();
 		$criminalsWithNoProfile = Criminal::doesntHave("profile")->pluck('id');
 		// dd($criminalsWithNoProfile);
-
 		$criminalsWithNoProfile->each(function ($item, $key){
 			$faker = \Faker\Factory::create();
 			$country = $faker->countryCode ;

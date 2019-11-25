@@ -52,16 +52,15 @@ class DashboardController extends Controller {
 		]);
 	}
 
-	public function pending_users()
-	{
-		return view('pending-users');
+	public function pending_users(){
+		$pending_users = User::inactive()->thathasphonenumbers()->paginate(10);
+		return view('admin.users.pending',compact('pending_users'));
 	}
 
 	/* Returns all posted criminals.. */
 	public function postedCriminals($admin)
 	{
 		$criminals = Criminal::postedByLoggedOnUser()->with('crimes','profile')->paginate(5);	
-		dd($criminals);
 		// dd($criminals);
 		
 		// $criminals = Criminal::paginate(5);

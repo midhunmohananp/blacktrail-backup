@@ -1,36 +1,36 @@
 <script>
 export default {
-  name: 'UserFilters',
-  data () {
-    return {	
-     criminal :{ 
-      sortBy: "",
-      country: null,
-      state: ""
-    },
+	name: 'UserFilters',
+	data () {
+		return {	
+			criminal :{ 
+				sortBy: "",
+				country: null,
+				name : "",
+				state: ""
+			},
+			group : { 
+				name : "",
+				country : "",
+			}
+		}
+	},
+	methods : { 
 
-    group : { 
-      name : "",
-      country : "",
-    }
-  }
-},
-methods : { 
+		changeFilterAdmin(event){
+			var value = event.target.value;
+			this.criminal.sortBy = value ;
+			if (this.sortBy === 1){
+				window.location.href = 'admin/criminals/followed';
+			}
+		},
 
-	changeFilterAdmin(event){
-    var value = event.target.value;
-    this.criminal.sortBy = value ;
-    if (this.sortBy === 1){
-      window.location.href = 'admin/criminals/followed';
-    }
-  },
+		criminalSearch(){
 
-  criminalSearch(){
-
-  }
+		}
 
 
-}
+	}
 };
 </script>
 

@@ -14,7 +14,7 @@
 		</div>
 		<div class="p-4">
 			<p class="font-semibold text-lg ml-4">Current Bounty : {{ currentBounty }}</p>
-			<p class="font-semibold text-sm ml-4 mt-2" v-show="bountyInUsd != null">Additional Bounty (in USD) : {{ bountyInUsd }}</p>
+			<p class="font-semibold text-sm ml-4 mt-2" v-show="bounty_in_usd != null">Additional Bounty (in USD) : {{ bounty_in_usd }}</p>
 			<form @submit.prevent="updateBounty" id="offerBountyForm" class="ml-4 mt-2">
 				<!-- <input type="text" v-model="offerBounty" class="bg-grey-lighten p-4" placeholder="How much would you offer ? "> -->
 

@@ -42,6 +42,19 @@ class Role extends Model
         return $this->permissions()->save($permission);
     }
 
+
+
+    /**
+     * Role belongs to User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        // belongsTo(RelatedModel, foreignKey = user_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class,'id','role_id');
+    }
+
     /**
      * Change activity log event description
      *

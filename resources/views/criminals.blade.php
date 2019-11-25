@@ -10,26 +10,22 @@
 @include('modals.report-criminal')
 @include('modals.location-map')
 
-<section class="w-1/2x ml-6">
-	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">Wanted Criminals</p>
-	
-	@include('partials.filter')		
-
-	
+<section class="w-1/2x">
+	<div class="ml-8">
+		<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">All Wanted Criminals
+		</p>
+		@include('partials.filter',['countries'=> $countries])		
+	</div>
 	@forelse ($criminals as $criminal)	
-	{{-- criminals view are here. --}}
-		@include("partials.criminals-view",['criminals'=> $criminal])
-	{{-- <criminal-view :criminals="{{ $criminal }}"></criminal-view> --}}	
+		@include("partials.criminals-view", ['criminals' => $criminal])
 	@empty
-	<h3>No Criminals are added yet..</h3>
+		<h3>No Criminals are added yet..</h3>
 	@endforelse
 	{{ $criminals->links() }}
 </section>
 
-{{-- CriminalView.vue --}}
-	<router-view></router-view>
-	{{-- @yi --}}
-
+{{--CriminalView.vue  --}}
+<router-view></router-view>
 
 @endif
 @endauth
@@ -37,6 +33,7 @@
 <section class="w-1/2 ml-5 mt-4">
 	<h5 class="text-center text-xl font-light font-basic ml-2">Please<a class="ml-2 underline font-basic text-blue font-bold" href="login">sign in</a> first to browse criminals</h5>
 </section>
+
 @endguest
 
 
@@ -90,10 +87,10 @@
 @endsection
 
 @section('js')
-
 {{-- <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-	function convert_currency(){}
-</script> --}}
+	function convert_currency(){
 
+	}
+</script> --}}
 @endsection

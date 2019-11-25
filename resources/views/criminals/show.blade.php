@@ -18,11 +18,11 @@
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								<img src="{{ asset('assets/images/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
+								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
-
-								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-									<a class="text-white hover:text-blue-lighter" href="{{ route('admin.criminals.show',$criminal->id) }}">Edit Profile</a>
-								</button>
+							
+						
+								
 
 
 
@@ -57,7 +57,7 @@
 
 
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Country Last seen : <em class="font-bold roman">{{  $criminal->profile->last_seen }}</em></p>
+									<p class="text-md text-normal mr-4">Country Last seen : <em class="font-bold roman">{{  $criminal->profile->country_last_seen }}</em></p>
 								</div>
 
 
@@ -84,9 +84,20 @@
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
 								</div>
+								
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Body Frame : <em class="font-bold roman">{{ ucwords($criminal->profile->body_frame ) }}</em></p>
 								</div>
+
+								<div class="row mb-3">
+									<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
+								</div>
+
+								<div class="row mb-3">
+									<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
+									</p>
+								</div>
+
 							</div>
 
 						</div>
@@ -131,10 +142,15 @@
 					<div class="ml-4">	
 						<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
 							More Details..  Show here the details that are in the trix editor.
+			
+	
+
 						</p>
 					</div>
 				</div>
 			</div>
+
+
 		</section>
 {{-- 
 		<div class="flex">

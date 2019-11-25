@@ -81,10 +81,10 @@
 <script>
 import MessagesFeed from './MessagesFeed.vue';
 import MessageComposer from './MessageComposer.vue';
-import VueTrix from "vue-trix";
+// import VueTrix from "vue-trix";
 export default {
 	name: 'Conversation',
-	components : { VueTrix, MessagesFeed, MessageComposer },
+	components : { MessagesFeed, MessageComposer },
 	props : {
 		contact : {
 			type : Object, 
@@ -104,7 +104,6 @@ export default {
 	methods : {
 		sendMessage(e) {
 			console.log("pressed enter");
-
 			/*if (e.keyCode === 13 && !e.shiftKey) {
 				e.preventDefault();
 				this.submitForm();

@@ -30,7 +30,7 @@ methods : {
 			if (result.value) {
 				axios.delete(this.delete_user_endpoint,{
 					params: {
-						id
+						user_id : id
 					}			
 				}).then((response) => {
 					console.log(response);
@@ -38,6 +38,7 @@ methods : {
 					console.log(error);
 				})
 
+				
 				Swal(
 					'Deleted!',
 					'This user was deleted successfully',
@@ -54,7 +55,7 @@ methods : {
 		)
 }
 });
-	},
+},
 	activate_user(id){
 		Swal({
 			title: 'Are you sure?',
@@ -66,18 +67,19 @@ methods : {
 		}).then((result) => {
 			if (result.value) {
 				axios.patch(this.activate_user_endpoint,{ 
-					id : id
+					user_id : id
 				}).then((response) => {
 					console.log(response);
 				}).catch((error ) =>{
 					console.log(error);
 				})
-				location.reload(); 
 				Swal(
 					'Activated!',
 					'That user has been activated',
 					'success'
 					)
+				location.reload(); 
+
 // For more information about handling dismissals please visit
 // https://sweetalert2.github.io/#handling-dismissals
 } else if (result.dismiss === Swal.DismissReason.cancel) {

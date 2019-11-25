@@ -1,12 +1,10 @@
 <script>
 import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
-import VueTrix from "vue-trix";
 import _ from "lodash";
 import UploadImage from 'vue-upload-image';
-
 export default { 
-	components : { VueTrix, UploadImage }, 
+	components : { UploadImage }, 
 	data(){
 		return { 
 			form : { 

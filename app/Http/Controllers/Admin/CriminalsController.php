@@ -56,7 +56,7 @@ class CriminalsController extends Controller
         If user is not logged on. or that he's not an adminstrator to the app
         */
         if (auth()->check() === false || auth()->user()->isAdmin() === false) {
-           
+         
             abort(401, 'Unauthorized.');
                 // return response('You are not authorized', 401);
         }
@@ -89,6 +89,16 @@ class CriminalsController extends Controller
         ]);
 
         // $criminal;
+
+/*        Post::create([
+         'full_name'          =>             request()->input("criminals_name"),
+         'alias'              =>             request()->input("alias"),
+         'posted_by'          =>             request()->input("contact_person"),
+         'contact_number'     =>             request()->input("contact_number"),
+         'status'             =>             request()->input("status"),
+         'country_id'         =>             request()->input("country_id"),
+     ]);*/
+
 
 
         if (request()->wantsJson()) {
@@ -156,4 +166,6 @@ class CriminalsController extends Controller
         $criminal = Criminal::findOrFail($id);
         $criminal->delete() ;
     }
+
+
 }

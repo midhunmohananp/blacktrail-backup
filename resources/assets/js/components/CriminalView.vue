@@ -1,14 +1,14 @@
 <template>
 	<section class="md:w-1/2 mr-6 font-basic" id="criminal_Page">
 		<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-			Criminal Profile of {{ criminals.full_name }} 
+			Criminal Profile of {{ criminals.full_name }}
 		</p>	
 		<div class="bg-white px-8 py-8 pt-4 shadow-md">
 			<div class="text-center">
 				<div id="avatar" class="inline-block mb-6 w-full" >
 					<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
 					<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}</p>
-					<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty"></p>
+					<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty "></p>
 					<!-- <crimes-list :criminals="crimes"></crimes-list> -->
 
 					<div v-if="this.criminals.crimes.length > 0">
@@ -17,35 +17,28 @@
 						<!-- @foreach ($criminal->crimes as $crime)  -->
 						<!-- Crimes List -->
 
-<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
-</div>
--->
+			<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+			<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
+			</div>
+		-->
 
-<div id="crimesList">
-	<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-		<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+		<div id="crimesList">
+			<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+				<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+			</div>
+		</div>
+		<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
 	</div>
-</div>
-
-<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
-
-</div>
-
-<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
-	No Crimes were listed for this criminal yet.
-</div>
-
-<!-- soon use slots here named or scoped  -->
-
-<div v-show="userRole === 1 || userRole === 2">
-	<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
-</div>
-
-<div v-show="normalUser">
-	<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
-</div>
-
+	<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
+		No Crimes were listed for this criminal yet.
+	</div>
+	<!-- soon use slots here named or scoped  -->
+	<div v-show="userRole === 1 || userRole === 2">
+		<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
+	</div>
+	<div v-show="normalUser">
+		<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
+	</div>
 </div>
 </div>
 </div>
@@ -105,14 +98,30 @@ methods : {
 	}
 
 },
-
-
 mounted(){
 	this.criminalDetails = this.criminals ; 
 },
 
-computed : { 
 
+/*beforeRouteUpdate (to, from, next) {
+	console.log("before route update");
+
+},
+
+beforeRouteEnter (to, from, next) {
+	console.log("before route enter");
+
+    // called before the route that renders this component is confirmed.
+    // does NOT have access to `this` component instance,
+    // because it has not been created yet when this guard is called!
+},
+
+beforeRouteLeave(){
+	console.log("before route leave");
+},*/
+
+
+computed : { 
 	normalUser(){
 		return this.userRole === 3 || this.userRole === 4 || this.userRole === 5 ; 
 	},
@@ -126,21 +135,23 @@ computed : {
 	},
 
 	avatarPath(criminal){
-		return '/assets/images/' + this.criminals.photo ;
+		return '/assets/images/'+this.criminals.photo ;
 	},
 
 	criminalBounty(){
-		return this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-	},
+		let bounty = this.criminals.profile.bounty ;
+		return bounty ;
+		 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
+		},
 
 
-	criminalsDetails() {
+		criminalsDetails() {
 // _.head(this.criminalDetails) ;
 
 _.sortBy(this.criminals, value => {
-// console.log(value);
-return value ; 
-});
+		// console.log(value);
+		return value ; 
+	});
 
 },
 

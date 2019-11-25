@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use App\Mail\UserRegistered ; 
 use App\Role;
 use App\User ; 
-use Mail ; 
+use Mail ;
+use App\Country ; 
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -32,18 +33,13 @@ class AuthController extends Controller
 		]);
 
 		$pin = request()->get('pin');
-		$field = filter_var($request->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
 		$remember_me = request()->get('remember');
 		$password = request()->get('password');
 
 		$user = User::where("${field}",'=',$pin)->first();
-		
-		// $users->each(function(){
-
-		// });
-
-
-		if (is_null($user->confirmed_at) || $user->status === "0") {
+	
+		if ( is_null($user->confirmed_at) || $user->status === "0") {
 			// dd("sure you'd be redirected back because you don't have any ..");
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
@@ -105,13 +101,10 @@ class AuthController extends Controller
 					'confirmation_code' => $confirmation_code
 				]);
 
-
 				Mail::to($user->email)->send(new UserRegistered($user));
 
 				return redirect()->route('registrationSuccess')
 				->with(['email' => $user->email]);	
-
-				
 
 			} catch (UserRegistrationException $u){
 				return response(['Not allowed.'], 405);

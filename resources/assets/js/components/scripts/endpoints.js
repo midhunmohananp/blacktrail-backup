@@ -9,6 +9,9 @@ const add_bounty_url  = urlDomain + '/api/v1/bounty/add';
 const fixerApi  = urlDomain + 'api/v1/bounty/update/fixer'; 
 const currencyLayerApi  = urlDomain + '/api/v1/bounty/update'; 
 const convertCurrencyUrl = urlDomain + "/currency/convert";
+const destroyUserUrl = urlDomain + "/api/v1/user/delete";
+const activateUserUrl = urlDomain + "/api/v1/user/activate";
+const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal";
 
 export default { 
 	storeCriminalUrl : urlSaveCriminal ,
@@ -17,6 +20,9 @@ export default {
 	fixerApi,
 	currencyLayerApi,
 	add_bounty_url,
-	convertCurrencyUrl
+	convertCurrencyUrl,
+	destroyUserUrl,
+	activateUserUrl,
+	fetch_criminals_respondent
 }
 

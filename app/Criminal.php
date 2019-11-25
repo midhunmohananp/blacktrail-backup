@@ -17,6 +17,11 @@ class Criminal extends Model
 		return $this->hasOne(CriminalInfo::class,'criminal_id','id');
 	}
 
+	public function getFullNameAttribute()
+	{
+		return "{$this->first_name} {$this->last_name}";
+	}
+
 	/**
 	* Criminal belongs to a country.
 	*
@@ -26,6 +31,8 @@ class Criminal extends Model
 	{
 		return $this->belongsTo(Country::class,'country_id','id');
 	}
+
+
 	/*
 	Update criminals who's posted_by => 0 and change it to id in the users table..
 	*/
@@ -92,12 +99,27 @@ class Criminal extends Model
 	{
 		return $this->update(['status' => 0]);
 	}
-	
+
+
+	public function full_name(){
+		return $this->first_name ."" .$this->last_name ; 
+	}
+
+/**
+	 * Criminal belongs to Respondent.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function respondent()
+	{
+		// belongsTo(RelatedModel, foreignKey = respondent_id, keyOnRelatedModel = id)
+		return $this->belongsTo(User::class,'posted_by','id');
+	}	
 
 // Define the "full_name" property accessor.
-	public function getFullNameAttribute()
+/*	public function getFullNameAttribute()
 	{
 		return $this->first_name ." " .$this->last_name ; 
-	}
+	}*/
 
 }

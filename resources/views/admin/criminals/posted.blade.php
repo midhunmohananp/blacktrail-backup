@@ -54,8 +54,6 @@
 </section>
 {{-- CriminalView.vue --}}
 
-
-
 <router-view></router-view>
 
 @endsection

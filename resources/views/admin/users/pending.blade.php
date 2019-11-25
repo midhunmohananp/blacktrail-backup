@@ -2,97 +2,44 @@
 @section('title', 'All Pending Users')
 @section('content')
 @auth
-@include('modals.report-criminal')
-@include('modals.location-map')
+<pending-users inline-template>
+	<div class="w-full mx-auto">
+		<h3 class="text-3xl mt-4">Pending Users</h3>
+		{{ $pending_users->links() }}
+		<div class="bg-white shadow-md rounded my-6">
+			<table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
+				<thead>
+					<tr>
+						<th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Display Name</th>
+						<th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Email</th>
+						<th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Phone Number</th>
+						<th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Country</th>
+							<th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Action</th>
+					</tr>
+				</thead>
+				<tbody>
 
-<section class="w-1/2x ml-6">
-	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">Wanted Criminals</p>
-	
-	@include('partials.filter')	
-		
-	@forelse ($criminals as $criminal)
+					@forelse ($pending_users as $user)
+					<tr class="hover:bg-grey-lighter">
+						<td class="py-4 px-6 border-b border-grey-light">{{ $user->display_name }}</td>
+						<td class="py-4 px-6 border-b border-grey-light">{{ $user->email }}</td>
+						<td class="py-4 px-6 border-b border-grey-light">{{ $user->phone_number }}</td>
+						<td class="py-4 px-6 border-b border-grey-light">{{ $user->country->name }}</td>
 
-	<criminals-view inline-template :criminals="{{  $criminal }}">
-		<article class="timeline-feeds">	
-			<div class="flex" id="userProfile">	
-				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" >
-				</router-link>
-				<div class="flex-1">
-					@verbatim
-					<h3 class="mt-4 font-basic">{{  criminal.full_name }}</h3>
-					<p class="mt-2">aka <em class="font-basic roman">{{ criminal.alias  }}</em></p>
-					@endverbatim
-				</div>
-			</div>
-		</article>
-	</criminals-view>
-	{{-- <criminal-view :criminals="{{ $criminal }}"></criminal-view> --}}
-	@empty
-	<h3>No Criminals are added yet..</h3>
-	@endforelse
-	{{ $criminals->links() }}
-</section>
-
-{{-- CriminalView.vue --}}
-<router-view></router-view>
+						<td class="p-4 border-b border-grey-light">
+							<a href="#" @click="activate_user({{ $user->id }})" class="text-grey-lighter font-bold p-4 rounded text-xs bg-green hover:bg-green-dark">Activate</a>
+						<a href="#" @click="delete_user({{ $user->id }})"class="text-grey-lighter font-bold p-4 rounded text-xs bg-red-darker hover:bg-blue-dark">Delete</a>
+						</td>
+					</tr>
+					@empty
+					<h3>No pending users are available.</h3>
+					@endforelse
+				</tbody>
+			</table>
+		</div>
+	</div>
+</pending-users>
 
 @endauth
 
-@guest
-
-<section class="w-1/2 ml-5 mt-4">
-	<h5 class="text-center text-xl font-light font-basic ml-2">Please<a class="ml-2 underline font-basic text-blue font-bold" href="login">sign in</a> first to browse criminals</h5>
-</section>
-
-@endguest
-
-
-{{-- 
-<section class="w-1/2 ml-5">
-	<p class="font-display mt-4 mb-4 font-bold">Criminals List</p>
-
-	<div class="container mx-auto">
-		@forelse ($criminals as $criminal)
-		<section class="bg-white w-1/2 p-4 mb-4 rounded-lg">	
-			<article class="w-full text-center list-reset">
-				<li class="w-12 inline-block"><a class="font-basic text-large">{{  $criminal->full_name }} <p>aka</p>  </a></a><p class="italic font-italic">{{  $criminal->alias }}</p></li> 
-			</article>
-		</section>
-		@empty 
-		
-		<h3>No Criminals</h3>
-		
-		@endforelse
-	</div>
-</section>
---}}
-
-
-
-{{-- <div class="max-w-md mt-4 w-full lg:flex">
-	<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('/img/card-left.jpg')" title="Woman holding a mug">
-	</div>
-	<div class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-		<div class="mb-8">
-			<p class="text-sm text-grey-dark flex items-center">
-				<svg class="fill-current text-grey w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-					<path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-				</svg>
-				Members only
-			</p>
-			<div class="text-black font-bold text-xl mb-2">Can coffee make you a better developer?</div>
-			<p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
-		</div>
-		<div class="flex items-center">
-			<img class="w-10 h-10 rounded-full mr-4" src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg" alt="Avatar of Jonathan Reinink">
-			<div class="text-sm">
-				<p class="text-black leading-none">Jonathan Reinink</p>
-				<p class="text-grey-dark">Aug 18</p>
-			</div>
-		</div>
-	</div>
-</div>
---}}
-
-@endsection
+@stop

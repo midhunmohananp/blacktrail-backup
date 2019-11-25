@@ -2,21 +2,17 @@
 	<section>		
 		<button class="w-full bg-green-theme p-3 text-white mt-4 ml-2 hover:bg-green-second" @click="redirectToProfile(criminalId)">View Full Profile
 		</button>
-		
 		<button class="w-full bg-green-initial p-3 text-white mt-4 ml-2 hover:bg-green-second" @click="reportCriminalLocation" >Report Location / Open Chat
 		</button>
-		
 		<button class="w-full bg-white p-3 text-black border-grey-darkest border-2 hover:text-white mt-4 ml-2 hover:bg-green-second" @click="activateOfferBountyModal(id)">Offer / Pledge Additional Bounty	
 		</button>	
 	<!-- 	<button v-show="this.userRole = true" class="w-full bg-red p-3 text-white border-none border-2 hover:text-white hover:border-grey-lightest mt-4 ml-2 hover:bg-green-second" @click="requestPolice">Request for Police Assistance
 	</button> -->
 
-	<chat-box></chat-box>
-	
+	<chat-box :id="id" :criminalName="criminals"></chat-box>
 	<offer-bounty :id="id" :criminals="criminals"></offer-bounty>
 </section>
 </template>
-
 <script>
 import user from './scripts/api.js';
 import ChatBox from './modals/ChatBox.vue';
@@ -36,11 +32,9 @@ export default {
 	},
 
 	methods : { 
-
 		redirectToProfile(id){
 			// console.log(this.criminal_id);
 			window.location.href = window.App.apiDomain + "/criminals/" + this.criminal_id ;
-
 		},
 		reportCriminalLocation(){
 			this.$modal.show("chat-box");
@@ -59,11 +53,13 @@ export default {
 		userRole(){
 			roleId = user.role_id === 3 ? true : false;
 			return roleId ; 
+		},
+		criminalsName(){
+			return this.criminals.first_name +" " +this.criminals.last_name ; 
 		}
 	}
 };
 </script>
 
-<style lang="css" scoped>
-
+<style lang="scss" scoped>
 </style>

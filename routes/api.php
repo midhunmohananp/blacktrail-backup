@@ -17,6 +17,13 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
 
+	/*retrieving respondent of the criminal's information*/
+	Route::get("/respondent/criminal","Api\CriminalsController@fetch_respondent");
+
+
+	/*patching and deleting.*/
+	Route::patch("/user/activate","Api\UsersController@activate_user");
+	Route::delete("/user/delete","Api\UsersController@delete_user");
 	
 	Route::get('/criminals/{criminal}', 'Api\CriminalsController@getById')->name("criminals.info.get");
 	Route::get('/currencies', 'Api\CountriesController@getAllCurrencies')->name("currencies");

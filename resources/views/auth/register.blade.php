@@ -87,10 +87,18 @@
  </select>
 </div>
 
+
+
 <div class="mb-6">
  <button class="bg-green-initial py-3 px-8 w-full text-white font-bold ">Submit
  </button>
 </div>
+
+
+<div class="mb-6">
+  <a href="/login" class="text-blue underline">To login click here</a>
+</div>
+
 </form>
 </div>
 </section>

@@ -345,4 +345,8 @@ mounted(){
 #closeButton {
 	float:right ;
 }
+
+.v--modal-overlay {
+	background: rgba(255, 255, 255, 1);
+}
 </style>

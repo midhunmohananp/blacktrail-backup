@@ -3,12 +3,13 @@
 
 <script>
 export default {
-
   name: 'Login',		
-
   data () {
     return {
-
+    	form : {
+    		first_name : "",
+    		last_name : ""
+    	}
     }
   }
 }

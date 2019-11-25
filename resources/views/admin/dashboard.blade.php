@@ -19,7 +19,7 @@
 <div class="flex mt-2">
 <a href="{{ route('admin.criminals.posted', $user_id) }}"  class="mr-2 font-bold tracking-wide underline text-blue">Browse My Posted Criminals</a>
 
-<a href="{{ route('admin.criminals.posted', $user_id) }}"  class="mr-2 font-bold tracking-wide underline text-blue">View All Pending Members</a>
+<a href="{{ route('admin.pending.users', $user_id) }}"  class="mr-2 font-bold tracking-wide underline text-blue">View All Pending Members</a>
 
 <a href="{{ route('admin.criminals') }}" class="mr-2 font-bold tracking-wide underline text-blue">Browse All Criminals</a>
 <a href="{{ route('admin.criminals.new-form') }}" class="mr-2 font-bold tracking-wide underline text-blue">Add New Criminal</a>

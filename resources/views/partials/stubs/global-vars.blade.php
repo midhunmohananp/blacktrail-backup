@@ -1,4 +1,4 @@
-{!!json_encode([ 'csrfToken'  	  	 =>  csrf_token(),
+{!! json_encode([ 'csrfToken'  	  	 =>  csrf_token(),
 	'user'    	     			     =>  Auth::user(),
 	'signedIn'  					 =>  Auth::check(), // returns false if a user is not logged on or no one is logged in and true if it's logged on 
 	'apiDomain'     	 			 =>  url('/'),
@@ -11,4 +11,4 @@
 	'addCriminalUrl' 	  =>  route('admin.criminals.store'),
 	'savePhotosUrl' 	  =>  route('admin.photos.uploads'),
 	'resourcePath' 		  =>  resource_path(),
-])!!};    
+]) !!};    

@@ -24,6 +24,7 @@ Vue.use(VModal, { dialog: true })
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
 Vue.use(VueInputMultiple);
+// Vue.use(VueTrix);
 
 // Vue.use(InstantSearch);
 
@@ -38,14 +39,15 @@ Vue.config.devtools = true ;
 Vue.config.performance  = true ; 
 Vue.prototype.user = window.App.user;
 
-/*
+
 import Echo from "laravel-echo" ;
+
 
 window.Echo = new Echo({
 	broadcaster: 'pusher',
-	key: '1232b570ab3e504b5e9d',
+	key : '1232b570ab3e5024b5e9d',
 	cluster : 'ap1',
 	encrypted : true
-});*/
+});
 
 

@@ -1,15 +1,14 @@
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router';		
 
 import CriminalView from './components/CriminalView.vue';
-import GroupView from './components/GroupView.vue';
+// import GroupView from './components/GroupView.vue';
 
 let routes = [ 
 { 		
 	path : '/criminal/:criminalId',
 	name : 'criminalView',
-	component : CriminalView,
-	props : true
-}
+	component : CriminalView,	
+},
 ];
 
 export default new VueRouter({

@@ -4543,7 +4543,7 @@ flex-direction: row; */
 }
 
 .font-sans {
-  font-family: Helvetica Neue, sans-serif;
+  font-family: Helvetica Neue, Arial, sans-serif;
 }
 
 .font-mono {
@@ -10702,7 +10702,7 @@ flex-direction: row; */
   }
 
   .sm\:font-sans {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: Helvetica Neue, Arial, sans-serif;
   }
 
   .sm\:font-mono {
@@ -16846,7 +16846,7 @@ flex-direction: row; */
   }
 
   .md\:font-sans {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: Helvetica Neue, Arial, sans-serif;
   }
 
   .md\:font-mono {
@@ -22990,7 +22990,7 @@ flex-direction: row; */
   }
 
   .lg\:font-sans {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: Helvetica Neue, Arial, sans-serif;
   }
 
   .lg\:font-mono {
@@ -29134,7 +29134,7 @@ flex-direction: row; */
   }
 
   .xl\:font-sans {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: Helvetica Neue, Arial, sans-serif;
   }
 
   .xl\:font-mono {

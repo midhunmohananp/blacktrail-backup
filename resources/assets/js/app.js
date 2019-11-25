@@ -2,7 +2,7 @@
 * First we will load all of this project's JavaScript dependencies whi
 * includes Vue and other libraries. It is a great starting point when
 * building robust, powerful web applications using Vue and Laravel.
-*/	
+*/		
 require('./bootstrap');
 
 /*when using turbolinks in your app.
@@ -52,7 +52,8 @@ Vue.component("setup-billing",require("./components/App/SetupBilling.vue"));
 
 /*unnecessary components*/
 Vue.component('user-profile', require('./components/UserProfile.vue'));
-
+Vue.component('pending-users', require('./components/PendingUsers.vue'));
+Vue.component('chat-label', require('./components/ChatLabel.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
 
@@ -80,6 +81,16 @@ const app = new Vue({
 		return {
 			user_info: "",
 		}
+	},
+	
+	beforeRouteEnter (to, from, next) {
+		getPost(to.params.id, (err, post) => {
+			next(vm => vm.setData(err, post))
+		})
+	},
+
+	beforeRouteUpdate(){
+
 	},
 	router
 });
