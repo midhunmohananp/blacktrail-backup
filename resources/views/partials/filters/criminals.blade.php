@@ -2,12 +2,12 @@
 	<div class="ml-2">
 		<div class="flex">
 			<select v-model="criminal.sortBy" class="border p-2 border-gray mr-4 h-10 w-1/3x rounded-sm font-basic mt-2 mb-4">
-				<option value="">Sort By</option>
 				<option>--------------</option>
+				<option value="0" selected="selected">Sort By</option>
 				<option value="1">Most Wanted</option>
 				<option value="2">Last Seen</option>
+				<option value="4">Bounty/Reward</option>
 				<option value="3">Very Popular</option>
-				<option value="4">Sort By Bounty/Reward</option>
 			</select>
 
 			<input type="text" class="border p-2 border-gray mr-4 h-10 w-1/3x rounded-sm font-basic mt-2 mb-4">	

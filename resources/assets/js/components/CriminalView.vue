@@ -1,48 +1,53 @@
 <template>
-	<section class="md:w-1/2 mr-6 font-basic" id="criminal_Page">
-		<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-			Criminal Profile of {{ criminals.full_name }}
-		</p>	
-		<div class="bg-white px-8 py-8 pt-4 shadow-md">
-			<div class="text-center">
-				<div id="avatar" class="inline-block mb-6 w-full" >
-					<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
-					<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}</p>
-					<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty "></p>
-					<!-- <crimes-list :criminals="crimes"></crimes-list> -->
+	<div class="md:w-1/2 mr-6 font-basic" id="criminal_Page">
+		<section v-show="this.criminals != null" >
+			<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+				Criminal Profile of {{ criminals.full_name }}
+			</p>	
+			<div class="bg-white px-8 py-8 pt-4 shadow-md">
+				<div class="text-center">
+					<div id="avatar" class="inline-block mb-6 w-full" >
+						<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
+						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}</p>
+						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty "></p>
+						<!-- <crimes-list :criminals="crimes"></crimes-list> -->
 
-					<div v-if="this.criminals.crimes.length > 0">
-						<p class="mt-2 font-bold text-2xl">Notable Crimes:
-						</p>
-						<!-- @foreach ($criminal->crimes as $crime)  -->
-						<!-- Crimes List -->
+						<div v-if="this.criminals.crimes.length > 0">
+							<p class="mt-2 font-bold text-2xl">Notable Crimes:
+							</p>
+							<!-- @foreach ($criminal->crimes as $crime)  -->
+							<!-- Crimes List -->
 
-			<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-			<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
+				<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+				<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
+				</div>
+			-->
+
+			<div id="crimesList">
+				<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+				</div>
 			</div>
-		-->
-
-		<div id="crimesList">
-			<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-				<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
-			</div>
+			<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
 		</div>
-		<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
+		<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
+			No Crimes were listed for this criminal yet.
+		</div>
+		<!-- soon use slots here named or scoped  -->
+		<div v-show="userRole === 1 || userRole === 2">
+			<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
+		</div>
+		<div v-show="normalUser">
+			<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
+		</div>
 	</div>
-	<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
-		No Crimes were listed for this criminal yet.
-	</div>
-	<!-- soon use slots here named or scoped  -->
-	<div v-show="userRole === 1 || userRole === 2">
-		<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
-	</div>
-	<div v-show="normalUser">
-		<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
-	</div>
-</div>
 </div>
 </div>
 </section>
+<div v-show="this.criminals === null">
+	<p>No Criminals Profile</p>
+</div>
+</div>
 </template>
 <script>
 import CrimesList from './CrimesList.vue';
@@ -54,7 +59,7 @@ import UserButtons from './UserButton.vue' ;
 import ChatBox from './modals/ChatBox.vue';
 import _ from 'lodash';
 export default {
-	props: [ 'criminals', 'criminalId' ], 	
+	props: ['criminals','criminalId'], 	
 	name: 'CriminalView',
 	components : { 
 		AdminButtons,
@@ -126,6 +131,10 @@ computed : {
 		return this.userRole === 3 || this.userRole === 4 || this.userRole === 5 ; 
 	},
 
+	full_name(){
+		return this.criminals.full_name === null ? "Lorem Ipsum" : "Nothing so far" ;
+	},
+
 	fetchCriminalsInfoEndpoint(){
 		return app +'/api/v1/criminals/'+this.criminals.id;
 	},
@@ -145,15 +154,15 @@ computed : {
 		},
 
 
-		criminalsDetails() {
-// _.head(this.criminalDetails) ;
+	criminalsDetails() {
+	// _.head(this.criminalDetails) ;
 
-_.sortBy(this.criminals, value => {
-		// console.log(value);
-		return value ; 
+	_.sortBy(this.criminals, value => {
+	// console.log(value);
+	return value ; 
 	});
 
-},
+	},
 
 criminalInfo(criminalsInfo){
 	_.sortBy(this.criminals, value => {

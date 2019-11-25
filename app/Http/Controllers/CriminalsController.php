@@ -19,7 +19,7 @@ class CriminalsController extends Controller
 		->paginate(5) ; 
 
 		$countries = Country::all();
-
+			
 		return view('criminals',compact('criminals','countries'));
 	}
 

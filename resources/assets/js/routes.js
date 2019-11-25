@@ -1,3 +1,4 @@
+
 import VueRouter from 'vue-router';		
 
 import CriminalView from './components/CriminalView.vue';
@@ -8,6 +9,7 @@ let routes = [
 	path : '/criminal/:criminalId',
 	name : 'criminalView',
 	component : CriminalView,	
+	props : true 
 },
 ];
 

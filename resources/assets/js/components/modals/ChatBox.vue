@@ -143,7 +143,7 @@ export default {
 	props : ['id','criminalName'],
 	data () {
 		return { 
-			respondents_name :  "",
+			respondents_name :  "Test..",
 			criminal_name : this.criminalName, 
 			resizable : true, 
 			body : "",
@@ -164,13 +164,12 @@ fetch_respondent_of_the_criminal(){
 	axios.get(this.fetch_respondent_of_the_criminal_endpoint, {
 		criminal_id : this.criminal_id
 	}).then(response => {
-
-		console.log("Response"+response.data);
-		// console.log("Respondent Name"+response.data.user[0].display_name);
-// this.respondents_name = response.data.name[0];
-}).catch(error => {
-	console.log(error);
-});
+			// console.log("Response"+response.data);
+			console.log("Respondent Name"+response.data.user[0].display_name);
+			// this.respondents_name = response.data.name[0];
+		}).catch(error => {
+			console.log(error);
+		});
 }
 },
 mounted(){
