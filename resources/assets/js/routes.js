@@ -1,9 +1,6 @@
-
 import VueRouter from 'vue-router';		
-
 import CriminalView from './components/CriminalView.vue';
 // import GroupView from './components/GroupView.vue';
-
 let routes = [ 
 { 		
 	path : '/criminal/:criminalId',

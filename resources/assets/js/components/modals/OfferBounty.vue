@@ -1,6 +1,6 @@
 <template src="./OfferBounty.html"></template>
 <script>
-import 'trix';
+// import 'trix';
 import routes from '../scripts/endpoints.js';
 import api from '../scripts/api.js';
 import CalculateBounty  from '../classes/CalculateBounty';

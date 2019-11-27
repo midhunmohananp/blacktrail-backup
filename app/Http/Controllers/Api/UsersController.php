@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,11 +8,11 @@ use DB ;
 
 class UsersController extends Controller
 {
-	public function getAllCommonUsers()
-	{
+	public function getAllCommonUsers(){
 		$criminal = User::admins()->get();
 		return response()->json($criminal);
 	}
+	
 	/*delete user*/
 	public function delete_user(){
 		$user_id = intval(request('user_id'));

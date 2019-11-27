@@ -1,7 +1,9 @@
 @extends('layouts.master')
 @section('title', 'Add New Criminals Form')			
 @section('styles')
+
 @trixassets
+
 @endsection
 
 @section('content')

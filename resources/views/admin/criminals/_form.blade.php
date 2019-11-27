@@ -83,7 +83,7 @@
 <div class="mb-2 w-3/4">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Complete Background and Details
 	</label>
-	@trix(App\CriminalInfo::class, 'complete_description',[ 'hideButtonIcons' => ['attach', 'bold'] ])
+	@trix(App\CriminalInfo::class, 'complete_description')
 </div>
 	{{-- <VueTrix
 	:local-storage="localStorage"

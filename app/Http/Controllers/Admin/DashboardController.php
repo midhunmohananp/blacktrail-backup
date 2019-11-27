@@ -92,13 +92,10 @@ class DashboardController extends Controller {
 	public function criminalsList()
 	{
 		$admin = auth()->user()->id ; 
-
 		// $criminals = Criminal::paginate(5);
-
 		$criminals = Criminal::notyetcaptured()->with('crimes','profile')->paginate(5);
-
-
-		return view('admin.criminals-list',compact("criminals"));
+		$countries = Country::all() ; 
+		return view('admin.criminals-list',compact("criminals","countries"));
 	}
 
 

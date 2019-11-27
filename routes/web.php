@@ -20,6 +20,9 @@ Route::group(['prefix' => 'admin',
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 
+	/*Chats for a specific criminal..*/
+	Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
+
 	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
 
 /*
@@ -42,6 +45,8 @@ Route::resource("group","GroupController",[
 ->user confirmation
 
 */
+
+
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
@@ -53,7 +58,6 @@ Route::get("welcome","ViewsController@registrationSuccess")->name("welcomePage")
 Route::resource("group","Admin\GroupController");
 /*Make sure we can redirect if the users' role is 2 */
 Route::get('/criminals', 'CriminalsController@index')->name("criminals");
-
 Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.show");
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
@@ -62,13 +66,16 @@ Route::get("register","AuthController@registerForm")->name('register');
 Route::get("/role","AuthController@postRole");
 
 
+/*Implementing chat here..*/
+Route::get("/respond/criminal/{criminal}","ChatController@send_chat");
 Route::get('/chat','ChatController@index')->name('chat');
-
+Route::get('/contacts',"Api\ContactsController@fetch_all_contacts");
 
 /*Testing currency converter api*/
 Route::get("currency/convert","CurrencyController@convertCurrencyPage");
 Route::put("currency/convert","CurrencyController@currencyConvert");
 Route::get('register/success','ViewsController@registration_success')->name('confirm.mail');
+
 
 /**
 * User profile for the logged on user.
@@ -96,6 +103,7 @@ Route::get("/rows",function (){
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
+
 
 /**
 * confirming email.
@@ -133,6 +141,7 @@ Route::get("/dashboard",function()
 
 
 
+
 // Auth::routes();
 
 Route::post("/login",'AuthController@postLogin')->name('postLogin');
@@ -167,9 +176,8 @@ Route::get("counter", function(){
 });
 
 
-
-
-
+/*sending message function*/
+// Route::post('message',"MessageController@")
 Route::post("/sender",function(){
 	event(new MessageSent($text));
 });

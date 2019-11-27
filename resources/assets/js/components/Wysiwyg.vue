@@ -9,15 +9,12 @@
 		@trix-change="change"
 		:placeholder="placeholder">
 		</trix-editor>
-	
-</div>
-
-
+	</div>
 </template>
 
 <script>
 
-import Trix from "trix";
+// import Trix from "trix";
 
 export default {
 	name: 'Wysiwyg',

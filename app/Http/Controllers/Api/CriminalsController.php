@@ -15,8 +15,16 @@ class CriminalsController extends Controller
 	}
 
 	public function fetch_respondent(){
+
 		$id = request()->get("criminal_id");
-		$user = User::where('id','=',$id)->get();
-		return response()->json(['user' => $user]);
+		$criminal_poster = Criminal::where('id','=',$id)->with('respondent')->get();
+		
+		return response()->json(['user' => $criminal_poster]);
 	}
+
+	public function chats_for_a_specific_criminal($criminal){
+
+	}
+
+
 }

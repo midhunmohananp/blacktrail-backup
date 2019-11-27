@@ -11,14 +11,14 @@ $factory->define(App\Criminal::class, function (Faker $faker) {
         'middle_name' => $faker->lastName,
         'last_name' => $faker->lastName,    
         'country_id' => function(){
-         return DB::table('countries')->get()->random()->id;
-     },   
-     'posted_by' => function(){
-         return User::admins()->get()->random()->id;
-     },
-     'status' => 1,
-     'photo' => 'default_avatar.jpg'
- ];
+           return DB::table('countries')->get()->random()->id;
+       },   
+       'posted_by' => function(){
+           return User::admins()->get()->random()->id;
+       },
+       'status' => 1,
+       'photo' => 'default_avatar.jpg'
+   ];
 });
 
 
@@ -74,6 +74,19 @@ $factory->define(App\CrimeCriminal::class, function (Faker $faker) {
     ];
 });
 
+
+
+$factory->define(App\Message::class, function (Faker $faker) {
+    do {
+        $from = rand(1,15);
+        $to = rand(1, 15);
+    } while ($from === $to);
+    return [
+            'from' => $from,
+            'to' => $to,
+            'body' => $faker->sentence
+    ];
+});
 
 /*for criminal_info*/
 
@@ -145,3 +158,4 @@ $factory->define(App\CriminalInfo::class, function (Faker $faker) {
 // },
 ];
 });
+

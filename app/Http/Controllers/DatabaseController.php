@@ -14,15 +14,16 @@ use Carbon\Carbon ;
 
 class DatabaseController extends Controller
 {	
-	/*
-	seeding criminals information 
-	for those 
-	who don't have any profile..
-	*/
+	/**
+			seeding criminals information 
+			for those 
+			who don't have any profile..
+	**/
 	public function seed_criminals_info(){
 		// $criminalsWithNoProfile = Criminal::doesntHave("profile")->get();
 		$criminalsWithNoProfile = Criminal::doesntHave("profile")->pluck('id');
 		// dd($criminalsWithNoProfile);
+
 		$criminalsWithNoProfile->each(function ($item, $key){
 			$faker = \Faker\Factory::create();
 			$country = $faker->countryCode ;

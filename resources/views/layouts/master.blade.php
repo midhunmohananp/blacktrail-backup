@@ -13,15 +13,15 @@
   {{--  <link href="{{ asset('css/styles.css')}}" rel="stylesheet" data-turbolinks-track="true">--}}
   <link href="{{ asset('css/app.css')}}" rel="stylesheet" data-turbolinks-track="true">
   <link rel="stylesheet" href="{{ asset('css/animate.css') }}">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  <link rel="stylesheet" href="{{ asset('css/animate.css') }}">  
   {{-- when using microsoft edge as a developer tools..--}}
   {{-- <script src="http://localhost:8098"></script>
   <script src="http://192.168.22.3:8098"></script> --}}
   <script>    
     window.App = @include("partials.stubs.global-vars")
   </script>     
-
-@yield('styles')
-
+  @yield('styles')
 </head>
 <body class="bg-grey-lighter-2 tracking-normal font-basic">
   <div id="app">
@@ -44,9 +44,9 @@
 
      <main class="flex m-auto">
       @if (auth()->check())            
-          @include('partials.sidebar')
+      @include('partials.sidebar')
       @endif
-          @yield("content")
+      @yield("content")
     </main>
   </div>
 </div>

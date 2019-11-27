@@ -18,7 +18,7 @@ import PayPal from 'vue-paypal-checkout';
 window.Vue = require('vue');
 window.$ = require('jquery');
 
-Vue.component('chat-component', require('./components/ChatComponent.vue'));
+Vue.component('chat-app', require('./components/ChatApp.vue'));
 /*globally registered components.. */
 Vue.component('app-header',require('./components/App/AppHeader.vue'));
 Vue.component('app-sidebar',require('./components/App/Sidebar.vue'));
@@ -67,8 +67,6 @@ Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.filter("format-bounty",function(value){
 	return (value / 100 ).toFixed(2);
 });
-
-
 
 Vue.filter("format-currency",function(value){
 	// return (val / 200 ).t

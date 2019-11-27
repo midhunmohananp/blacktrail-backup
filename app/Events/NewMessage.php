@@ -37,8 +37,7 @@ class NewMessage
     }
 
     public function broadcastWith(){
-
-
-        
+        $this->message->load('owner');
+        return ["message" => $this->message];
     }
 }

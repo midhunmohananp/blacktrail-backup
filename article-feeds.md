@@ -1,5 +1,5 @@
 # I have an article feeds that are `router-links`
-```js
+```html
 <users-view inline-template :users="{{  $user }}">
 	<article class="timeline-feeds">	
 		<div class="flex" id="userProfile">	

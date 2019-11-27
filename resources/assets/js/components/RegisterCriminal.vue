@@ -182,7 +182,7 @@ handleAttachmentRemove(file){
 };	
 </script>
 <style>
-trix-toolbar .trix-button-group:not(:first-child) {
+.trix-toolbar .trix-button-group:not(:first-child) {
 	margin-left: -0.1vw;
 }
 

@@ -39,9 +39,7 @@ Vue.config.devtools = true ;
 Vue.config.performance  = true ; 
 Vue.prototype.user = window.App.user;
 
-
 import Echo from "laravel-echo" ;
-
 
 window.Echo = new Echo({
 	broadcaster: 'pusher',

@@ -14,11 +14,15 @@ use Illuminate\Http\Request;
 */
 Route::group(['prefix' => 'v1'], function(){
 	Route::get('/groups', 'GroupsController@getAll');
-
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
 
 	/*retrieving respondent of the criminal's information*/
 	Route::get("/respondent/criminal","Api\CriminalsController@fetch_respondent");
+	Route::get("/respond/criminal/{criminal}","ChatController@send_chat");
+
+	/*Fetching the messages of the current logged on user to the fetched user*/
+	Route::get('/messages/get','Api\MessagesController@fetch_all_messages_of_the_currently_logged_on_user_to_a_its_respondent');
+
 
 
 	/*patching and deleting.*/
@@ -39,6 +43,7 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('/schools/student/{student}','Api\SchoolsController@getAllSchoolsByAStudent')->name("schools.student");
 */
 
+	Route::get('/messages/{user}',"Api\ContactsController@getMessagesFor");
 	
 
 });
@@ -48,5 +53,6 @@ routes are now api/payment/excute
 */
 Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
+
 
 

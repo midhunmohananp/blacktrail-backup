@@ -15,9 +15,16 @@ class User extends Authenticatable
         return static::where('confirmation_code', $code)->firstOrFail();
     }
 
-    /*a user has many messages*/
-    public function messages(){
-        return $this->hasMany(Message::class);
+
+    /**
+     * User has many Messages.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
+        return $this->hasMany(Message::class,'from','id');
     }
 
   
