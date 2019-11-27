@@ -1,0 +1,5 @@
+$loggedInUserId = 1;
+$contactUserId = 82
+
+Message::query()->where(function ($query) use ($loggedInUserId, $contactUserId) {
+$query->where('from', $loggedInUserId)->where('to',$contactUserId); })->orWhere(function ($query) use ($loggedInUserId, $contactUserId) { $query->where('to', $loggedInUserId)->where('from', $contactUserId); })->with('owner')->orderBy('created_at', 'desc')->get();

@@ -17,7 +17,6 @@
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "musonza/chat": "^4.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "pusher/pusher-php-server": "^4.1",
         "srmklive/paypal": "~1.0",

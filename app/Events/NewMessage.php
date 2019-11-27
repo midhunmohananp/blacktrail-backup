@@ -35,6 +35,7 @@ class NewMessage
     {
         return new PrivateChannel('messages.'.$this->message->to);
     }
+    
 
     public function broadcastWith(){
         $this->message->load('owner');

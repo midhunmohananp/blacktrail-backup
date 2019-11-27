@@ -8,6 +8,12 @@ let routes = [
 	component : CriminalView,	
 	props : true 
 },
+/*{
+	path : 'user/:userId', 
+	name : 'chatView',
+	component : ChatView, 
+	props : true
+}*/
 ];
 
 export default new VueRouter({

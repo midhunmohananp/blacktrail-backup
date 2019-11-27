@@ -65,6 +65,7 @@ import MessageComposer from './MessageComposer.vue';
 import endpoints from './scripts/endpoints.js';
 // import ContactList from './ContactList.vue';
 export default {
+	components : { MessageComposer, SearchMessages, MessageInbox,  ChatHeader },
 	props : { 
 		user  : {
 			type : Object,
@@ -112,8 +113,6 @@ export default {
 		}
 		
 	},
-	// ContactList
-	components : { MessageComposer, SearchMessages, MessageInbox,  ChatHeader },
 	computed : { 
 		defaultAvatar(){	
 			return endpoints.urlDomain +"/public/assets/images/" +this.respondent[0].avatar ; 
@@ -126,12 +125,12 @@ export default {
 			this.handleIncoming();
 		});
 
-		axios.get("/contacts")
+	/*	axios.get("/contacts")
 		.then(response => {
 			console.log(response.data);
 		}).catch(error => {
 			console.log(error);
-		});
+		});*/
 		
 		console.log('Component mounted.')
 	},

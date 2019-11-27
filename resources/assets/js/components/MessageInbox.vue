@@ -1,7 +1,8 @@
 <template>
 	<section id="inbox" style="overflow-y:scroll;height:300px;">
 		<ul class="flex flex-col w-full list-reset select-none">
-			<li v-for="conversation in conversations" :class="{ 'bg-blue' : 'isActive' }" class="flex flex-no-wrap items-center text-black cursor-pointer p-3">
+			<!-- v-for="conversation in conversations" :class="{ 'bg-blue' : 'isActive' }"  -->
+			<li v-for="conversation in conversations" class="bg-blue flex flex-no-wrap items-center text-black cursor-pointer p-3">
 				<img class="flex justify-center items-center flex-no-shrink w-12 h-12 bg-grey rounded-full font-semibold text-xl text-white mr-3" :src="userAvatar" alt="">
 				<div class="flex-1 min-w-0">
 					<div class="flex justify-between mb-1">
@@ -53,7 +54,7 @@ import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
 import MessageComposer from './MessageComposer.vue';
 export default {
-	name: 'Conversation',
+	name: 'MessageInbox',
 	components : { MessagesFeed, MessageComposer },
 	props : {
 		contact : {
@@ -76,6 +77,9 @@ export default {
 	},
 
 	computed : {
+		send_message_endpoint(){
+			return urls.send_messages_endpoint;
+		},
 		userAvatar(){
 			return this.contact.avatar;
 		},
@@ -93,11 +97,11 @@ export default {
 
 		sendMessage(e) {
 			console.log("pressed enter");
-			axios.post('/')
+			axios.post(this.send_message_endpoint)
 			.then(response => {
-
+				console.log(response);
 			}).catch(error => {
-
+				console.log(error);
 			});
 		},
 
@@ -109,9 +113,8 @@ export default {
 					respondent_id : this.contact.id
 				}
 			}).then(response => {
-				
-				console.log(response.data);
-				// this.conversations = response.data;
+				this.conversations = response.data;
+				// console.log(response.data);
 			}).catch(error => {
 				console.log(error);
 			});

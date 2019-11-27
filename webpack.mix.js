@@ -13,12 +13,10 @@ require('laravel-mix-tailwind');
 |
 */
 
-mix.minTemplate = require('laravel-mix-template-minifier')
-
-
-
+mix.minTemplate = require('laravel-mix-template-minifier');
 // mix.js('resources/assets/js/scripts.js', 'public/js')
 mix.js('resources/assets/js/app.js', 'public/js')
+// .js('resources/assets/js/script.js','public/js')
 .sass('resources/assets/sass/app.scss', 'public/css')
 .tailwind()
 .browserSync('localhost:8004');

@@ -53,131 +53,131 @@ class User extends Authenticatable
 
 
 
-/**
-* 
-* The attributes that are mass assignable.
-*
-* @var array
-*/
-protected $guarded = [
-/*'username', 
-'role_id',
-'display_name', 
-'email',
-'phone_number',
-'password', 
-'country_id',
-'confirmation_code',
-'confirmed_at'
-*/
-];
+        /**
+        * 
+        * The attributes that are mass assignable.
+        *
+        * @var array
+        */
+        protected $guarded = [
+        /*'username', 
+        'role_id',
+        'display_name', 
+        'email',
+        'phone_number',
+        'password', 
+        'country_id',
+        'confirmation_code',
+        'confirmed_at'
+        */
+    ];
 
 
-/**
-* The attributes that should be hidden for arrays.
-*
-* @var array
-*/
-protected $hidden = [
-    'password', 'remember_token',
-];
+        /**
+        * The attributes that should be hidden for arrays.
+        *
+        * @var array
+        */
+        protected $hidden = [
+            'password', 'remember_token',
+        ];
 
-// $user->signUp();
-public function signUp($attributes)
-{
-    factory(App\User::class,1)->create();
-}
+        // $user->signUp();
+        public function signUp($attributes)
+        {
+            factory(App\User::class,1)->create();
+        }
 
-public function saveUser()
-{
-    factory(App\User::class,1)->create();
-}
+        public function saveUser()
+        {
+            factory(App\User::class,1)->create();
+        }
 
-public function is_active(){
-    return $this->confirmed_at == NULL ? 0 : 1 ; 
-}
+        public function is_active(){
+            return $this->confirmed_at == NULL ? 0 : 1 ; 
+        }
 
-/**
- * User has many traced Criminals.
- *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
- */
-    public function traced_criminals()
-    {
+        /**
+        * User has many traced Criminals.
+        *
+        * @return \Illuminate\Database\Eloquent\Relations\HasMany
+        */
+        public function traced_criminals()
+        {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
-        return $this->hasMany(Criminal::class,'posted_by','id');
-    }
+            return $this->hasMany(Criminal::class,'posted_by','id');
+        }
 
 
-// public function confirmed(){
-//     return $this->status == 1 ? false : true;  
-// }
+        // public function confirmed(){
+        //     return $this->status == 1 ? false : true;  
+        // }
 
-public function scopeInactive($query){
-    return $query->where('status', '0');
-}
+        public function scopeInactive($query){
+            return $query->where('status', '0');
+        }
 
-public function scopeThatHasPhoneNumbers($query){
-    return $query->whereNotNull('phone_number');
-}
-
-
-
-protected function roleId(){ 
-    return auth()->user()->role_id ; 
-}
-
-public function isNormalUser(){
-    switch($this->roleId()){
-        case 3 : return true ; break ;
-        default : return false  ; break ; 
-    } 
-}
-
-public function confirm()
-{
-    $this->update([
-        'confirmed_at' => Carbon::now(),
-        'confirmation_code' => null 
-    ]);
-}
-
-/*
-returns true if admin.. 
-*/
-public function isAdmin()
-{
-    if ( $this->roleId() === 1 || $this->roleId() === 2) { 
-        return true ;
-    }
-    else {
-        return false ; 
-    }
-}  
-
-public function postedThis()
-{
-    if ( $this->roleId() === 1 || $this->roleId() === 2) { 
-        return true ;
-    }
-    else {
-        return false ; 
-    }
-}  
+        public function scopeThatHasPhoneNumbers($query){
+            return $query->whereNotNull('phone_number');
+        }
 
 
-/* A member only belongs to a single group*/
-public function group()
-{
-    return $this->hasOne(Group::class);
-}
 
-public function scopeAdmins($query){
-    return $query->whereIn('role_id', [1, 2]);
-}
+        protected function roleId(){ 
+            return auth()->user()->role_id ; 
+        }
+
+        public function isNormalUser(){
+            switch($this->roleId()){
+                case 3 : return true ; break ;
+                default : return false  ; break ; 
+            } 
+        }
+
+        public function confirm()
+        {
+            $this->update([
+                'confirmed_at' => Carbon::now(),
+                'confirmation_code' => null 
+            ]);
+        }
+
+        /*
+        returns true if admin.. 
+        */
+        public function isAdmin()
+        {
+            if ( $this->roleId() === 1 || $this->roleId() === 2) { 
+                return true ;
+            }
+            else {
+                return false ; 
+            }
+        }  
+
+        public function postedThis()
+        {
+            if ( $this->roleId() === 1 || $this->roleId() === 2) { 
+                return true ;
+            }
+            else {
+                return false ; 
+            }
+        }  
 
 
-/*A member / law enforcer can follow both groups and criminals*/
+        /* A member only belongs to a single group*/
+        public function group()
+        {
+            return $this->hasOne(Group::class);
+        }
+
+        public function scopeAdmins($query){
+            return $query->whereIn('role_id', [1, 2]);
+        }
+
+
+        /*A member / law enforcer can follow both groups and criminals*/
 
 
 }

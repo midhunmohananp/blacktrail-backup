@@ -14,6 +14,7 @@ const activateUserUrl = urlDomain + "/api/v1/user/activate";
 const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal";
 const respond_to_criminal = urlDomain + "/respond/criminal";
 const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
+const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
 
 export default { 
 	storeCriminalUrl : urlSaveCriminal ,
