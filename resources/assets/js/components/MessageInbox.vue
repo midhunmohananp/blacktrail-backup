@@ -2,7 +2,7 @@
 	<section id="inbox" style="overflow-y:scroll;height:300px;">
 		<ul class="flex flex-col w-full list-reset select-none">
 			<!-- v-for="conversation in conversations" :class="{ 'bg-blue' : 'isActive' }"  -->
-			<li v-for="conversation in conversations" class="bg-blue flex flex-no-wrap items-center text-black cursor-pointer p-3">
+			<li v-if="message in messages" v-for="conversation in conversations" class="bg-blue flex flex-no-wrap items-center text-black cursor-pointer p-3">
 				<img class="flex justify-center items-center flex-no-shrink w-12 h-12 bg-grey rounded-full font-semibold text-xl text-white mr-3" :src="userAvatar" alt="">
 				<div class="flex-1 min-w-0">
 					<div class="flex justify-between mb-1">
@@ -107,14 +107,16 @@ export default {
 
 		fetch_messages(){
 			console.log("respondent_id"+this.contact.id);
+			// console.log(api);
 			axios.get(this.fetch_messages_endpoint, {
 				params :  {
 					user_id : api.user.id,	
 					respondent_id : this.contact.id
 				}
 			}).then(response => {
-				this.conversations = response.data;
-				// console.log(response.data);
+				// this.conversations = response.data;
+				console.log(response);
+
 			}).catch(error => {
 				console.log(error);
 			});
