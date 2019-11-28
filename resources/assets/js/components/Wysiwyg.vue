@@ -1,15 +1,14 @@
 <template>
-	<!-- <VueTrix inputId="editor1" v-model="form.editorContent" placeholder="Please fill any details you know about the location / this criminal. "/> -->
-	<div>
+	<VueTrix inputId="editor1" v-model="form.editorContent" placeholder="Please fill any details you know about the location / this criminal. "/>
+	<!-- <div>
 		<input id="trix" type="hidden" :name="name" :value="value">
-
 		<trix-editor
 		ref="trix"
 		input="trix"
 		@trix-change="change"
 		:placeholder="placeholder">
 		</trix-editor>
-	</div>
+	</div> -->
 </template>
 
 <script>

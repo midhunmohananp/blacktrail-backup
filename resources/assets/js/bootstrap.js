@@ -10,6 +10,7 @@ import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
 import VueSweetalert2 from 'vue-sweetalert2';
 // import "vue-trix";
+// import Trix from 'trix';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
@@ -23,8 +24,8 @@ window.axios.defaults.headers.common = {
 Vue.use(VModal, { dialog: true })
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
-// Vue.use(VueInputMultiple);
 // Vue.use(VueTrix);
+// Vue.use(VueInputMultiple);
 
 // Vue.use(InstantSearch);
 
@@ -47,5 +48,3 @@ window.Echo = new Echo({
 	cluster : 'ap1',
 	encrypted : true
 });
-
-

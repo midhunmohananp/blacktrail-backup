@@ -56,6 +56,7 @@ Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.component('upload-image', require('./components/UploadImage.vue'));
+// Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
 

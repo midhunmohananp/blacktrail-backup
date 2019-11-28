@@ -18,7 +18,7 @@
 
 	<p class="mt-8 font-normal font-basic text-2xl">{{ trans('slots.intro_text') }}</p>
 
-	@if (auth()->user()->isNormalUser())
+	@if (auth()->user()->role_id === 3 )
 	<ol class="mt-4">
 		<li class="font-basic">Find criminals hunted by the government </li>
 		<li class="font-basic">Report immediately to the law enforcers the fugitives location and claim the criminal's bounty </li>

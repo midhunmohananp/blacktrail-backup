@@ -1,13 +1,15 @@
 <script>
 import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
+import VueTrix from "vue-trix";
 import _ from "lodash";
 export default { 
+	components : { VueTrix },
 	data(){
 		return { 
 			form : {
-				uploadUrl: urls.save_photos_endpoint,
 				maxFiles: 1,
+				currency : 1,
 				placeholder:  "Well..",
 				alias : "",
 				status : 1 , 
@@ -15,73 +17,78 @@ export default {
 				last_seen : "",
 				contact_person : api.user.id , 
 				criminals_name : "",
-				contact_number : api.user.phone_number , 
+				// contact_number : api.user.phone_number , 
 				contact_number : "",
 				attachments : [],
 				country_id : 4 , 
-				body : "",
-				input_id: { // Id of upload control
-					type: String,
-					required: false,
-					default: "default"
-				},
-
-				mainPhotoUrl: { // upload url
-					type: String,
-					required: true,
-					default: null
-				},	
-
-						morePhotosUrl: { // upload url
-							type: String,
-							required: true,
-							default: null
-						}
-					},
-				button_html: { // text/html for button
-					type: String,
-					required: true,
-					text: 'Upload Images or Drag your photos here'
-				},
-				button_class: { // classes for button
-					type: String,
-					required: false,
-					default: 'bg-blue'
-				},
-				localStorage : false , 
-			}
-		},
-
-		computed : {
-			endpoint(){
-				return urls.storeCriminalUrl   ;
+				uploadUrl: urls.urlSaveCriminal,
+			},
+			input_id: { // Id of upload control
+				type: String,
+				required: false,
+				default: "default"
 			},
 
-			storePhotosUrl(){
-				return urls.urlSavePhotos   ;
-			},
+			mainPhotoUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
+			},	
 
-			loggedOnUsersName(){
-				return api.user.display_name ; 
-			}
-		},
+	morePhotosUrl: { // upload url
+		type: String,
+		required: true,
+		default: null
+	},
+	button_html: { // text/html for button
+		type: String,
+		required: true,
+		text: 'Upload Images or Drag your photos here'
+	},
+	button_class: { // classes for button
+		type: String,
+		required: false,
+		default: 'bg-blue'
+	},
+	localStorage : false , 
 
+	}
+},
+computed : {
+	endpoint(){
+		return urls.storeCriminalUrl   ;
+	},
+	storePhotosUrl(){
+		return urls.urlSavePhotos   ;
+	},
 
+	loggedOnUsersName(){
+		return api.user.display_name ; 
+	}
+},
 
-		methods : { 
-			showMap(){
-				this.$modal.show("show-map");
-			},
+methods : { 
+	showMap(){
+		this.$modal.show("show-map");
+	},
 
-			accept_file(val){
-				console.log(val);
-			},
+	accept_file(val){
+		console.log(val);
+	},
 
-			show_criminals_information(){
-			},
+	show_criminals_information(){
+	},
 
-			register_criminal(){
+	register_criminal(){
+		console.log(this.form);
+		axios.post(this.endpoint,this.form)
+		.then(response => {
+			console.log(response.status);
+		}).catch(error => {
+			console.log(error);
+		});
 
+				// console.log("Pressed on the button");
 		// this.$modal.show('show-information', {});
 
 		/*this.$modal.confirm().then( res => {
@@ -168,5 +175,5 @@ handleAttachmentRemove(file){
 trix-editor {
 	border: 1px solid #e8e8e8;
 	border-radius: 10.9px;
-} */
-</style>
+	} */
+	</style>

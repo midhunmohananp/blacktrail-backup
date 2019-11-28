@@ -34,6 +34,9 @@ class CriminalsController extends Controller
 				// return response('You are not authorized', 401);
 		}
 
+
+		dd(request()->all());
+
 		/*validate the request if the criminals' input is validated.. or just fine..*/
 		// dd(request()->all());
 		
@@ -45,7 +48,6 @@ class CriminalsController extends Controller
 			'last_seen'            		=> 'required|string',
 			'status'            		=> 'required|numeric',
 			'country_id'            	=> 'required|numeric',
-			'body'      				=> 'required'
 		]);
 
 		try { 
