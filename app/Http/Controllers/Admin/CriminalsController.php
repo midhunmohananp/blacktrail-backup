@@ -88,8 +88,6 @@ class CriminalsController extends Controller
             'complete_description'    =>        request()->input("body")
         ]);
 
-        // $criminal;
-
 /*        Post::create([
          'full_name'          =>             request()->input("criminals_name"),
          'alias'              =>             request()->input("alias"),

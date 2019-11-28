@@ -1,10 +1,10 @@
 <!-- the content files are in  -->
 <script>
-import UploadImage from 'vue-upload-image';
+// import UploadImage from 'vue-upload-image';
 export default {
 	props : ['criminal','admins','countries'],
 	components : { 
-		UploadImage 
+		// UploadImage 
 	}, 
 	methods : {
 		fetchCountries(){

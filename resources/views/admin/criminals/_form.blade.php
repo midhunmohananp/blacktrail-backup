@@ -2,7 +2,7 @@
 <div class="mt-4">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Name
 	</label>
-	<input name="full_name" v-model="form.criminals_name" type="text" value="" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Criminal Name" value="{{ old('full_name') }}" >	
+	<input name="full_name" type="text" value="" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Criminal Name" value="{{ old('full_name') }}" >	
 </div>
 
 <div class="mb-2">
@@ -32,10 +32,6 @@
 </div>	
 
 
-<div class="mb-2">
-	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload an Image : </label>
-	<upload-image url="" :max_files="1"></upload-image>
-</div>	
 
 
 <div class="mb-2">
@@ -46,6 +42,19 @@
 		@endforeach
 	</select>
 </div>	
+
+
+<div class="mb-2">
+	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload an Image : 
+	</label>
+
+	
+	{{-- <upload-image is="upload-image"
+	:url="form.uploadUrl"
+	:max_files="1"
+	></upload-image> --}}
+</div>	
+
 
 <div class="mb-2">
 	<div class="flex">
@@ -85,6 +94,8 @@
 	</label>
 	@trix(App\CriminalInfo::class, 'complete_description')
 </div>
+
+
 	{{-- <VueTrix
 	:local-storage="localStorage"
 	v-model="form.body"

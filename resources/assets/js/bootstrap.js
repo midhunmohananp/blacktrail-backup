@@ -3,7 +3,7 @@ window.Pusher = require('pusher-js');
 
 import axios from 'axios';
 import Vue from 'vue' ;
-import VueInputMultiple from 'vue-input-multiple';
+// import VueInputMultiple from 'vue-input-multiple';
 import VueRouter from 'vue-router';
 import moment from 'moment' ; 
 import VModal from 'vue-js-modal'
@@ -23,7 +23,7 @@ window.axios.defaults.headers.common = {
 Vue.use(VModal, { dialog: true })
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
-Vue.use(VueInputMultiple);
+// Vue.use(VueInputMultiple);
 // Vue.use(VueTrix);
 
 // Vue.use(InstantSearch);
@@ -34,10 +34,10 @@ const options = {
 }
 
 Vue.use(VueSweetalert2, options);
-
 Vue.config.devtools = true ; 
 Vue.config.performance  = true ; 
 Vue.prototype.user = window.App.user;
+Vue.prototype.$http = axios;
 
 import Echo from "laravel-echo" ;
 

@@ -15,6 +15,7 @@ const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal";
 const respond_to_criminal = urlDomain + "/respond/criminal";
 const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
 const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
+const save_photos_endpoint = urlDomain + "/criminals";
 
 export default { 
 	storeCriminalUrl : urlSaveCriminal ,
@@ -27,6 +28,7 @@ export default {
 	destroyUserUrl,
 	activateUserUrl,
 	fetch_criminals_respondent,
-	fetch_messages_endpoint
+	fetch_messages_endpoint,
+	save_photos_endpoint
 }
 

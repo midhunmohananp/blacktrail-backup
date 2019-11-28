@@ -22,7 +22,8 @@
         "srmklive/paypal": "~1.0",
         "te7a-houdini/laravel-trix": "^1.0",
         "themsaid/laravel-mail-preview": "^2.0",
-        "webpatser/laravel-countries": "dev-master"
+        "webpatser/laravel-countries": "dev-master",
+        "sahusoftcom/eloquent-image-mutator": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

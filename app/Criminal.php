@@ -2,10 +2,12 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
-
 class Criminal extends Model
 {
 	protected $guarded = [];
+	protected static $imageFields = [
+		'avatar'
+	];
 	/**
 	* a Criminal has a profile.
 	*
@@ -39,7 +41,7 @@ class Criminal extends Model
 	public static function findOrFailById($id){ 
 		return self::where('id', $id)->firstOrFail();        
 	}
- 
+
 	public static function postedByLoggedOnUser(){
 		return static::where('posted_by','=', auth()->user()->id);
 	}
@@ -110,11 +112,11 @@ class Criminal extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function respondent()
-	{
+public function respondent()
+{
 		// belongsTo(RelatedModel, foreignKey = respondent_id, keyOnRelatedModel = id)
-		return $this->belongsTo(User::class,'posted_by','id');
-	}	
+	return $this->belongsTo(User::class,'posted_by','id');
+}	
 
 // Define the "full_name" property accessor.
 /*	public function getFullNameAttribute()

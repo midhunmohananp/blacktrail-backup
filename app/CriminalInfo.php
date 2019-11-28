@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 class CriminalInfo extends Model
 {
 	use HasTrixRichText;
-
 	protected $table = 'criminal_profiles';
 	protected $guarded = [];
 	protected $dates = ['birthdate'];

@@ -14,6 +14,7 @@ These don't mean that it would work since it means one thing these will not work
 
 import router from './routes';
 import PayPal from 'vue-paypal-checkout';
+// import UploadImage from 'vue-upload-image';
 
 window.Vue = require('vue');
 window.$ = require('jquery');
@@ -31,7 +32,6 @@ Vue.component('register', require('./components/Register.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('report-criminal', require('./components/ReportCriminal'));	
 Vue.component('register-criminal', require('./components/RegisterCriminal'));	
-Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));	
 Vue.component('criminal-map', require('./components/CriminalMap'));	
 Vue.component('user-filters', require('./components/UserFilters.vue'));	
 Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
@@ -53,7 +53,9 @@ Vue.component("setup-billing",require("./components/App/SetupBilling.vue"));
 /*unnecessary components*/
 Vue.component('user-profile', require('./components/UserProfile.vue'));
 Vue.component('pending-users', require('./components/PendingUsers.vue'));
+Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('chat-label', require('./components/ChatLabel.vue'));
+Vue.component('upload-image', require('./components/UploadImage.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
 
