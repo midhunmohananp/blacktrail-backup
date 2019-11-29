@@ -50,12 +50,14 @@ Vue.component('convert-currency',require('./components/ConvertCurrency.vue'));
 Vue.component('paypal-checkout', PayPal);	
 Vue.component("setup-billing",require("./components/App/SetupBilling.vue"));
 
+Vue.component("create-entry",require("./components/CreateEntry.vue"));
+
 /*unnecessary components*/
 Vue.component('user-profile', require('./components/UserProfile.vue'));
 Vue.component('pending-users', require('./components/PendingUsers.vue'));
-Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.component('upload-image', require('./components/UploadImage.vue'));
+Vue.component('update-profile', require('./components/UpdateProfile.vue'));
 // Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
@@ -75,7 +77,7 @@ Vue.filter("format-currency",function(value){
 	// return (val / 200 ).t
 });	
 
-
+Vue.config.ignoredElements = ['vuetrix'];
 const app = new Vue({
 	el: '#app',
 	data(){

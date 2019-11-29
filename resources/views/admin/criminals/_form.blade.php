@@ -31,9 +31,6 @@
 	<input name="number" v-model="form.bounty" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Alias" required>
 </div>	
 
-
-
-
 <div class="mb-2">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Currency</label>
 	<select name="country" v-model="form.currency" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="">
@@ -43,16 +40,14 @@
 	</select>
 </div>	
 
-
 <div class="mb-2">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload an Image : 
 	</label>
 	<upload-image is="upload-image"
 	:url="form.uploadUrl"
-	:max_files="1"
+	:max_files="form.maxFiles"
 	></upload-image>
 </div>	
-
 
 <div class="mb-2">
 	<div class="flex">
@@ -88,14 +83,11 @@
 </div>	
 
 <div class="mb-2 w-3/4">
-	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Complete Background and Details
+	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
 	</label>
-	{{-- @trix(App\CriminalInfo::class, 'complete_description') --}}
-	<VueTrix v-model="editorContent" placeholder="Enter content" localStorage/>	
+	<VueTrix v-model="form.complete_description" class="editor1" placeholder="Enter Content"/>
 </div>
 
 <div class="mb-2">
 	<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">{{ $buttonText ?? 'Save Criminal' }}</button>
 </div>
-
-

@@ -9,6 +9,7 @@ export default {
 		return { 
 			form : {
 				maxFiles: 1,
+				complete_description : "",
 				currency : 1,
 				placeholder:  "Well..",
 				alias : "",
@@ -34,59 +35,57 @@ export default {
 				required: true,
 				default: null
 			},	
+			morePhotosUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
+			},
+			button_html: { // text/html for button
+				type: String,
+				required: true,
+				text: 'Upload Images or Drag your photos here'
+			},
+			button_class: { // classes for button
+				type: String,
+				required: false,
+				default: 'bg-blue'
+			},
+			localStorage : false , 
+		}
+	},
+	computed : {
+		endpoint(){
+			return urls.storeCriminalUrl   ;
+		},
+		storePhotosUrl(){
+			return urls.urlSavePhotos   ;
+		},
 
-	morePhotosUrl: { // upload url
-		type: String,
-		required: true,
-		default: null
-	},
-	button_html: { // text/html for button
-		type: String,
-		required: true,
-		text: 'Upload Images or Drag your photos here'
-	},
-	button_class: { // classes for button
-		type: String,
-		required: false,
-		default: 'bg-blue'
-	},
-	localStorage : false , 
-
-	}
-},
-computed : {
-	endpoint(){
-		return urls.storeCriminalUrl   ;
-	},
-	storePhotosUrl(){
-		return urls.urlSavePhotos   ;
-	},
-
-	loggedOnUsersName(){
-		return api.user.display_name ; 
-	}
-},
-
-methods : { 
-	showMap(){
-		this.$modal.show("show-map");
+		loggedOnUsersName(){
+			return api.user.display_name ; 
+		}
 	},
 
-	accept_file(val){
-		console.log(val);
-	},
+	methods : { 
+		showMap(){
+			this.$modal.show("show-map");
+		},
 
-	show_criminals_information(){
-	},
+		accept_file(val){
+			console.log(val);
+		},
 
-	register_criminal(){
-		console.log(this.form);
-		axios.post(this.endpoint,this.form)
-		.then(response => {
-			console.log(response.status);
-		}).catch(error => {
-			console.log(error);
-		});
+		show_criminals_information(){
+		},
+
+		register_criminal(){
+			console.log(this.endpoint);
+			axios.post(this.endpoint,this.form)
+			.then(response => {
+				console.log(response.status);
+			}).catch(error => {
+				console.log(error);
+			});
 
 				// console.log("Pressed on the button");
 		// this.$modal.show('show-information', {});

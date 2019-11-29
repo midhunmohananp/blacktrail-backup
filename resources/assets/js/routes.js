@@ -7,7 +7,7 @@ let routes = [
 	name : 'criminalView',
 	component : CriminalView,	
 	props : true 
-},
+}
 /*{
 	path : 'user/:userId', 
 	name : 'chatView',

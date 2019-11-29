@@ -39,7 +39,6 @@ class User extends Authenticatable
         return $this->hasOne(Role::class,'id','role_id');
     }
 
-
     /**
      * User belongs to Country.
      *
@@ -70,7 +69,7 @@ class User extends Authenticatable
         'confirmation_code',
         'confirmed_at'
         */
-    ];
+        ];
 
 
         /**

@@ -82,7 +82,7 @@ export default {
         button_html: {
             type: String,
             required: false,
-            default: 'Upload Images'
+            default: 'Upload the face of this Criminal'
         },
         button_class: {
             type: String,

@@ -84,6 +84,7 @@ Route::group([
 	'middleware' => 'auth', 
 ], function () {
 	Route::get("user/profiles/{user}","ProfilesController@index")->name("profiles.user")->middleware('auth');
+	Route::get('user/profiles/update/{user}',"ProfilesController@updateProfile");
 	/*for getting paid and billing */
 	Route::get("user/profiles/billing/{user}","ProfilesController@billing")->name("profiles.billing");
 	Route::post('user/billing','ProfilesController@store_billing_profile');

@@ -26,7 +26,6 @@
 
 				<div class="mb-2 w-3/4">
 					<label for="name" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Criminal's Location Details</label>
-					{{-- <VueTrix inputId="editor1" v-model="editorContent" placeholder="enter your content..."/> --}}
 					<wysiwyg inputId="editor1" content="content"></wysiwyg>	
 
 					{{-- 	<input type="text" class="bg-grey-lighter w-3/4 mb-2 p-4 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Username / Email" value="{{  auth()->user()->phone_number }}" required> --}}

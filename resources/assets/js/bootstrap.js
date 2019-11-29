@@ -9,7 +9,7 @@ import moment from 'moment' ;
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
 import VueSweetalert2 from 'vue-sweetalert2';
-// import "vue-trix";
+import VueTrix from 'vue-trix';
 // import Trix from 'trix';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
@@ -20,11 +20,13 @@ window.axios.defaults.headers.common = {
 	'X-Requested-With': 'XMLHttpRequest'
 };
 
+// window.form =  ; 			
+
 
 Vue.use(VModal, { dialog: true })
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
-// Vue.use(VueTrix);
+Vue.use(VueTrix);
 // Vue.use(VueInputMultiple);
 
 // Vue.use(InstantSearch);

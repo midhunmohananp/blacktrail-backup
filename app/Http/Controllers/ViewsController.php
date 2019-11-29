@@ -1,15 +1,24 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Mail\UserRegistered; 
 use App\User ; 
+
 class ViewsController extends Controller
 {
 	public function index()
 	{
-		return view('index');
+		if (!auth()->check()){
+			return view('index');
+		} else  { 
+			if (auth()->user()->isAdmin()){ 
+				return view('index');
+			}
+			else { 
+				return redirect()->route("admin.dashboard");
+			// return view('admin.dashboard');
+			}
+		}
 	}
 
 

@@ -18,10 +18,15 @@ class ProfilesController extends Controller
 	*/
 	public function index(User $user)
 	{
-		$profileUser = Auth::user(); 
+		$profileUser = User::where('id',auth()->id())->with('country')->get();
+		// $profileUser = auth()->user()->with('country')->get();
 		return view('profiles.home', [ 'profileUser' => $profileUser]);
 	}
 
+	public function updateProfile()
+	{	
+		// return view('profiles.billing');
+	}	
 	public function billing()
 	{	
 		return view('profiles.billing');
