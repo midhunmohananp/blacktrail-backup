@@ -2,7 +2,7 @@
 
 /* We need pages for this in the landing page 
 for the bounty hunters
-1. Criminals in your area..
+1.dmin Criminals in your area..
 */
 
 /*
@@ -133,7 +133,7 @@ This is just used to modify records in the database.
 include "routes.db.php";
 // testing slots..
 Route::get("slots","ViewsController@slots");
-		
+
 /*testing views..*/
 Route::get("/dashboard",function()
 {
@@ -159,7 +159,7 @@ Route::post('payment/execute',"PaypalController@execute_payment");
 
 Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
-	
+
 
 /*Mailables*/
 

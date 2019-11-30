@@ -49,7 +49,6 @@ Vue.component('site-header-two',require('./components/Layouts/SiteHeader2.vue'))
 Vue.component('convert-currency',require('./components/ConvertCurrency.vue'));
 Vue.component('paypal-checkout', PayPal);	
 Vue.component("setup-billing",require("./components/App/SetupBilling.vue"));
-
 Vue.component("create-entry",require("./components/CreateEntry.vue"));
 
 /*unnecessary components*/
@@ -77,7 +76,13 @@ Vue.filter("format-currency",function(value){
 	// return (val / 200 ).t
 });	
 
-Vue.config.ignoredElements = ['vuetrix'];
+
+// Somewhere in your code where you have access to the Vue instance
+Vue.config.ignoredElements = [
+    'vue-trix',
+    'vuetrix'
+];
+
 const app = new Vue({
 	el: '#app',
 	data(){

@@ -15,7 +15,8 @@ const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal";
 const respond_to_criminal = urlDomain + "/respond/criminal";
 const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
 const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
-const update_profiles_endpoint = urlDomain + "/user/profiles/update/" +api.user.id;
+const update_profile_endpoint = urlDomain + "/user/profiles/update/" +api.user.id;
+const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update/" +api.user.id;
 
 export default { 
 	urlSaveCriminal ,
@@ -29,6 +30,7 @@ export default {
 	activateUserUrl,
 	fetch_criminals_respondent,
 	fetch_messages_endpoint,
+	update_profile_endpoint,
 	update_profiles_endpoint
 	// save_photos_endpoint
 }

@@ -25,8 +25,10 @@ class ProfilesController extends Controller
 
 	public function updateProfile()
 	{	
-		// return view('profiles.billing');
+		return view('profiles.update');
 	}	
+
+	
 	public function billing()
 	{	
 		return view('profiles.billing');

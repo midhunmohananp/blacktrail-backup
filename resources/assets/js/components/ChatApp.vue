@@ -9,8 +9,6 @@
 							<search-messages></search-messages>
 							<!-- <message-inbox :contact="respondent" :messages="messages">
 							</message-inbox> -->
-
-
 							<section id="inbox" style="overflow-y:scroll;height:300px;">
 								<ul class="flex flex-col w-full list-reset select-none">
 									<!-- v-for="conversation in conversations" :class="{ 'bg-blue' : 'isActive' }"  -->

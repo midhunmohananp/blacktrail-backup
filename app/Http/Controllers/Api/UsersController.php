@@ -26,9 +26,9 @@ class UsersController extends Controller
 		return response()->json($user);
 	}
 
-	public function get_messages_for($id)
+	public function update_profile_of_the_user()
 	{
-
+		return response()->json(request());
 	}	
 }
 	

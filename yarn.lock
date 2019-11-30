@@ -9943,10 +9943,10 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-trix@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/vue-trix/-/vue-trix-1.1.4.tgz#73fbb6c16ac8d7d68d0265cce2b67f53375a4ffd"
-  integrity sha512-+ARcnBSxNvhFZ6Po8iymOIO8dLFsOCcW2Ru3WYGdk4HUMcRcffpYM2raq94KwwPhhlutcabnipWFqlRhlBjPhg==
+vue-trix@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/vue-trix/-/vue-trix-1.1.5.tgz#bdfaf78c50c4bfb22594a54d18c51a355970a23e"
+  integrity sha512-i81e0EZd3WZ4H4U6Av4mdZ6dLoEonrM9nqel6Lm8vCb7zGolwR5CFZ8x3uARlrOK0fr1lfdz4oi7xz4lS+jh7w==
   dependencies:
     trix "^1.2.1"
 

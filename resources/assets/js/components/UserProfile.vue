@@ -7,8 +7,8 @@
 					<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
 					<p class="font-bold font-sans mt-2 text-black text-3xl tracking-tight">{{ user[0].display_name }}</p>
 
-					<button @click="editProfileButton" class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-						<a class="text-white hover:text-blue-lighter" :href="editProfileUrl">Edit Profile</a>
+					<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
+						<a class="text-white hover:text-blue-lighter" :href="this.editProfileUrl">Edit Profile</a>
 					</button>
 				</div>	
 			</div>
@@ -34,10 +34,15 @@
 					</div>	
 				</div>
 
+				<div class="item" id="crimes-section">
+
+					<div class="row mb-3">
+						<p class="text-md text-normal mr-4">Phone Number : <em class="font-bold roman" v-text="user[0].phone_number == null ? 'N.A' : user[0].phone_number  "></em></p>
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>
-	<edit-profile></edit-profile>
 </section>
 </template>
 <script>
@@ -59,7 +64,7 @@ export default {
 	},
 	computed : {
 		editProfileUrl(){
-			return urls.update_profiles_endpoint ; 
+			return urls.update_profile_endpoint ; 
 		},
 		avatarPath(){
 			return '/assets/images/default_avatar.jpg';
@@ -67,6 +72,5 @@ export default {
 	}
 };
 </script>
-
 <style lang="css" scoped>
 </style>
