@@ -46,11 +46,12 @@ class AuthController extends Controller
 
 		else {
 			if (Auth::attempt([$field => $pin ,'password' => $password])){
+				// dd(auth()->user()->role_id);
 				switch(auth()->user()->role_id){
 					/*the roles would be determined*/	
 					case 1 : return redirect()->route("admin.dashboard");
 					case 2 : return redirect()->route("admin.dashboard");
-					case 3 : return redirect('/');			
+					case 3 : return redirect()->to('/');			
 				}
 			}
 		}

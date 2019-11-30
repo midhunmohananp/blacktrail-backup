@@ -33,23 +33,20 @@ class DashboardController extends Controller {
 
 	}
 
-
-
 	/*admin dashboard page..*/
 	public function index()
 	{
-		$id = auth()->user()->role_id ;
+					$id = auth()->user()->role_id ;
+					if ($id === 1 || $id === 2 ) { 
+						$route = route('admin.dashboard');
+					}
+					else {
+						$route =  route('index');
+					}
 
-		if ($id === 1 || $id === 2 ) { 
-			$route = route('admin.dashboard');
-		}
-		else {
-			$route =  route('index');
-		}
-
-		return view('admin.dashboard', [ 
-			'route' => $route 
-		]);
+					return view('admin.dashboard', [ 
+						'route' => $route 
+					]);
 	}
 
 	public function pending_users(){

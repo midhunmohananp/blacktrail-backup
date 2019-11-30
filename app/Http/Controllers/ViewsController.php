@@ -9,16 +9,18 @@ class ViewsController extends Controller
 	public function index()
 	{
 		if (!auth()->check()){
-			return view('index');
-		} else  { 
-			if (auth()->user()->isAdmin()){ 
+			return view("index");
+		}
+
+		else {
+			if (!auth()->user()->isAdmin()){ 
 				return view('index');
 			}
 			else { 
 				return redirect()->route("admin.dashboard");
-			// return view('admin.dashboard');
-			}
+			}	
 		}
+		
 	}
 
 
