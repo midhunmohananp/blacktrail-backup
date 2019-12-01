@@ -16,7 +16,7 @@ const respond_to_criminal = urlDomain + "/respond/criminal";
 const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
 const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
 const update_profile_endpoint = urlDomain + "/user/profiles/update/" +api.user.id;
-const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update/" +api.user.id;
+const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update";
 
 export default { 
 	urlSaveCriminal ,

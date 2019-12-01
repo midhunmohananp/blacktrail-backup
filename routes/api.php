@@ -24,7 +24,7 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('/messages/get','Api\MessagesController@fetch_all_messages_of_the_currently_logged_on_user_to_a_its_respondent');
 
 	Route::post('/messages/post','Api\MessagesController@send_message');
-	Route::put('user/profiles/update/{user}','Api\UsersController@update_profile_of_the_user');
+	Route::put('user/profiles/update','Api\UsersController@update_profile_of_the_user');
 
 	/*patching and deleting.*/
 	Route::patch("/user/activate","Api\UsersController@activate_user");

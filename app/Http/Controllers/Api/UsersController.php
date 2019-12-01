@@ -26,6 +26,7 @@ class UsersController extends Controller
 		return response()->json($user);
 	}
 
+
 	public function update_profile_of_the_user()
 	{
 		return response()->json(request());

@@ -55,7 +55,7 @@ export default {
 	},
 	computed : {
 		endpoint(){
-			return urls.storeCriminalUrl   ;
+			return urls.urlSaveCriminal   ;
 		},
 		storePhotosUrl(){
 			return urls.urlSavePhotos   ;

@@ -50,7 +50,7 @@ Route::resource("group","GroupController",[
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
-// Route::get('admin/criminals', 'CriminalsController@storeCriminal')->name('admin.criminals.store');
+// Route::get('admin/criminals', 'CriminalsCo	ntroller@storeCriminal')->name('admin.criminals.store');
 
 Route::get('/admin/groups', 'GroupsController@index')->name('admin.groups')->middleware('isAdmin');
 Route::get("success/registration","ViewsController@registrationSuccess")->name("registrationSuccess");
@@ -84,7 +84,7 @@ Route::group([
 	'middleware' => 'auth', 
 ], function () {
 	Route::get("user/profiles/{user}","ProfilesController@index")->name("profiles.user")->middleware('auth');
-	Route::get('user/profiles/update/{user}',"ProfilesController@updateProfile");
+	Route::get('user/profiles/update/{user}',"ProfilesController@updateProfileView");
 	/*for getting paid and billing */
 	Route::get("user/profiles/billing/{user}","ProfilesController@billing")->name("profiles.billing");
 	Route::post('user/billing','ProfilesController@store_billing_profile');

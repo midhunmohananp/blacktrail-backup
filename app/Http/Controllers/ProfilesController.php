@@ -23,9 +23,14 @@ class ProfilesController extends Controller
 		return view('profiles.home', [ 'profileUser' => $profileUser]);
 	}
 
-	public function updateProfile()
+	public function updateProfileView()
 	{	
 		return view('profiles.update');
+	}	
+
+	public function updateProfile()
+	{	
+		return response()->json(request()->all());
 	}	
 
 	

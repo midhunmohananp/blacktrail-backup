@@ -33,6 +33,7 @@ class AuthController extends Controller
 		]);
 
 		$pin = request()->get('pin');
+		
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
 		$remember_me = request()->get('remember');
 		$password = request()->get('password');
