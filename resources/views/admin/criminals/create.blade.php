@@ -8,7 +8,7 @@
 
 <register-criminal inline-template>
 	<div class="ml-4 mt-4 p-4 w-1/2 bg-white">
-		<form @submit.prevent="register_criminal" method="POST" @submit.prevent="register_criminal" class="font-basic pt-4 py-4 ml-3 w-full">
+		<form @submit.prevent="register_criminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
 			@include("admin.criminals._form")
 		</form>

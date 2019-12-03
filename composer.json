@@ -14,16 +14,15 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "~6.0",
+        "intervention/image": "^2.5",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "pusher/pusher-php-server": "^4.1",
-        "srmklive/paypal": "~1.0",
-        "te7a-houdini/laravel-trix": "^1.0",
+        "te7a-houdini/laravel-trix": "^1.1",
         "themsaid/laravel-mail-preview": "^2.0",
-        "webpatser/laravel-countries": "dev-master",
-        "sahusoftcom/eloquent-image-mutator": "dev-master"
+        "webpatser/laravel-countries": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

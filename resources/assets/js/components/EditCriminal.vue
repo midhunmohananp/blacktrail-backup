@@ -1,6 +1,5 @@
 <!-- the content files are in  -->
 <script>
-// import UploadImage from 'vue-upload-image';
 export default {
 	props : ['criminal','admins','countries'],
 	components : { 
@@ -15,7 +14,23 @@ export default {
 	data(){
 		return { 
 			country : this.criminal.country_id,
-			
+			form : {
+				maxFiles: 1,
+				complete_description : "",
+				currency : 1,
+				placeholder:  "Well..",
+				alias : "",
+				status : 1 , 
+				bounty : "",
+				last_seen : "",
+				contact_person : api.user.id , 
+				criminals_name : "",
+				// contact_number : api.user.phone_number , 
+				contact_number : "",
+				attachments : [],
+				country_id : 4 , 
+				uploadUrl: urls.urlSaveCriminal,
+			},
 			posted_by : this.criminal.posted_by,
 			
 			max_files: { // total # of files allowed to be uploaded

@@ -28,14 +28,16 @@ class CriminalsController extends Controller
 	/*Maka add na ta but what lacks is that dli ta kadawat og pictures. */
 	public function storeCriminal(User $user)
 	{
+		
+		dd(request()->all());
+		
 		/*If user is not logged on. or that he's not an adminstrator to the app*/
 		if (auth()->check() === false || $user->isAdmin() === false) {
 			abort(401, 'Unauthorized.');
 				// return response('You are not authorized', 401);
+		
 		}
 
-
-		dd(request()->all());
 
 		/*validate the request if the criminals' input is validated.. or just fine..*/
 		// dd(request()->all());

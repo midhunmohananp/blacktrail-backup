@@ -23,5 +23,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 
 if (mix.inProduction()) {
-  mix.minTemplate('storage/framework/views/*.php', 'storage/framework/views/')
+	mix.minTemplate('storage/framework/views/*.php', 'storage/framework/views/')
 }

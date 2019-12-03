@@ -1,27 +1,34 @@
 <script>
 import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
-import VueTrix from "vue-trix";
+import VueTrix from 'vue-trix';
+import Places from 'vue-places';
 import _ from "lodash";
 export default { 
-	components : { VueTrix },
+	components : { VueTrix, Places },
 	data(){
 		return { 
+			image : '',
 			form : {
+				criminals_name : "",
+				alias : "",
+				country: {
+					label: null,
+					data: {},
+				},
 				maxFiles: 1,
 				complete_description : "",
 				currency : 1,
+				avatar : "",
 				placeholder:  "Well..",
-				alias : "",
 				status : 1 , 
 				bounty : "",
 				last_seen : "",
 				contact_person : api.user.id , 
-				criminals_name : "",
 				// contact_number : api.user.phone_number , 
 				contact_number : "",
 				attachments : [],
-				country_id : 4 , 
+				country_id : 1, 
 				uploadUrl: urls.urlSaveCriminal,
 			},
 			input_id: { // Id of upload control
@@ -67,15 +74,31 @@ export default {
 	},
 
 	methods : { 
+		onAvatarChange(e) {
+			let files = e.target.files || e.dataTransfer.files;
+			if (!files.length)
+				return;
+			this.createImage(files[0]);
+		},
+
+		createImage(file) {
+			let reader = new FileReader();
+			let vm = this;
+			reader.onload = (e) => {
+				vm.form.avatar = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		},
+
 		showMap(){
 			this.$modal.show("show-map");
 		},
-
 		accept_file(val){
 			console.log(val);
 		},
-
 		show_criminals_information(){
+
+
 		},
 
 		register_criminal(){
@@ -125,13 +148,9 @@ export default {
 		handleAttachmentAdd(e){
 			if (e.attachment.file) {
 				let date = new Date();
-
 				let day = date.toISOString().slice(0, 10)
-
 				let name = date.getTime() + "-" + e.attachment.file.name
-
 				let id = [auth.currentUser.uid, day, name].join("/")
-
 				let upload = storage.ref().child(id).put(e.attachment.file)
 
 				console.log(upload); 
@@ -143,6 +162,7 @@ export default {
 						e.attachment.setAttributes({ url, id })
 					})
 				})*/
+			
 			}
 
 	// console.log(file);

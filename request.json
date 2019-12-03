@@ -1,0 +1,9 @@
+username: "chandler40"
+confirm_password: "secret"
+country_id: 566
+current_password: "secret"
+display_name: "Armstrong, Howell and Wisoky Inc"
+email: "wendy42@example.com"
+password: "secret"
+phone_number: "+1 (112) 498-4507"
+uploadUrl: "http://localhost:3000/api/v1/user/profiles/update"

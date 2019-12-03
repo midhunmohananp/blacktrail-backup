@@ -95,7 +95,7 @@ algolia-aerial@^1.5.3:
   resolved "https://registry.yarnpkg.com/algolia-aerial/-/algolia-aerial-1.5.3.tgz#c8b8ca6bc484164ffc7b36717689a424ea6bfe6c"
   integrity sha512-LZTpVlYnhqNFd+ru/Spm73omhsagiRQLmjrosa5bJ6/I9OMRp4Sb9pYZkAxcx3RSr+ZNXZqthL7rpXqMFdrnPA==
 
-algoliasearch@^3.31.0:
+algoliasearch@^3.31.0, algoliasearch@^3.35.1:
   version "3.35.1"
   resolved "https://registry.yarnpkg.com/algoliasearch/-/algoliasearch-3.35.1.tgz#297d15f534a3507cab2f5dfb996019cac7568f0c"
   integrity sha512-K4yKVhaHkXfJ/xcUnil04xiSrB8B8yHZoFEhWNpXg23eiCnqvTZw1tn/SqvdsANlYHLJlKl0qi3I/Q2Sqo7LwQ==
@@ -7182,6 +7182,16 @@ places.js@^1.16.1:
     events "^3.0.0"
     insert-css "^2.0.0"
 
+places.js@^1.17.1:
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/places.js/-/places.js-1.17.1.tgz#fc6ef07f5ee87ec332820d7d03ac4c894a8ff764"
+  integrity sha512-TzDw893Uo3121vmEg0oV5L0HVbxcHUyanaSmnwcMs0Zll1F83/06lNJRcMiiuwNQWIik6xY3BeDDZzpaMaOILA==
+  dependencies:
+    algoliasearch "^3.35.1"
+    autocomplete.js "^0.37.0"
+    events "^3.0.0"
+    insert-css "^2.0.0"
+
 pngquant-bin@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pngquant-bin/-/pngquant-bin-4.0.0.tgz#468adf7036f50fae09c9c264ef62b6d10c02f5c2"
@@ -9894,6 +9904,13 @@ vue-paypal-checkout@^3.2.0:
     babel-runtime "^6.26.0"
     paypal-checkout "^4.0.228"
     vue "^2.5.17"
+
+vue-places@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/vue-places/-/vue-places-2.1.1.tgz#6a5d91479c4a269e327868fb1f58dc3010785d67"
+  integrity sha512-1L5piUeP0a4OBS2UE/1puyM386Ees8e+WnDps4Vw6cXrJPxhk+88s5p0n8I/j6vb0OUbQodcotGZByOe8/xccA==
+  dependencies:
+    places.js "^1.17.1"
 
 vue-quick-chat@^1.0.5:
   version "1.0.5"

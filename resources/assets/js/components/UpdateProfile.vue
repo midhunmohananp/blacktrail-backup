@@ -16,20 +16,20 @@
 				</div>
 				<div class="flex inline-block">
 					<div id="input-group" class="w-2/5 mr-2">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Currently Used Password
+						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Old Password
 						</label>
-						<input type="password"  v-model="form.current_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="current_password" name="pin" autocomplete="name" placeholder="5000" required>
+						<input type="password" v-model="form.current_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="current_password" name="pin" autocomplete="name" placeholder="5000">
 					</div>
 					<div id="input-group" class="w-2/5 mr-2">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">New Password
 						</label>
-						<input v-validate="'required'" name="password" ref="password" type="password" v-model="form.password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="password"  autocomplete="name" placeholder="Password" required>
+						<input v-validate="'required'" name="password" ref="password" type="password" v-model="form.password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="password"  autocomplete="name" placeholder="Password">
 					</div>
 
 					<div id="input-group" class="w-2/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Confirm Password
+						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Confirm New Password
 						</label>
-						<input v-validate="'required|confirmed:password'" type="password" v-model="form.confirm_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="confirm_password" name="confirm_password" autocomplete="name" placeholder="5000" data-vv-as="password" required>
+						<input v-validate="'required|confirmed:password'" type="password" v-model="form.confirm_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="confirm_password" name="confirm_password" autocomplete="name" placeholder="5000" data-vv-as="password">
 					</div>				
 				</div>
 
@@ -64,8 +64,8 @@
 					<div id="input-group" class="ml-2 w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Country
 						</label>
-						<select id="country" class="bg-grey-lighter w-full mb-2 p-2 leading-normal">
-							<option v-for="country in countries" v-model="form.country_id" v-text="country.name"></option>
+						<select v-model="form.country_id" id="country" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" >
+							<option :selected="user.country_id" :value="country.id" :key="country.id" v-for="country in countries">{{ country.name }}</option>
 						</select>
 					</div>
 				</div>
@@ -76,11 +76,11 @@
 						</label>
 						<div class="card-body">
 							<div class="row">
-								<div class="col-md-3" v-if="form.image">
-									<img :src="form.image" class="img-responsive" height="70" width="90">
+								<div class="col-md-3" v-if="form.avatar">
+									<img :src="form.avatar" class="img-responsive" height="70" width="90">
 								</div>
 								<div class="col-md-6">
-									<input type="file" v-on:change="onImageChange" class="form-control">
+									<input type="file" v-on:change="onAvatarChange" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -89,8 +89,7 @@
 
 				<div class="mt-4 flex inline-block">
 					<div id="input-group" class="w-full">	
-						<button @click="submitButton" class="bg-blue text-white p-4 w-full">Submit
-						</button>
+						<button class="bg-blue text-white p-4 w-full">Submit</button>
 					</div>
 				</div>
 			</form>
@@ -104,7 +103,6 @@
 	</div>
 </template>
 <script>
-import UploadImage from 'vue-upload-image';
 import urls from './scripts/endpoints.js';
 export default {
 	name: 'UpdateProfile',
@@ -117,21 +115,23 @@ export default {
 			type : Array, 
 			required : null
 		}
-	},
+	},	
 	data () {
 		return {
 			maxFiles : 1,
+			avatar: '',
 			form : { 
-				image: '',
+				country_id : this.user.country_id,
 				username : this.user.username, 
 				email : this.user.email, 
+				id : this.user.id, 
 				current_password : "",
+				avatar : "",
 				password : "", 
 				confirm_password : "", 
 				display_name : this.user.display_name,
 				phone_number : this.user.phone_number,
-				country_id : this.user.country_id,
-				uploadUrl : urls.update_profiles_endpoint,
+				// uploadUrl : urls.update_profiles_endpoint,
 			},
 			countries : this.country,
 			rules: [
@@ -147,25 +147,25 @@ export default {
 		}
 	},
 	methods : { 
-		uploadImageSuccess: function(result){
-			console.log(result);
-		},
-		onImageChange(e) {
+		
+		onAvatarChange(e) {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length)
 				return;
-			this.createImage(files[0]);
+			this.createAvatar(files[0]);
 		},
-		createImage(file) {
+
+		createAvatar(file) {
 			let reader = new FileReader();
 			let vm = this;
 			reader.onload = (e) => {
-				vm.image = e.target.result;
+				vm.form.avatar = e.target.result;
 			};
 			reader.readAsDataURL(file);
 		},
+		
 		uploadImage(){
-			axios.post(this.endpoint,{ image: this.image})
+			axios.post(this.endpoint,{ avatar: this.avatar})
 			.then(response => {
 				if (response.data.success) {
 					alert(response.data.success);
@@ -174,15 +174,7 @@ export default {
 				console.log(error);
 			});
 		},
-		uploadImageAttempt(res){
-			console.log(res);
-		},
-		uploadImageSubmitted(res){
-			console.log(res);
-		},
-		uploadImageRemoved(res){
-			console.log(res)
-		},
+		
 		validateBeforeSubmit() {
 			this.$validator
 			.validateAll()
@@ -199,42 +191,32 @@ export default {
 			});
 		},
 		submitProfile(){
-    /*		axios.put(this.endpoint, {
-    			params : { form : this.form }
-    		}).then(response => { 
-    			console.log(response.data);
-    		}).catch(error => {
-    			console.log(error);
-    		})*/
-    		axios.put(this.endpoint, { 
-    			params : { 
-    				form : this.form , 
-    				image : this.form.image
-    			}	 
-    		}).then(response => {
-    			console.log(response.data);
-    		}).catch(error => {
-    			console.log(error);
-    		});
-
-    	},
-    	resetPasswords () {
-    		this.password = ''
-    		this.checkPassword = ''
-    		this.submitted = true
-    		setTimeout(() => {
-    			this.submitted = false
-    		}, 2000)
-    	},
-    	togglePasswordVisibility () {
-    		this.passwordVisible = !this.passwordVisible
-    	}	
-    },
-    computed : { 
-    	endpoint(){
-    		return urls.update_profiles_endpoint;
-    	}
-    }
+			// let data = new FormData();
+			axios.put(this.endpoint, { 
+				form : this.form , 
+			}).then(response => {
+				console.log(response.data); 			
+			}).catch(error => {
+				alert(error.response.data.error);
+			});
+		},
+		resetPasswords(){
+			this.password = ''
+			this.checkPassword = ''
+			this.submitted = true
+			setTimeout(() => {
+				this.submitted = false
+			}, 2000)
+		},
+		togglePasswordVisibility () {
+			this.passwordVisible = !this.passwordVisible
+		}	
+	},
+	computed : { 
+		endpoint(){
+			return urls.update_profiles_endpoint;
+		}
+	}
 };
 </script>
 <style lang="css" scoped>

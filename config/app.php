@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        'Webpatser\Countries\CountriesServiceProvider'
+        'Webpatser\Countries\CountriesServiceProvider',
+        Intervention\Image\ImageServiceProvider::class
         // Srmklive\PayPal\Providers\PayPalServiceProvider::class
 
 
@@ -230,8 +231,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Countries' => 'Webpatser\Countries\CountriesFacade',
+        'Image' => Intervention\Image\Facades\Image::class
         // 'PayPal' => Srmklive\PayPal\Facades\PayPal::class
-
     ],
 
 ];
