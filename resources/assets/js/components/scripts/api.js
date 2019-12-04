@@ -16,7 +16,7 @@ export default {
 	app,
 	urlSaveCriminal ,
 	url_for_saving_photos
-}
+};
 
 
 // // or

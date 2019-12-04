@@ -78,6 +78,7 @@ export default {
 	},
 
 	methods : { 
+
 		onAvatarChange(e) {
 			let files = e.target.files || e.dataTransfer.files;
 			if (!files.length)
@@ -106,6 +107,7 @@ export default {
 		},
 
 		register_criminal(){
+			console.log(this.$refs.criminalsInfo);
 			console.log(this.endpoint);
 			axios.post(this.endpoint,{
 				form : this.form }	

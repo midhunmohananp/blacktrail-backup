@@ -46,13 +46,22 @@ class UsersController extends Controller
 		$password = request()->input('form.password');
 		$confirm_password = request()->input('form.confirm_password');
 
+		if (is_null($password) || is_null($confirm_password)) {
+			return response()->json(['error' => 'Then no need to setup'], 401);
+		}
+		else { 
+
+		}
+
 		/*if the two passwords don't match then issue a response*/
 		if ( $password !=  $confirm_password) {
 			return response()->json(['error' => 'Your Passwords do not match, try to fix it out'], 401);
 		}
 		// if the passwords match 
 		else { 
-				// check if the two passwords match with the current users_password( hashed)
+		
+
+
 			if(Hash::check($password, $logged_on_users_password)) {
 				return response()->json(['error' => 'Try using a different password since you have the same inputted password'], 401);
 			} else { 
@@ -71,7 +80,6 @@ class UsersController extends Controller
 					$image = request()->input('form.avatar');
 					$photo = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
 					\Image::make(request()->input('form.avatar'))->resize(100,100)->save(public_path('avatars\users').$photo);
-
 				}
 
 			// return response(request()->all());

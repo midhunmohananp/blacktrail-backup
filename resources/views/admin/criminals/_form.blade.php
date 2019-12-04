@@ -2,7 +2,7 @@
 <div class="mt-4">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Name
 	</label>
-	<input v-model="form.criminalsName" name="full_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Criminal Name" value="{{ old('full_name') }}" >	
+	<input v-model="form.criminals_name" name="full_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Criminal Name" value="{{ old('full_name') }}" >	
 </div>
 
 <div class="mb-2">
@@ -76,7 +76,7 @@
 	v-model="form.country.label"
 	class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin"
 	placeholder="Enter the full location details"
-	@change="val => { form.country.data = val }">
+	@change="val => { form.country.label = val }">
 </places>
 </div>	
 
