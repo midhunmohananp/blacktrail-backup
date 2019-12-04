@@ -37,13 +37,16 @@ class UsersController extends Controller
 // public function update_profile_of_the_user(CreateProfileRequest $request)
 	public function update_profile_of_the_user(Request $request)
 	{	
+		
+// the id of the user
 		$id = request()->input('form.id');
+		
 		$user = User::where('id',$id)->pluck('password');
 		$logged_on_users_password = $user[0];
 		$password = request()->input('form.password');
 		$confirm_password = request()->input('form.confirm_password');
 
-		/*if the two passwords don't match then*/
+		/*if the two passwords don't match then issue a response*/
 		if ( $password !=  $confirm_password) {
 			return response()->json(['error' => 'Your Passwords do not match, try to fix it out'], 401);
 		}
@@ -53,20 +56,22 @@ class UsersController extends Controller
 			if(Hash::check($password, $logged_on_users_password)) {
 				return response()->json(['error' => 'Try using a different password since you have the same inputted password'], 401);
 			} else { 
+				
 				$validator = Validator::make($request->input('form'), [
 					'display_name' => 'required|min:3|max:100',
 					'username' => 'required|unique:users|min:4|max:15',
-					'avatar' => 'required',	
 					'email' 	   => 'required|email|unique:users',
 					'phone_number' => 'required|min:3',
 					'password' 	   => 'min:6',
-					'country_id' => 'required|integer'
+					'country_id' => 'required|integer',
+					'avatar' => 'required'
 				]);
 
 				if(request()->input('form.avatar')){
 					$image = request()->input('form.avatar');
 					$photo = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-					\Image::make(request()->input('form.avatar'))->save(public_path('images').$photo);
+					\Image::make(request()->input('form.avatar'))->resize(100,100)->save(public_path('avatars\users').$photo);
+
 				}
 
 			// return response(request()->all());

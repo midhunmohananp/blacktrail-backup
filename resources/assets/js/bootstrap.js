@@ -1,6 +1,5 @@
 window._ = require('lodash');
 window.Pusher = require('pusher-js');
-
 import axios from 'axios';
 import Vue from 'vue' ;
 // import VueInputMultiple from 'vue-input-multiple';

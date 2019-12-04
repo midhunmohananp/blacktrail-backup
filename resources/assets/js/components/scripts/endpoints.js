@@ -1,5 +1,4 @@
 // used for returning api url's for xhr requests.
-
 import api from './api';
 
 const urlDomain = api.app ; 
@@ -17,6 +16,7 @@ const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
 const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
 const update_profile_endpoint = urlDomain + "/user/profiles/update/" +api.user.id;
 const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update";
+const show_profile_endpoint = urlDomain + "/user/profiles/"+api.user.id;
 
 export default { 
 	urlSaveCriminal ,
@@ -31,7 +31,8 @@ export default {
 	fetch_criminals_respondent,
 	fetch_messages_endpoint,
 	update_profile_endpoint,
-	update_profiles_endpoint
+	update_profiles_endpoint,
+	show_profile_endpoint
 	// save_photos_endpoint
 }
 

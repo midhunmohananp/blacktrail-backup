@@ -1,5 +1,4 @@
 <script>
-// import VueTrix from "vue-trix";
 import _ from "lodash";
 export default {
 	name: 'ReportCriminal',
@@ -11,7 +10,6 @@ export default {
 			}
 		}
 	},
-	// components: { VueTrix }, 
 	methods : {
 		showMap(){
 			this.$modal.show("show-map");

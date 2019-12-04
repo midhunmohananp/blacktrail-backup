@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\User;
 use App\Criminal ;
-
+use Illuminate\Validation\Validator ; 
 
 class CriminalsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * Display a listing of the resource
+.     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -55,26 +54,22 @@ class CriminalsController extends Controller
         /*
         If user is not logged on. or that he's not an adminstrator to the app
         */
-        if (auth()->check() === false || auth()->user()->isAdmin() === false) {
-         
+        if (auth()->check() === false && !auth()->user()->isAdmin()) {
             abort(401, 'Unauthorized.');
                 // return response('You are not authorized', 401);
         }
 
-        /*validate the request if the criminals' input is validated.. or just fine..*/
-        // dd(request()->all());
-        
-        $this->validate(request(), [
-            'criminals_name'            => 'required|string',
-            'alias'                     => 'required|string',
-            'contact_person'            => 'required|numeric',
-            'contact_number'            => 'required|string',
-            'last_seen'                 => 'required|string',
-            'status'                    => 'required|numeric',
-            'country_id'                => 'required|numeric',
-            'body'                      => 'required'
-        ]);
-        
+        $validator = Validator::make(request()->input('form'), [
+           'criminals_name'            => 'required|string',
+           'alias'                     => 'required|string',
+           'contact_person'            => 'required|numeric',
+           'contact_number'            => 'required|string',
+           'last_seen'                 => 'required|string',
+           'status'                    => 'required|numeric',
+           'country_id'                => 'required|numeric',
+           'body'                      => 'required'
+       ]);
+               
         $criminal = Criminal::create([
             'full_name'          =>             request()->input("criminals_name"),
             'alias'              =>             request()->input("alias"),
@@ -89,21 +84,20 @@ class CriminalsController extends Controller
         ]);
 
 /*        Post::create([
-         'full_name'          =>             request()->input("criminals_name"),
-         'alias'              =>             request()->input("alias"),
-         'posted_by'          =>             request()->input("contact_person"),
-         'contact_number'     =>             request()->input("contact_number"),
-         'status'             =>             request()->input("status"),
-         'country_id'         =>             request()->input("country_id"),
-     ]);*/
+'full_name'          =>             request()->input("criminals_name"),
+'alias'              =>             request()->input("alias"),
+'posted_by'          =>             request()->input("contact_person"),
+'contact_number'     =>             request()->input("contact_number"),
+'status'             =>             request()->input("status"),
+'country_id'         =>             request()->input("country_id"),
+]);
+*/
 
-
-
-        if (request()->wantsJson()) {
-            return response()->json($criminal, 201);
-        }
-
+     if (request()->wantsJson()) {
+        return response()->json($criminal, 201);
     }
+
+}
 
     /**
      * Display the specified resource.
@@ -113,12 +107,10 @@ class CriminalsController extends Controller
      */
     public function show($id)
     {
-        
-        $criminal = Criminal::with('profile','crimes','country')->findOrFail($id);
-        
-        // dd($criminal);
 
+        $criminal = Criminal::with('profile','crimes','country')->findOrFail($id);
         return view("admin.criminals.show",['criminal' => $criminal]) ; 
+            // dd($criminal)
     }
 
     /**

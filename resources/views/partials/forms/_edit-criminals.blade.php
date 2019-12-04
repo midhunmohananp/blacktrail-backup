@@ -106,7 +106,9 @@
 				<div class="flex inline-block">
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Description
-							<VueTrix v-model="form.complete_description" class="editor1" placeholder="Enter Content"/>
+							<template>
+								@trix(\App\CriminalInfo::class, 'complete_description')
+							</template>						
 						</label>
 					</div>
 				</div>

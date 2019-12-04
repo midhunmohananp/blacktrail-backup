@@ -5,11 +5,7 @@
 @endsection
 
 @section('content')
-{{-- <edit-criminal :admins="{{ $admins }}" :countries="{{ $countries }}" :criminal="{{ $criminal }}">
-	
+ <edit-criminal :admins="{{ $admins }}" :countries="{{ $countries }}" :criminal="{{ $criminal }}">
+ 	@include("partials.forms._edit-criminals")
 </edit-criminal>
---}}
-
-@include("partials.forms._edit-criminals")
-
 @endsection

@@ -23,13 +23,13 @@
 					<div id="input-group" class="w-2/5 mr-2">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">New Password
 						</label>
-						<input v-validate="'required'" name="password" ref="password" type="password" v-model="form.password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="password"  autocomplete="name" placeholder="Password">
+						<input v-validate name="password" ref="password" type="password" v-model="form.password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="password"  autocomplete="name" placeholder="Password">
 					</div>
 
 					<div id="input-group" class="w-2/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Confirm New Password
 						</label>
-						<input v-validate="'required|confirmed:password'" type="password" v-model="form.confirm_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="confirm_password" name="confirm_password" autocomplete="name" placeholder="5000" data-vv-as="password">
+						<input v-validate="'confirmed:password'" type="password" v-model="form.confirm_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="confirm_password" name="confirm_password" autocomplete="name" placeholder="5000" data-vv-as="password">
 					</div>				
 				</div>
 
@@ -120,7 +120,7 @@ export default {
 		return {
 			maxFiles : 1,
 			avatar: '',
-			form : { 
+			form : { 	
 				country_id : this.user.country_id,
 				username : this.user.username, 
 				email : this.user.email, 
@@ -190,12 +190,17 @@ export default {
 				console.log("not matched");
 			});
 		},
+
 		submitProfile(){
 			// let data = new FormData();
 			axios.put(this.endpoint, { 
 				form : this.form , 
 			}).then(response => {
-				console.log(response.data); 			
+				alert(response.data.success);
+				// location.reload();
+				let url = urls.show_profile_endpoint; 
+				location.replace(url);
+				console.log(url); 	
 			}).catch(error => {
 				alert(error.response.data.error);
 			});

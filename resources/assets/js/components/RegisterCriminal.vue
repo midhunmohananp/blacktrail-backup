@@ -1,11 +1,16 @@
 <script>
 import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
-import VueTrix from 'vue-trix';
 import Places from 'vue-places';
 import _ from "lodash";
 export default { 
-	components : { VueTrix, Places },
+	components : { Places },
+	props :  {
+		editor : {	
+			type : Object,
+			default : null
+		}
+	},
 	data(){
 		return { 
 			image : '',
@@ -36,7 +41,6 @@ export default {
 				required: false,
 				default: "default"
 			},
-
 			mainPhotoUrl: { // upload url
 				type: String,
 				required: true,
@@ -103,7 +107,9 @@ export default {
 
 		register_criminal(){
 			console.log(this.endpoint);
-			axios.post(this.endpoint,this.form)
+			axios.post(this.endpoint,{
+				form : this.form }	
+				)
 			.then(response => {
 				console.log(response.status);
 			}).catch(error => {
@@ -162,7 +168,7 @@ export default {
 						e.attachment.setAttributes({ url, id })
 					})
 				})*/
-			
+
 			}
 
 	// console.log(file);
