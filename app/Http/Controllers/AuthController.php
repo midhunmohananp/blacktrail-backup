@@ -27,7 +27,7 @@ class AuthController extends Controller
 	public function postLogin(Request $request)
 	{
 		// -> Validate the request. 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'pin' => 'required|string',
 			'password' => 'required|string',
 		]);
@@ -35,14 +35,20 @@ class AuthController extends Controller
 		$pin = request()->get('pin');
 		
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
+
 		$remember_me = request()->get('remember');
+
 		$password = request()->get('password');
+
 		$user = User::where("${field}",'=',$pin)->first();
 
+		// dd($user);
+
 		if ( is_null($user->confirmed_at) || $user->status === "0") {
-			// dd("sure you'd be redirected back because you don't have any ..");
+			dd("sure you'd be redirected back because you don't have any ..");
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
+
 		else {
 			if (Auth::attempt([$field => $pin ,'password' => $password])){
 				// dd(auth()->user()->role_id);
@@ -55,7 +61,8 @@ class AuthController extends Controller
 			}
 		}
 	}
-
+	
+	/**/
 	public function registerForm()
 	{
 		$roles = Role::select(['id','role_title'])->get() ;

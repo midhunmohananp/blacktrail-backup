@@ -1,5 +1,7 @@
 <!-- the content files are in  -->
 <script>
+import api from "./scripts/api.js";
+import urls from "./scripts/endpoints.js";
 export default {
 	props : ['criminal','admins','countries'],
 	components : { 
