@@ -13,6 +13,7 @@
         "beyondcode/laravel-confirm-email": "^1.5",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~4.0",
+        "geocoder-php/algolia-places-provider": "^0.1.1",
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "^2.5",
         "laravel/cashier": "~7.0",
@@ -20,7 +21,6 @@
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "pusher/pusher-php-server": "^4.1",
-        "te7a-houdini/laravel-trix": "^1.1",
         "themsaid/laravel-mail-preview": "^2.0",
         "webpatser/laravel-countries": "dev-master"
     },

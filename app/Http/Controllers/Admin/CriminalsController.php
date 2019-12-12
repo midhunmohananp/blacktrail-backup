@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\User;
+use Validator ; 
 use App\Criminal ;
-use Illuminate\Validation\Validator ; 
+// use Illuminate\Validation\Validator ; 
 
 class CriminalsController extends Controller
 {
@@ -15,16 +16,16 @@ class CriminalsController extends Controller
 .     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view("criminals");
-    }
+public function index()
+{
+    return view("criminals");
+}
 
 
-    public function showData(Request $request)
-    {
+public function showData(Request $request)
+{
 
-    }
+}
 
 
     /**
@@ -56,48 +57,54 @@ class CriminalsController extends Controller
         */
         if (auth()->check() === false && !auth()->user()->isAdmin()) {
             abort(401, 'Unauthorized.');
-                // return response('You are not authorized', 401);
+       // return response('You are not authorized', 401);
         }
+        
+        dd(request()->all());
 
         $validator = Validator::make(request()->input('form'), [
-           'criminals_name'            => 'required|string',
-           'alias'                     => 'required|string',
-           'contact_person'            => 'required|numeric',
-           'contact_number'            => 'required|string',
-           'last_seen'                 => 'required|string',
-           'status'                    => 'required|numeric',
-           'country_id'                => 'required|numeric',
-           'body'                      => 'required'
-       ]);
-               
-        $criminal = Criminal::create([
-            'full_name'          =>             request()->input("criminals_name"),
-            'alias'              =>             request()->input("alias"),
-            'posted_by'          =>             request()->input("contact_person"),
-            'contact_number'     =>             request()->input("contact_number"),
-            'status'             =>             request()->input("status"),
-            'country_id'         =>             request()->input("country_id"),
-        ])->profile()->create([
-            'country_last_seen'       =>        request()->input("last_seen"),
-            'bounty'                  =>        request()->input("bounty"),
-            'complete_description'    =>        request()->input("body")
+            'full_name' => 'required|string|min:120',
+            'contact_person'            => 'required|numeric',
+            'contact_number'            => 'required|string',
+            'last_seen'                 => 'required|string',
+            'status'                    => 'required|numeric',
+            'country_id'                => 'required|numeric',
+            'body'                      => 'required'
         ]);
 
-/*        Post::create([
-'full_name'          =>             request()->input("criminals_name"),
-'alias'              =>             request()->input("alias"),
-'posted_by'          =>             request()->input("contact_person"),
-'contact_number'     =>             request()->input("contact_number"),
-'status'             =>             request()->input("status"),
-'country_id'         =>             request()->input("country_id"),
-]);
-*/
+        $criminal = Criminal::create([
+            'full_name'         =>             request()->input("form.criminals_name"),
+            // 'last_name'          =>             request()->input("form.last_name"),
+            // 'middle_name'        =>             request()->input("form.middle_name"),
+            'alias'              =>             request()->input("form.alias"),
+            'posted_by'          =>             request()->input("form.contact_person"),
+            'contact_number'     =>             request()->input("form.contact_number"),
+            'status'             =>             request()->input("form.status"),
+            'country_id'         =>             request()->input("form.country_id"),
+        ])->profile()->create([
+            'last_seen'               =>                request()->input("form.last_seen"),
+            'bounty'                  =>        request()->input("form.bounty"),
+            'complete_description'    =>        "<div><!--block--><strong>Fill all description of the criminal that are not listed above such as :</strong><br><br>1. Height :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div>"
+        ]);
+            return response()->json($criminal, 201);
 
-     if (request()->wantsJson()) {
-        return response()->json($criminal, 201);
+/*
+if (request()->wantsJson()) {
+}*/
+
+
+
+        /*        Post::create([
+        'full_name'          =>             request()->input("criminals_name"),
+        'alias'              =>             request()->input("alias"),
+        'posted_by'          =>             request()->input("contact_person"),
+        'contact_number'     =>             request()->input("contact_number"),
+        'status'             =>             request()->input("status"),
+        'country_id'         =>             request()->input("country_id"),
+        ]);
+        */
+
     }
-
-}
 
     /**
      * Display the specified resource.

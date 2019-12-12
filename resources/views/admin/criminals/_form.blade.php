@@ -71,13 +71,12 @@
 		</svg>
 	</div>
 	{{-- <input v-model="form.last_seen" name="address_1" type="text" id="address-input" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="You can click on the map icon to show the map" required> --}}
-
 	<places
 	v-model="form.country.label"
 	class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin"
 	placeholder="Enter the full location details"
 	@change="val => { form.country.label = val }">
-</places>
+	</places>
 </div>	
 
 <div class="mb-2">
@@ -105,9 +104,10 @@
 <div class="mb-2 w-3/4">
 	<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
 	</label>
-	<template>
+	<VueTrix class="editor1" inputId="editor1" v-model="form.complete_description"/>
+{{-- 	<template>
 		@trix(\App\CriminalInfo::class, 'complete_description')
-	</template>
+	</template> --}}
 </div>
 
 <div class="mb-2">

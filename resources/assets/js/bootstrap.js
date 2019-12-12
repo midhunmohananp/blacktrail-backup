@@ -8,7 +8,6 @@ import moment from 'moment' ;
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
 import VueSweetalert2 from 'vue-sweetalert2';
-// import Trix from 'trix';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
@@ -35,8 +34,12 @@ const options = {
 
 Vue.use(VueSweetalert2, options);
 Vue.config.devtools = true ; 
+
 Vue.config.performance  = true ; 
+
 Vue.prototype.user = window.App.user;
+
+
 Vue.prototype.$http = axios;
 
 import Echo from "laravel-echo" ;

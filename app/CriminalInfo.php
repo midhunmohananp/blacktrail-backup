@@ -51,7 +51,7 @@ class CriminalInfo extends Model
 	{
 	// belongsTo(RelatedModel, foreignKey = criminal_id, keyOnRelatedModel = id)
 		return $this->belongsTo(Criminal::class,'criminal_id','id');
-	}
+		}
 
 	/*find or failing by Id.*/
 	public static function findOrFailById($id){ 
