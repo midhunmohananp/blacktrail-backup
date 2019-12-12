@@ -27,36 +27,37 @@ class AuthController extends Controller
 	public function postLogin(Request $request)
 	{
 		// -> Validate the request. 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'pin' => 'required|string',
 			'password' => 'required|string',
 		]);
 
 		$pin = request()->get('pin');
+		
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
+
 		$remember_me = request()->get('remember');
 		$password = request()->get('password');
-
 		$user = User::where("${field}",'=',$pin)->first();
-	
-		if ( is_null($user->confirmed_at) || $user->status === "0") {
-			// dd("sure you'd be redirected back because you don't have any ..");
+		if ( is_null($user->confirmed_at) || $user->status == "0") {
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
-
 		else {
 			if (Auth::attempt([$field => $pin ,'password' => $password])){
-				// dd(auth()->user()->role_id);
+    // dd(auth()->user()->role_id);
 				switch(auth()->user()->role_id){
-					/*the roles would be determined*/	
+					/*the roles would be determined*/
 					case 1 : return redirect()->route("admin.dashboard");
 					case 2 : return redirect()->route("admin.dashboard");
-					case 3 : return redirect()->to('/');			
+					case 3 : return redirect()->to('/');
 				}
+			} else {
+				dd('Auth failed!');
 			}
 		}
 	}
-
+	
+	/**/
 	public function registerForm()
 	{
 		$roles = Role::select(['id','role_title'])->get() ;
@@ -84,6 +85,7 @@ class AuthController extends Controller
 		if (request()->isJson()){
 			return response()->json("submitted through modal..");
 		}
+		
 		else {
 			try { 
 				$email = request()->get('email');

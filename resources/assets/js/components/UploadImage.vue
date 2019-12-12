@@ -22,7 +22,6 @@
     </form>
 </div>
 </template>
-
 <script>
 export default {
     name: 'upload-image',
@@ -82,7 +81,7 @@ export default {
         button_html: {
             type: String,
             required: false,
-            default: 'Upload the face of this Criminal'
+            default: 'Upload / Drag a Photo'
         },
         button_class: {
             type: String,

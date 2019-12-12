@@ -4,7 +4,6 @@
 * building robust, powerful web applications using Vue and Laravel.
 */		
 require('./bootstrap');
-
 /*when using turbolinks in your app.
 These don't mean that it would work since it means one thing these will not work w/ vue-router..
 */
@@ -31,7 +30,7 @@ Vue.component('groups-view', require('./components/Groups.vue'));
 Vue.component('register', require('./components/Register.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('report-criminal', require('./components/ReportCriminal'));	
-Vue.component('register-criminal', require('./components/RegisterCriminal'));	
+Vue.component('register-criminal', require('./components/RegisterCriminal.vue'));	
 Vue.component('criminal-map', require('./components/CriminalMap'));	
 Vue.component('user-filters', require('./components/UserFilters.vue'));	
 Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
@@ -49,7 +48,6 @@ Vue.component('site-header-two',require('./components/Layouts/SiteHeader2.vue'))
 Vue.component('convert-currency',require('./components/ConvertCurrency.vue'));
 Vue.component('paypal-checkout', PayPal);	
 Vue.component("setup-billing",require("./components/App/SetupBilling.vue"));
-
 Vue.component("create-entry",require("./components/CreateEntry.vue"));
 
 /*unnecessary components*/
@@ -77,7 +75,9 @@ Vue.filter("format-currency",function(value){
 	// return (val / 200 ).t
 });	
 
-Vue.config.ignoredElements = ['vuetrix'];
+
+// Somewhere in your code where you have access to the Vue instance
+
 const app = new Vue({
 	el: '#app',
 	data(){
@@ -85,7 +85,7 @@ const app = new Vue({
 			user_info: "",
 		}
 	},
-	
+	/*
 	beforeRouteEnter (to, from, next) {
 		getPost(to.params.id, (err, post) => {
 			next(vm => vm.setData(err, post))
@@ -94,7 +94,7 @@ const app = new Vue({
 
 	beforeRouteUpdate(){
 
-	},
+	},*/
 	router
 });
 

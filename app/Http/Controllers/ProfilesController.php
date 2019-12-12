@@ -23,10 +23,17 @@ class ProfilesController extends Controller
 		return view('profiles.home', [ 'profileUser' => $profileUser]);
 	}
 
+	public function updateProfileView()
+	{	
+		return view('profiles.update');
+	}	
+
 	public function updateProfile()
 	{	
-		// return view('profiles.billing');
+		return response()->json(request()->all());
 	}	
+
+	
 	public function billing()
 	{	
 		return view('profiles.billing');
@@ -34,6 +41,7 @@ class ProfilesController extends Controller
 
 	public function store_billing_profile()
 	{	
+		dd(request()->all());	
 		// i'm getting request() data/
 
 		// client_id, secret_key from paypal
@@ -61,8 +69,6 @@ class ProfilesController extends Controller
 		->setPayer($payer)
 		->setTransactions(array($transaction))
 		->setRedirectUrls($redirectUrls);
-
-
 		// After Step 3
 		try {
 			$payment->create($apiContext);
@@ -71,8 +77,8 @@ class ProfilesController extends Controller
 			echo "\n\nRedirect user to approval_url: " . $payment->getApprovalLink() . "\n";
 		}
 		catch (\PayPal\Exception\PayPalConnectionException $ex) {
-    // This will print the detailed information on the exception.
-    //REALLY HELPFUL FOR DEBUGGING
+			    // This will print the detailed information on the exception.
+			    //REALLY HELPFUL FOR DEBUGGING
 			echo $ex->getData();
 		}
 

@@ -5,7 +5,7 @@ require('laravel-mix-tailwind');
 /*
 |--------------------------------------------------------------------------
 | Mix Asset Management		
-|--------------------------------------------------------------------------
+|-------------------------------------	-------------------------------------
 |
 | Mix provides a clean, fluent API for defining some Webpack build steps
 | for your Laravel application. By default, we are compiling the Sass
@@ -23,5 +23,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 
 if (mix.inProduction()) {
-  mix.minTemplate('storage/framework/views/*.php', 'storage/framework/views/')
+	mix.minTemplate('storage/framework/views/*.php', 'storage/framework/views/')
 }

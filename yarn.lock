@@ -95,7 +95,7 @@ algolia-aerial@^1.5.3:
   resolved "https://registry.yarnpkg.com/algolia-aerial/-/algolia-aerial-1.5.3.tgz#c8b8ca6bc484164ffc7b36717689a424ea6bfe6c"
   integrity sha512-LZTpVlYnhqNFd+ru/Spm73omhsagiRQLmjrosa5bJ6/I9OMRp4Sb9pYZkAxcx3RSr+ZNXZqthL7rpXqMFdrnPA==
 
-algoliasearch@^3.31.0:
+algoliasearch@^3.31.0, algoliasearch@^3.35.1:
   version "3.35.1"
   resolved "https://registry.yarnpkg.com/algoliasearch/-/algoliasearch-3.35.1.tgz#297d15f534a3507cab2f5dfb996019cac7568f0c"
   integrity sha512-K4yKVhaHkXfJ/xcUnil04xiSrB8B8yHZoFEhWNpXg23eiCnqvTZw1tn/SqvdsANlYHLJlKl0qi3I/Q2Sqo7LwQ==
@@ -7182,6 +7182,16 @@ places.js@^1.16.1:
     events "^3.0.0"
     insert-css "^2.0.0"
 
+places.js@^1.17.1:
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/places.js/-/places.js-1.17.1.tgz#fc6ef07f5ee87ec332820d7d03ac4c894a8ff764"
+  integrity sha512-TzDw893Uo3121vmEg0oV5L0HVbxcHUyanaSmnwcMs0Zll1F83/06lNJRcMiiuwNQWIik6xY3BeDDZzpaMaOILA==
+  dependencies:
+    algoliasearch "^3.35.1"
+    autocomplete.js "^0.37.0"
+    events "^3.0.0"
+    insert-css "^2.0.0"
+
 pngquant-bin@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pngquant-bin/-/pngquant-bin-4.0.0.tgz#468adf7036f50fae09c9c264ef62b6d10c02f5c2"
@@ -9771,7 +9781,7 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vee-validate@^2.1.7:
+vee-validate@^2.2.15:
   version "2.2.15"
   resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.2.15.tgz#dc6c925d21e57288d3308fe5a39a0941036c575a"
   integrity sha512-4TOsI8XwVkKVLkg8Nhmy+jyoJrR6XcTRDyxBarzcCvYzU61zamipS1WsB6FlDze8eJQpgglS4NXAS6o4NDPs1g==
@@ -9895,6 +9905,13 @@ vue-paypal-checkout@^3.2.0:
     paypal-checkout "^4.0.228"
     vue "^2.5.17"
 
+vue-places@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/vue-places/-/vue-places-2.1.1.tgz#6a5d91479c4a269e327868fb1f58dc3010785d67"
+  integrity sha512-1L5piUeP0a4OBS2UE/1puyM386Ees8e+WnDps4Vw6cXrJPxhk+88s5p0n8I/j6vb0OUbQodcotGZByOe8/xccA==
+  dependencies:
+    places.js "^1.17.1"
+
 vue-quick-chat@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/vue-quick-chat/-/vue-quick-chat-1.0.5.tgz#c4ca50001eed95890520ce346cc564348a36638f"
@@ -9943,10 +9960,10 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-trix@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/vue-trix/-/vue-trix-1.1.4.tgz#73fbb6c16ac8d7d68d0265cce2b67f53375a4ffd"
-  integrity sha512-+ARcnBSxNvhFZ6Po8iymOIO8dLFsOCcW2Ru3WYGdk4HUMcRcffpYM2raq94KwwPhhlutcabnipWFqlRhlBjPhg==
+vue-trix@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/vue-trix/-/vue-trix-1.1.6.tgz#76a62c4af7818a971a6e691adc979f090725c548"
+  integrity sha512-OyEGLNJWg2hxLJC/p4rRYvzACzPlystGcisiH9G/sVB+CyyBj4hjLlg6UguwBdYVl+gwZ7siGzc+i0U9MWkMFA==
   dependencies:
     trix "^1.2.1"
 

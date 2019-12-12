@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 class CriminalInfo extends Model
 {
+	
 	use HasTrixRichText;
 	protected $table = 'criminal_profiles';
 	protected $guarded = [];
@@ -51,7 +51,7 @@ class CriminalInfo extends Model
 	{
 	// belongsTo(RelatedModel, foreignKey = criminal_id, keyOnRelatedModel = id)
 		return $this->belongsTo(Criminal::class,'criminal_id','id');
-	}
+		}
 
 	/*find or failing by Id.*/
 	public static function findOrFailById($id){ 

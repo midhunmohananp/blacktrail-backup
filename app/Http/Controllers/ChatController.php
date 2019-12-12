@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\User ; 
 use App\Criminal ; 
-
 class ChatController extends Controller
 {
 	
@@ -33,4 +30,5 @@ class ChatController extends Controller
 	{
 		return view('chat');
 	}
+
 }
