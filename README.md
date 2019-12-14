@@ -7,10 +7,10 @@
 
 ### Features 
 
-1. Chat feature from law enforcement agencies to their
+1. Chat feature from ordinary people to connect to law enforcement agencies.
 2. Using Paypal
 
---- 
+---
 Stack used :
 
 1. Laravel
