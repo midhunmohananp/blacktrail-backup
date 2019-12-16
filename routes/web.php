@@ -10,7 +10,6 @@ Route::get("/test/email/send",function(){
 Mail::send('')
 });*/
 
-
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
 	'middleware' => 'isAdmin', 

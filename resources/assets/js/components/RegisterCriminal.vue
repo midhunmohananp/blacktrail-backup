@@ -106,7 +106,7 @@
 			class="editor1" 
 			inputId="editor1"
 			v-model="form.complete_description"
-			@trix-file-accept="handleFile"
+			@trix-file-accept="handleFile"			
 			@trix-attachment-add="handleAttachmentAdd"
 			@trix-attachment-remove="handleAttachmentRemove"
 			/>
@@ -166,7 +166,9 @@ export default {
 			attachments : [],
 			country_id : 1, 
 			uploadUrl: urls.urlSaveCriminal,
+
 		},
+		withFiles: { type: Boolean, default: true },
 		input_id: { // Id of upload control
 			type: String,
 			required: false,
@@ -199,32 +201,85 @@ computed : {
 	endpoint(){
 		return urls.urlSaveCriminal   ;
 	},
-
+	
 	storePhotosUrl(){
 		return urls.urlSavePhotos   ;
 	},
-
+	
+	removePhotosUrl(){
+		return urls.urlRemovePhotosUrl   ;
+	},
+	
 	loggedOnUsersName(){
 		return api.user.display_name ; 
-	}
-},
-
-
-computed : { 
+	},
+	
 	last_seen(){
 		return this.form.country.label;
+	},
+
+	send_attachment_endpoint(){
+		return urls.url_for_saving_photos;
+	},
+
+	remove_attachment_endpoint(){
+		return urls.url_for_removing_photos;
 	}
 },
+
 methods : { 
 	handleFile(file){
-		console.log("Handling file",file);
+		if (!this.withFiles) {
+			e.preventDefault();
+		}
 	},
-	handleAttachmentAdd(){
-		console.log("Handling added attachment",file);
+	
+	handleAttachmentAdd(event){
+		var attachment = event.attachment;
+		console.log(attachment);
+		if (attachment.file){
+			var file = attachment.file ; 
+
+			var form = new FormData;
+			form.append("Content-Type",file.type);
+			form.append("Content-Type",file);
+
+			var xhr = new XMLHttpRequest;
+
+			xhr.open("POST", this.send_attachment_endpoint, true);
+
+			xhr.upload.onprogress = function(event) {
+				var progress = event.loaded / event.total * 100;
+				attachment.setUploadProgress(progress);
+			};
+					xhr.onload = function() {
+				if (xhr.status === 201) {
+					setTimeout(function() {
+						var url = xhr.responseText;
+						attachment.setAttributes({ url: url, href: url });
+					}, 30)
+				}
+			};
+
+			attachment.setUploadProgress(10);
+				setTimeout(function() {
+				xhr.send(attachment.file);
+			}, 30)
+			} 
+		else { 
+			console.log("ok,... another here");
+		}
 	},
+	
 	handleAttachmentRemove(file){
-		console.log("Handling remove attachment",file);
+		axios.post(this.remove_attachment_endpoint)
+		.then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log(error);
+		})
 	},
+
 	onAvatarChange(e) {
 		let files = e.target.files || e.dataTransfer.files;
 		if (!files.length)
@@ -244,13 +299,11 @@ methods : {
 	showMap(){
 		this.$modal.show("show-map");
 	},
+
 	accept_file(val){
 		console.log(val);
 	},
-	show_criminals_information(){
-
-
-	},
+	show_criminals_information(){},
 
 	register_criminal(){
 		// console.log(this.endpoint);	
@@ -258,7 +311,7 @@ methods : {
 			form : this.form 
 		}).then(response => {
 			// console.log(response.status);
-			console.log(response);
+			console.log(response.status);
 		}).catch(error => {
 			console.log(error);
 		});
@@ -297,37 +350,8 @@ methods : {
 			})
 		}
 	},
-
-	handleAttachmentAdd(e){
-		if (e.attachment.file) {
-			let date = new Date();
-			let day = date.toISOString().slice(0, 10)
-			let name = date.getTime() + "-" + e.attachment.file.name
-			let id = [auth.currentUser.uid, day, name].join("/")
-			let upload = storage.ref().child(id).put(e.attachment.file)
-
-			console.log(upload); 
-		/*	upload.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
-				e.attachment.setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-			})
-			upload.then(ref => {
-				ref.ref.getDownloadURL().then(url => {
-					e.attachment.setAttributes({ url, id })
-				})
-			})*/
-
-		}
-
-// console.log(file);
-
-
-// axios.post("")
-
-},
-handleAttachmentRemove(file){
-	this.form.attachments = null ;
-},
 }
+
 };	
 </script>
 <style>

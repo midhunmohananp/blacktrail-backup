@@ -1,7 +1,7 @@
 @extends('layouts.master')	
 @section('title', 'Edit criminal Profile')
 @section('styles')
-	@trixassets	
+
 @endsection
 
 @section('content')
