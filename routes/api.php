@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,7 +17,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::get('/groups', 'GroupsController@getAll');
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
-
+	
 	/*retrieving respondent of the criminal's information*/
 	Route::get("/respondent/criminal","Api\CriminalsController@fetch_respondent");
 	Route::get("/respond/criminal/{criminal}","ChatController@send_chat");

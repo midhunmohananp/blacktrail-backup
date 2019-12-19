@@ -1,4 +1,4 @@
-e<template>
+<template>
 	<div class="ml-4 mt-4 p-4 w-1/2 bg-white">
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
@@ -111,7 +111,7 @@ e<template>
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound Value of Trix
 				</label>
 			</div>
-			<textarea class="bg-grey-lighter p-4" rows="4" cols="50" v-model="form.complete_description"></textarea>
+			<textarea class="bg-grey-lighter p-4 h-32 w-32" rows="" cols="50" v-model="form.complete_description"></textarea>
 		</div>	
 
 		<div class="mb-2 w-3/4">
@@ -238,7 +238,7 @@ computed : {
 	
 	last_seen(){
 		return this.form.country.label;
-	},
+	},	
 
 	send_attachment_endpoint(){
 		return urls.url_for_saving_photos;
@@ -257,41 +257,98 @@ methods : {
 		}
 	},
 
-	handleAttachmentAdd(event){
-		var attachment = event.attachment;	
-		if (attachment.file){
-			var xhr = new XMLHttpRequest;
-			xhr.open("POST", this.send_attachment_endpoint, true);
-			xhr.setRequestHeader("X-CSRF-Token", window.App.csrfToken);
-			xhr.upload.onprogress = function(event) {
-				var progress = event.loaded / event.total * 100;
-				attachment.setUploadProgress(progress);
-			};
 
-			xhr.onload = function() {
-				if (xhr.status === 201) {
-					var data = JSON.parse(xhr.responseText);
-					console.log("Data"+data);
-					return attachment.setAttributes({
-						url: data.url, 
-						href: 	data.url 
-					})
-					
-				/*	setTimeout(function() {
-						var url = xhr.responseText;
-						return attachment.setAttributes({ url: url, href: url });
-					}, 30)*/
-				}
-			};
-			
-			attachment.setUploadProgress(10);
-			setTimeout(function() {
-				xhr.send(attachment.file);
-			}, 30)
-		} else { 
-			return response("no file");
+	uploadAttachment(file,progressCallback,successCallback){
+		if(file == undefined){
+			return;
 		}
+		console.log('uploading!');
+		let formData = new FormData();
+		formData.append('file', file);
+		formData.append('attachable_type','App\CriminalInfo');
+		formData.append('field','complete_description');
+		axios.post(this.send_attachment_endpoint, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+			onUploadProgress: (progressEvent) => {
+				const totalLength = progressEvent.lengthComputable
+				? progressEvent.total
+				: progressEvent.target.getResponseHeader('content-length') ||
+				progressEvent.target.getResponseHeader('x-decompressed-content-length');
+				console.log('onUploadProgress', totalLength);
+				if (totalLength !== null) {
+					const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
+					progressCallback(progressData);
+				}
+			},
+		})
+		.then((response) => {
+			progressCallback(100);
+			console.log('SUCCESS!!', response);
+		})
+		.catch((error) => {
+			console.log('FAILURE!!', error);
+		});
 	},
+
+	handleAttachmentAdd(event){
+
+		var attachment = event.attachment.attachment;
+		if(attachment.file == undefined){
+			return;
+		}
+		
+		this.uploadAttachment(attachment.file, setProgress, setAttributes)
+
+		function setProgress(progress) {
+			attachment.setUploadProgress(progress)
+		}
+
+		function setAttributes(attributes) {
+			attachment.setAttributes(attributes)
+		}
+
+		return ;
+
+
+
+		/*var attachment = event.attachment;
+		console.log(attachment);
+		if (attachment.file){		
+			const data = attachment;
+			const config = {
+				onUploadProgress: progressEvent => {
+					var progress = progressEvent.loaded / progressEvent.total * 100;
+					attachment.setUploadProgress(progress);
+				}
+			}
+
+			axios.post(this.send_attachment_endpoint,data,config)
+			.then((response) => {
+				console.log("Response is:");
+				console.log(response);
+				if (response.status === 201) {
+					setTimeout(function() {
+						var url = response.data;
+						attachment.setAttributes({ url: url, href: url });
+					}, 30)
+				}
+				console.log(response.data);
+			}).catch(error => console.log(error));
+				attachment.setUploadProgress(10);
+				setTimeout(function(e) {
+					console.log("Set TimeOut:");
+					console.log(e);
+					// var url = xhr.responseText;
+					// return attachment.setAttributes({ url: url, href: url });
+				}, 30)
+		}
+		else { 
+			return response("No file uploaded here",401);
+		}*/
+
+	}, 
 
 	/*async handleAttachmentAdd(evt){
 		let file = evt.attachment.file
