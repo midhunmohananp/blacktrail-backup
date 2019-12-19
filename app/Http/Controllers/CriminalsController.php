@@ -5,7 +5,8 @@ use App\Criminal ;
 use App\User ; 
 use App\Exceptions\UserRegistrationException; 
 use Rule ; 
-use App\Country ; 
+use App\Country;
+ 
 class CriminalsController extends Controller
 {
 

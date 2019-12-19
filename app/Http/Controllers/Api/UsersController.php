@@ -37,7 +37,6 @@ class UsersController extends Controller
 // public function update_profile_of_the_user(CreateProfileRequest $request)
 	public function update_profile_of_the_user(Request $request)
 	{	
-		
 // the id of the user
 		$id = request()->input('form.id');
 		
@@ -59,9 +58,7 @@ class UsersController extends Controller
 		}
 		// if the passwords match 
 		else { 
-		
-
-
+	
 			if(Hash::check($password, $logged_on_users_password)) {
 				return response()->json(['error' => 'Try using a different password since you have the same inputted password'], 401);
 			} else { 

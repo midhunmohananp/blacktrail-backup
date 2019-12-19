@@ -24,7 +24,7 @@
 
       document.addEventListener("trix-attachment-add", function(event) {
 	        var attachment = event.attachment;
-	        if (attachment.file) {
+	        if (attachment.file){
 	          var xhr = new XMLHttpRequest;
 	          xhr.open("POST", "/attachments", true);
 	          xhr.upload.onprogress = function(event) {

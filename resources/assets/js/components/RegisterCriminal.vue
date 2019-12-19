@@ -1,12 +1,20 @@
-<template>
+e<template>
 	<div class="ml-4 mt-4 p-4 w-1/2 bg-white">
-		<form @submit.prevent="register_criminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
+		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
+			<div class="flex inline-block">
 
-			<div class="mt-4">
-				<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminal's Name
-				</label>
-				<input v-model="form.criminals_name" name="criminals_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="name" placeholder="Criminal Name" value="" >	
+				<div class="mt-4 w-1/2 mr-1">
+					<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name
+					</label>
+					<input v-model="form.first_name" name="first_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="first_name" placeholder="First Name" value="" >	
+				</div>
+
+				<div class="mt-4 w-1/2">
+					<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Name
+					</label>
+					<input v-model="form.last_name" name="last_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="last_name" placeholder="Last Name" value="" >	
+				</div>
 			</div>
 
 			<div class="mb-2">
@@ -17,9 +25,8 @@
 			<div class="mb-2">
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">If found, Report this to:
 				</label>
-				<select v-model="form.contact_person" name="contact_person"  class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" >
-					<!-- foreach ($admins as $admin) -->
-					<option v-for="admin in admins" value="admin.id">{{  admin.display_name }}</option>
+				<select v-model="form.posted_by" name="posted_by"  class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" >
+					<option v-for="admin in admins" :value="admin.id" v-text="admin.display_name"></option>
 				</select>
 			</div>	
 
@@ -98,6 +105,14 @@
 				<option v-for="country in countries" :value="country.id">{{  country.name }}</option>
 			</select>
 		</div>	
+		
+		<div class="mb-2">
+			<div class="flex">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound Value of Trix
+				</label>
+			</div>
+			<textarea class="bg-grey-lighter p-4" rows="4" cols="50" v-model="form.complete_description"></textarea>
+		</div>	
 
 		<div class="mb-2 w-3/4">
 			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
@@ -105,17 +120,18 @@
 			<VueTrix
 			class="editor1" 
 			inputId="editor1"
-			v-model="form.complete_description"
-			@trix-file-accept="handleFile"			
-			@trix-attachment-add="handleAttachmentAdd"
 			@trix-attachment-remove="handleAttachmentRemove"
+			@trix-attachment-add="handleAttachmentAdd"
+			v-model="form.complete_description"
 			/>
 		</div>
+
 
 		<div class="mb-2 w-3/4">
 			<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
 		</div>
 	</form>	
+
 </div>
 </template>
 <script>
@@ -123,11 +139,16 @@ import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
 import Places from 'vue-places';
 import VueTrix from "vue-trix";
-import _ from "lodash";
+import _ from "lodash"; 
 export default { 
 	components : { 
 		'VueTrix' : VueTrix,
 		'places' : Places, 
+	},
+	watch : { 
+		question:function(newQuestion, oldQuestion){
+
+		}
 	},
 	props :  {
 		admins : { 
@@ -145,10 +166,12 @@ export default {
 	},
 	data(){
 		return { 
-			image : '',
+			image : "",
 			form : {
 				complete_description : null,
 				alias : "",
+				first_name : "",
+				last_name : "",
 				country: {
 					label: null,
 					data: {},
@@ -160,13 +183,12 @@ export default {
 				placeholder:  "Well..",
 				status : 1 , 
 				bounty : "",
-				contact_person : api.user.id , 
+				posted_by : api.user.id , 
 			// contact_number : api.user.phone_number , 
 			contact_number : "",
 			attachments : [],
 			country_id : 1, 
 			uploadUrl: urls.urlSaveCriminal,
-
 		},
 		withFiles: { type: Boolean, default: true },
 		input_id: { // Id of upload control
@@ -228,59 +250,77 @@ computed : {
 },
 
 methods : { 
+	
 	handleFile(file){
 		if (!this.withFiles) {
 			e.preventDefault();
 		}
 	},
-	
+
 	handleAttachmentAdd(event){
-		var attachment = event.attachment;
-		console.log(attachment);
+		var attachment = event.attachment;	
 		if (attachment.file){
-			var file = attachment.file ; 
-
-			var form = new FormData;
-			form.append("Content-Type",file.type);
-			form.append("Content-Type",file);
-
 			var xhr = new XMLHttpRequest;
-
 			xhr.open("POST", this.send_attachment_endpoint, true);
-
+			xhr.setRequestHeader("X-CSRF-Token", window.App.csrfToken);
 			xhr.upload.onprogress = function(event) {
 				var progress = event.loaded / event.total * 100;
 				attachment.setUploadProgress(progress);
 			};
-					xhr.onload = function() {
+
+			xhr.onload = function() {
 				if (xhr.status === 201) {
-					setTimeout(function() {
+					var data = JSON.parse(xhr.responseText);
+					console.log("Data"+data);
+					return attachment.setAttributes({
+						url: data.url, 
+						href: 	data.url 
+					})
+					
+				/*	setTimeout(function() {
 						var url = xhr.responseText;
-						attachment.setAttributes({ url: url, href: url });
-					}, 30)
+						return attachment.setAttributes({ url: url, href: url });
+					}, 30)*/
 				}
 			};
-
+			
 			attachment.setUploadProgress(10);
-				setTimeout(function() {
+			setTimeout(function() {
 				xhr.send(attachment.file);
 			}, 30)
-			} 
-		else { 
-			console.log("ok,... another here");
+		} else { 
+			return response("no file");
 		}
 	},
-	
+
+	/*async handleAttachmentAdd(evt){
+		let file = evt.attachment.file
+		let form = new FormData()
+		form.append('Content-Type', file.type)
+		form.append('image', file)
+		const resp = await this.$store.dispatch('imageUpload', form)
+		evt.attachment.setUploadProgress(100)
+		console.log(resp)
+		evt.attachment.setAttributes({
+			url: resp.data.url,
+			href: resp.data.url
+		})
+	},*/
+
 	handleAttachmentRemove(file){
-		axios.post(this.remove_attachment_endpoint)
+		console.log("Trying to delete");
+		console.log(file);
+		/*axios.delete(this.remove_attachment_endpoint,{ 
+			url : 
+		})
 		.then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log(error);
-		})
+		})*/
 	},
 
-	onAvatarChange(e) {
+	onAvatarChange(e){
 		let files = e.target.files || e.dataTransfer.files;
 		if (!files.length)
 			return;
@@ -305,7 +345,7 @@ methods : {
 	},
 	show_criminals_information(){},
 
-	register_criminal(){
+	registerCriminal(){
 		// console.log(this.endpoint);	
 		axios.post(this.endpoint,{
 			form : this.form 
@@ -313,7 +353,11 @@ methods : {
 			// console.log(response.status);
 			console.log(response.status);
 		}).catch(error => {
-			console.log(error);
+			alert(error.response.data.message);
+			// console.log(error);
+			if ( error.statusCode == 406){
+				// alert(error.message);
+			}
 		});
 
 			// console.log("Pressed on the button");
@@ -359,6 +403,12 @@ methods : {
 	border-radius: 15px;
 	@apply .bg-grey-lighter .w-auto;
 }
+
+.trix-content{
+	height: 200px;
+	overflow-y: auto;
+}
+
 /* .trix-toolbar .trix-button-group:not(:first-child) {
 margin-left: -0.1vw;
 }
