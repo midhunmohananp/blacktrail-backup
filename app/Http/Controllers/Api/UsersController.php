@@ -74,9 +74,12 @@ class UsersController extends Controller
 				]);
 
 				if(request()->input('form.avatar')){
+
 					$image = request()->input('form.avatar');
+				
 					$photo = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
 					\Image::make(request()->input('form.avatar'))->resize(100,100)->save(public_path('avatars\users').$photo);
+				
 				}
 
 			// return response(request()->all());

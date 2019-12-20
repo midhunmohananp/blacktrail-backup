@@ -4,7 +4,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class Criminal extends Model
 {
+
 	protected $guarded = [];
+
 	protected static $imageFields = [
 		'avatar'
 	];
@@ -107,21 +109,40 @@ class Criminal extends Model
 		return $this->first_name ."" .$this->last_name ; 
 	}
 
-/**
-	 * Criminal belongs to Respondent.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-public function respondent()
-{
-		// belongsTo(RelatedModel, foreignKey = respondent_id, keyOnRelatedModel = id)
-	return $this->belongsTo(User::class,'posted_by','id');
-}	
-
-// Define the "full_name" property accessor.
-/*	public function getFullNameAttribute()
+	/**
+	* Criminal belongs to Respondent.
+	*
+	* @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	*/
+	public function respondent()
 	{
+	// belongsTo(RelatedModel, foreignKey = respondent_id, keyOnRelatedModel = id)
+		return $this->belongsTo(User::class,'posted_by','id');
+	}	
+
+		// Define the "full_name" property accessor.
+		/*	public function getFullNameAttribute()
+		{
 		return $this->first_name ." " .$this->last_name ; 
 	}*/
 
+	public static function saveCriminal($request, $file_name = 'default_avatar.jpg'){
+		return Criminal::create([
+			'first_name'         =>             $request->input("form.first_name"),
+			'last_name'         =>              $request->input("form.last_name"),
+			'alias'              =>             $request->input("form.alias"),
+			'country_id'         =>             $request->input("form.country_id"),
+			'last_name'          =>             $request->input("form.last_name"),
+			'middle_name'        =>             $request->input("form.middle_name"),
+			'posted_by'          =>             $request->input("form.posted_by"),
+			'contact_number'     =>             $request->input("form.contact_number"),
+			'status'             =>             $request->input("form.status"),
+			'photo'				 => 			$file_name
+		])->profile()->create([
+			'country_last_seen'     =>        $request->input("form.last_seen"),
+			'bounty'                =>        $request->input("form.bounty"),
+			'complete_description'  =>        $request->input("form.complete_description")
+		]);
+
+	}
 }

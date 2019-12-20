@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<div class="ml-4 mt-4 p-4 w-1/2 bg-white">
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
@@ -111,7 +111,7 @@
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound Value of Trix
 				</label>
 			</div>
-			<textarea class="bg-grey-lighter p-4 h-32 w-32" rows="" cols="50" v-model="form.complete_description"></textarea>
+			<textarea class="bg-grey-lighter p-4 h-64 w-3/5" v-model="form.complete_description"></textarea>
 		</div>	
 
 		<div class="mb-2 w-3/4">
@@ -166,57 +166,57 @@ export default {
 	},
 	data(){
 		return { 
-			image : "",
-			form : {
-				complete_description : null,
-				alias : "",
-				first_name : "",
-				last_name : "",
-				country: {
-					label: null,
-					data: {},
-				},
-				maxFiles: 1,
-				criminals_name : "",
-				currency : 1,
-				avatar : "",
-				placeholder:  "Well..",
-				status : 1 , 
-				bounty : "",
-				posted_by : api.user.id , 
-			// contact_number : api.user.phone_number , 
-			contact_number : "",
-			attachments : [],
-			country_id : 1, 
-			uploadUrl: urls.urlSaveCriminal,
-		},
-		withFiles: { type: Boolean, default: true },
-		input_id: { // Id of upload control
-			type: String,
-			required: false,
-			default: "default"
-		},
-		mainPhotoUrl: { // upload url
-			type: String,
-			required: true,
-			default: null
-		},	
-		morePhotosUrl: { // upload url
-			type: String,
-			required: true,
-			default: null
-		},
-		button_html: { // text/html for button
-			type: String,
-			required: true,
-			text: 'Upload Images or Drag your photos here'
-		},
-		button_class: { // classes for button
-			type: String,
-			required: false,
-			default: 'bg-blue'
-		},
-		localStorage : false , 
+				image : "",
+				form : {
+					complete_description : null,
+					alias : "",
+					first_name : "",
+					last_name : "",
+					country: {
+						label: null,
+						data: {},
+					},
+					maxFiles: 1,
+					criminals_name : "",
+					currency : 1,
+					avatar : "",
+					placeholder:  "Well..",
+					status : 1 , 
+					bounty : "",
+					posted_by : api.user.id , 
+				// contact_number : api.user.phone_number , 
+				contact_number : "",
+				attachments : [],
+				country_id : 1, 
+				uploadUrl: urls.urlSaveCriminal,
+			},
+			withFiles: { type: Boolean, default: true },
+			input_id: { // Id of upload control
+				type: String,
+				required: false,
+				default: "default"
+			},
+			mainPhotoUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
+			},	
+			morePhotosUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
+			},
+			button_html: { // text/html for button
+				type: String,
+				required: true,
+				text: 'Upload Images or Drag your photos here'
+			},
+			button_class: { // classes for button
+				type: String,
+				required: false,
+				default: 'bg-blue'
+			},
+			localStorage : false , 
 	}
 },
 computed : {
@@ -285,7 +285,10 @@ methods : {
 		})
 		.then((response) => {
 			progressCallback(100);
-			console.log('SUCCESS!!', response);
+			if (response.status === 200) {
+				location.reload() ; 
+			}
+
 		})
 		.catch((error) => {
 			console.log('FAILURE!!', error);
@@ -293,7 +296,7 @@ methods : {
 	},
 
 	handleAttachmentAdd(event){
-
+		console.log(event);
 		var attachment = event.attachment.attachment;
 		if(attachment.file == undefined){
 			return;
@@ -364,19 +367,16 @@ methods : {
 		})
 	},*/
 
-	handleAttachmentRemove(file){
+	handleAttachmentRemove(file,url){
 		console.log("Trying to delete");
 		console.log(file);
-		/*axios.delete(this.remove_attachment_endpoint,{ 
-			url : 
-		})
-		.then(response => {
-			console.log(response);
-		}).catch(error => {
-			console.log(error);
-		})*/
+		axios.delete(this.remove_attachment_endpoint, { file : file })
+			 .then(response => {
+				console.log(response);
+			}).catch(error => {
+				console.log(error);
+			});
 	},
-
 	onAvatarChange(e){
 		let files = e.target.files || e.dataTransfer.files;
 		if (!files.length)
@@ -401,14 +401,28 @@ methods : {
 		console.log(val);
 	},
 	show_criminals_information(){},
+	resetForm(){
+		console.log('Reseting the form')
+        var self = this; //you need this because *this* will refer to Object.keys below`
 
+        //Iterate through each object field, key is name of the object field`
+        Object.keys(this.form).forEach(function(key,index) {
+        	self.form[key] = '';
+        });
+
+	},
 	registerCriminal(){
 		// console.log(this.endpoint);	
 		axios.post(this.endpoint,{
 			form : this.form 
 		}).then(response => {
-			// console.log(response.status);
-			console.log(response.status);
+			if ( response.status == 200){
+				alert("Successfully Registered This Criminal");
+		        this.resetForm(); //clear form automatically after successful request
+			}
+			else {
+				alert("We encounter some errors while adding that criminal"); 
+			}
 		}).catch(error => {
 			alert(error.response.data.message);
 			// console.log(error);
@@ -462,7 +476,7 @@ methods : {
 }
 
 .trix-content{
-	height: 200px;
+	height: 250px;
 	overflow-y: auto;
 }
 
