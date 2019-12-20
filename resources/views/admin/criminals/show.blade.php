@@ -66,9 +66,12 @@
 									<p class="text-md text-normal mr-4">Last seen at : <em class="font-bold roman">{{  $criminal->profile->last_seen }}</em></p>
 								</div>
 
-
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">{{  $criminal->profile->birthdate->toFormattedDateString() }}</em></p>
+									<p class="text-md text-normal mr-4">Birthdate : 
+										<em class="font-bold roman">
+											{{ Carbon\Carbon::parse($criminal->profile->birthdate)->format('d-m-Y i') }}
+										</em>
+									</p>
 								</div>
 							</div>
 
@@ -85,7 +88,7 @@
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
 								</div>
-								
+
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Body Frame : <em class="font-bold roman">{{ ucwords($criminal->profile->body_frame ) }}</em></p>
 								</div>
@@ -99,9 +102,7 @@
 									</p>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 			</div>

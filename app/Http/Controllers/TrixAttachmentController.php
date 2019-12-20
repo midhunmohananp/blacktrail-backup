@@ -6,7 +6,7 @@ use App\TrixAttachment ;
 use Storage ; 
 use Response ; 
 class TrixAttachmentController extends Controller
-{
+{	
 	/*storing attached files in trix..*/
 	public function store(Request $request){	
 		// dd(request()->all());	

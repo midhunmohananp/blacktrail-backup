@@ -143,6 +143,5 @@ class Criminal extends Model
 			'bounty'                =>        $request->input("form.bounty"),
 			'complete_description'  =>        $request->input("form.complete_description")
 		]);
-
 	}
 }

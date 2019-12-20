@@ -3,7 +3,6 @@
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
 			<div class="flex inline-block">
-
 				<div class="mt-4 w-1/2 mr-1">
 					<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name
 					</label>

@@ -20,9 +20,6 @@
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
-							
-						
-								
 
 
 
@@ -67,91 +64,93 @@
 
 
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">{{  $criminal->profile->birthdate->toFormattedDateString() }}</em></p>
+									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">{{  Carbon::createFromTimestamp($criminal->profile->birthdate->toDateTimeString()) }}
+									</em>
+								</p>
 								</div>
+						</div>
+
+						<div class="item" id="crimes-section">
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Eye Color : <em class="font-bold roman">{{ ucwords($criminal->profile->eye_color) }}</em></p>
 							</div>
 
-							<div class="item" id="crimes-section">
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Eye Color : <em class="font-bold roman">{{ ucwords($criminal->profile->eye_color) }}</em></p>
-								</div>
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Weight(Kilos) : <em class="font-bold roman">{{ ucwords($criminal->profile->weight_in_kilos) }}</em>
 
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Weight(Kilos) : <em class="font-bold roman">{{ ucwords($criminal->profile->weight_in_kilos) }}</em>
+								</p>
+							</div>
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
+							</div>
 
-									</p>
-								</div>
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
-								</div>
-								
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Body Frame : <em class="font-bold roman">{{ ucwords($criminal->profile->body_frame ) }}</em></p>
-								</div>
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Body Frame : <em class="font-bold roman">{{ ucwords($criminal->profile->body_frame ) }}</em></p>
+							</div>
 
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
-								</div>
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
+							</div>
 
-								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
-									</p>
-								</div>
-
+							<div class="row mb-3">
+								<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
+								</p>
 							</div>
 
 						</div>
 
 					</div>
+
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section class="item col ml-2 font-basic h-full" id="pageView">
-			<div class="shadow-md bg-white p-4 mt-4">
-				<div class="">	
-					<div class="ml-4">	
-						<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-							Listed Crimes
-						</p>
+	<section class="item col ml-2 font-basic h-full" id="pageView">
+		<div class="shadow-md bg-white p-4 mt-4">
+			<div class="">	
+				<div class="ml-4">	
+					<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+						Listed Crimes
+					</p>
 
-						<div class="text-center">
-							<div id="avatar" class="inline-block mb-6 w-full" >
-								<p class="font-normal font-display mt-2 text-black text-3xl">Listed Crimes</em></p>
-							</div>
+					<div class="text-center">
+						<div id="avatar" class="inline-block mb-6 w-full" >
+							<p class="font-normal font-display mt-2 text-black text-3xl">Listed Crimes</em></p>
 						</div>
+					</div>
 
-						<div class="init-row w-full">
-							<div class="item w-1/2" id="basic-profile-section">
-								@forelse ($criminal->crimes as $crime)
-								<p class="font-normal text-md"><em class="font-bold text-xl roman">{{ $crime->criminal_offense }}</em> - {{  $crime->pivot->crime_description }}</p>
+					<div class="init-row w-full">
+						<div class="item w-1/2" id="basic-profile-section">
+							@forelse ($criminal->crimes as $crime)
+							<p class="font-normal text-md"><em class="font-bold text-xl roman">{{ $crime->criminal_offense }}</em> - {{  $crime->pivot->crime_description }}</p>
 
-								@empty
-								<p>No crimes were listed..</p>
-								@endforelse
-							</div>
-
+							@empty
+							<p>No crimes were listed..</p>
+							@endforelse
 						</div>
 
 					</div>
+
 				</div>
 			</div>
+		</div>
 
-			<div class="shadow-md bg-white p-4 mt-4">
-				<div class="">	
-					<div class="ml-4">	
-						<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-							More Details..  Show here the details that are in the trix editor.
-			
-	
+		<div class="shadow-md bg-white p-4 mt-4">
+			<div class="">	
+				<div class="ml-4">	
+					<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+						More Details..  Show here the details that are in the trix editor.
 
-						</p>
-					</div>
+
+
+					</p>
 				</div>
 			</div>
+		</div>
 
 
-		</section>
+	</section>
 {{-- 
 		<div class="flex">
 			<p>Show the Crimes for a crimnal</p>
