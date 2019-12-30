@@ -9,7 +9,8 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "devDependencies":
+     {
         "axios": "^0.18.0",
         "browser-sync": "^2.26.5",
         "browser-sync-webpack-plugin": "2.0.1",
@@ -20,7 +21,8 @@
         "tailwindcss": "^0.7.3",
         "vue": "^2.5.17"
     },
-    "dependencies": {
+    "dependencies": 
+    {
         "bootstrap": "^4.3.1",
         "laravel-echo": "^1.5.3",
         "laravel-echo-server": "^1.5.0",

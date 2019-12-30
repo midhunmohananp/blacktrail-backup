@@ -1,4 +1,4 @@
-	<template>
+<template>
 	<div class="ml-4 mt-4 p-4 w-1/2 bg-white">
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full">
 			<h3>Register Criminal</h3>
@@ -36,7 +36,7 @@
 
 			<div class="mb-2">
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Initial Bounty</label>
-				<input v-model="form.bounty" name="bounty" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="name" placeholder="Alias" required>
+				<input  v-model="form.bounty" name="bounty" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="name" placeholder="Alias"  @keypress="isNumber($event)" required >
 			</div>
 
 			<div class="mb-2">
@@ -104,16 +104,15 @@
 				<option v-for="country in countries" :value="country.id">{{  country.name }}</option>
 			</select>
 		</div>	
-		
-		<div class="mb-2">
-			<div class="flex">
-				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound Value of Trix
-				</label>
-			</div>
-			<textarea class="bg-grey-lighter p-4 h-64 w-3/5" v-model="form.complete_description"></textarea>
-		</div>	
 
-		<div class="mb-2 w-3/4">
+		<div class="mb-2 w-full">
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound value
+			</label>
+			<textarea v-model="form.complete_description" class="h-64 bg-grey-lighter w-3/4 mb-2 p-2 leading-normal"></textarea>
+		</div>
+
+
+		<div class="mb-2 w-full">
 			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
 			</label>
 			<VueTrix
@@ -134,37 +133,37 @@
 </div>
 </template>
 <script>
-import urls from './scripts/endpoints.js';
-import api from './scripts/api.js';
-import Places from 'vue-places';
-import VueTrix from "vue-trix";
-import _ from "lodash"; 
-export default { 
-	components : { 
-		'VueTrix' : VueTrix,
-		'places' : Places, 
-	},
-	watch : { 
-		question:function(newQuestion, oldQuestion){
+	import urls from './scripts/endpoints.js';
+	import api from './scripts/api.js';
+	import Places from 'vue-places';
+	import VueTrix from "vue-trix";
+	import _ from "lodash"; 
+	export default { 
+		components : { 
+			'VueTrix' : VueTrix,
+			'places' : Places, 
+		},
+		watch : { 
+			question:function(newQuestion, oldQuestion){
 
-		}
-	},
-	props :  {
-		admins : { 
-			type : Array,
-			default : null
+			}
 		},
-		countries : { 
-			type : Array,
-			default : []
+		props :  {
+			admins : { 
+				type : Array,
+				default : null
+			},
+			countries : { 
+				type : Array,
+				default : []
+			},
+			editor : {	
+				type : Object,
+				default : null
+			}
 		},
-		editor : {	
-			type : Object,
-			default : null
-		}
-	},
-	data(){
-		return { 
+		data(){
+			return { 
 				image : "",
 				form : {
 					complete_description : null,
@@ -183,58 +182,58 @@ export default {
 					status : 1 , 
 					bounty : "",
 					posted_by : api.user.id , 
-				// contact_number : api.user.phone_number , 
-				contact_number : "",
-				attachments : [],
-				country_id : 1, 
-				uploadUrl: urls.urlSaveCriminal,
-			},
-			withFiles: { type: Boolean, default: true },
-			input_id: { // Id of upload control
-				type: String,
-				required: false,
-				default: "default"
-			},
-			mainPhotoUrl: { // upload url
-				type: String,
-				required: true,
-				default: null
-			},	
-			morePhotosUrl: { // upload url
-				type: String,
-				required: true,
-				default: null
-			},
-			button_html: { // text/html for button
-				type: String,
-				required: true,
-				text: 'Upload Images or Drag your photos here'
-			},
-			button_class: { // classes for button
-				type: String,
-				required: false,
-				default: 'bg-blue'
-			},
-			localStorage : false , 
+			// contact_number : api.user.phone_number , 
+			contact_number : "",
+			attachments : [],
+			country_id : 1, 
+			uploadUrl: urls.urlSaveCriminal,
+		},
+		withFiles: { type: Boolean, default: true },
+		input_id: { // Id of upload control
+			type: String,
+			required: false,
+			default: "default"
+		},
+		mainPhotoUrl: { // upload url
+			type: String,
+			required: true,
+			default: null
+		},	
+		morePhotosUrl: { // upload url
+			type: String,
+			required: true,
+			default: null
+		},
+		button_html: { // text/html for button
+			type: String,
+			required: true,
+			text: 'Upload Images or Drag your photos here'
+		},
+		button_class: { // classes for button
+			type: String,
+			required: false,
+			default: 'bg-blue'
+		},
+		localStorage : false , 
 	}
 },
 computed : {
 	endpoint(){
 		return urls.urlSaveCriminal   ;
 	},
-	
+
 	storePhotosUrl(){
 		return urls.urlSavePhotos   ;
 	},
-	
+
 	removePhotosUrl(){
 		return urls.urlRemovePhotosUrl   ;
 	},
-	
+
 	loggedOnUsersName(){
 		return api.user.display_name ; 
 	},
-	
+
 	last_seen(){
 		return this.form.country.label;
 	},	
@@ -249,7 +248,17 @@ computed : {
 },
 
 methods : { 
-	
+
+	isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+
 	handleFile(file){
 		if (!this.withFiles) {
 			e.preventDefault();
@@ -258,14 +267,23 @@ methods : {
 
 
 	uploadAttachment(file,progressCallback,successCallback){
+		
 		if(file == undefined){
+		
 			return;
+		
 		}
+
 		console.log('uploading!');
+		
 		let formData = new FormData();
+		
 		formData.append('file', file);
+		
 		formData.append('attachable_type','App\CriminalInfo');
+		
 		formData.append('field','complete_description');
+		
 		axios.post(this.send_attachment_endpoint, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -281,26 +299,32 @@ methods : {
 					progressCallback(progressData);
 				}
 			},
-		})
-		.then((response) => {
-			progressCallback(100);
-			if (response.status === 200) {
-				location.reload() ; 
+		}).then((response) => {
+			progressCallback(100); 
+			// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
+			let attachment = response.data;
+			
+			var attributes = {
+				url: attachment.url,
+				href: attachment.url +"?content-disposition=attachment"
 			}
 
-		})
-		.catch((error) => {
+			successCallback(attributes);
+
+		}).catch((error) => {
 			console.log('FAILURE!!', error);
 		});
 	},
 
 	handleAttachmentAdd(event){
 		console.log(event);
+
 		var attachment = event.attachment.attachment;
+
 		if(attachment.file == undefined){
 			return;
 		}
-		
+
 		this.uploadAttachment(attachment.file, setProgress, setAttributes)
 
 		function setProgress(progress) {
@@ -310,160 +334,164 @@ methods : {
 		function setAttributes(attributes) {
 			attachment.setAttributes(attributes)
 		}
-
+		
 		return ;
 
-
-
-		/*var attachment = event.attachment;
-		console.log(attachment);
-		if (attachment.file){		
-			const data = attachment;
-			const config = {
-				onUploadProgress: progressEvent => {
-					var progress = progressEvent.loaded / progressEvent.total * 100;
-					attachment.setUploadProgress(progress);
-				}
+	/*var attachment = event.attachment;
+	console.log(attachment);
+	if (attachment.file){		
+		const data = attachment;
+		const config = {
+			onUploadProgress: progressEvent => {
+				var progress = progressEvent.loaded / progressEvent.total * 100;
+				attachment.setUploadProgress(progress);
 			}
+		}
 
-			axios.post(this.send_attachment_endpoint,data,config)
-			.then((response) => {
-				console.log("Response is:");
-				console.log(response);
-				if (response.status === 201) {
-					setTimeout(function() {
-						var url = response.data;
-						attachment.setAttributes({ url: url, href: url });
-					}, 30)
-				}
-				console.log(response.data);
-			}).catch(error => console.log(error));
-				attachment.setUploadProgress(10);
-				setTimeout(function(e) {
-					console.log("Set TimeOut:");
-					console.log(e);
-					// var url = xhr.responseText;
-					// return attachment.setAttributes({ url: url, href: url });
+		axios.post(this.send_attachment_endpoint,data,config)
+		.then((response) => {
+			console.log("Response is:");
+			console.log(response);
+			if (response.status === 201) {
+				setTimeout(function() {
+					var url = response.data;
+					attachment.setAttributes({ url: url, href: url });
 				}, 30)
+			}
+			console.log(response.data);
+		}).catch(error => console.log(error));
+			attachment.setUploadProgress(10);
+			setTimeout(function(e) {
+				console.log("Set TimeOut:");
+				console.log(e);
+				// var url = xhr.responseText;
+				// return attachment.setAttributes({ url: url, href: url });
+			}, 30)
+	}
+	else { 
+		return response("No file uploaded here",401);
+	}*/
+
+}, 
+
+/*async handleAttachmentAdd(evt){
+	let file = evt.attachment.file
+	let form = new FormData()
+	form.append('Content-Type', file.type)
+	form.append('image', file)
+	const resp = await this.$store.dispatch('imageUpload', form)
+	evt.attachment.setUploadProgress(100)
+	console.log(resp)
+	evt.attachment.setAttributes({
+		url: resp.data.url,
+		href: resp.data.url
+	})
+},*/
+
+handleAttachmentRemove(file,url){
+	console.log("Trying to delete");
+	console.log(file);
+
+	/*
+	axios.delete(this.remove_attachment_endpoint, { file : file })
+	.then(response => {
+		console.log(response);
+	}).catch(error => {
+		console.log(error);
+	});*/
+
+
+
+},
+onAvatarChange(e){
+	let files = e.target.files || e.dataTransfer.files;
+	if (!files.length)
+		return;
+	this.createImage(files[0]);
+},
+
+createImage(file) {
+	let reader = new FileReader();
+	let vm = this;
+	reader.onload = (e) => {
+		vm.form.avatar = e.target.result;
+	};
+	reader.readAsDataURL(file);
+},
+
+showMap(){
+	this.$modal.show("show-map");
+},
+
+accept_file(val){
+	console.log(val);
+},
+show_criminals_information(){},
+resetForm(){
+	console.log('Reseting the form')
+    var self = this; //you need this because *this* will refer to Object.keys below`
+
+    //Iterate through each object field, key is name of the object field`
+    Object.keys(this.form).forEach(function(key,index) {
+    	self.form[key] = '';
+    });
+
+},
+registerCriminal(){
+	// console.log(this.endpoint);	
+
+	axios.post(this.endpoint,{
+		form : this.form 
+	}).then(response => {
+		if ( response.status == 200){
+	        this.resetForm(); //clear form automatically after successful request
+	        alert("Successfully Registered This Criminal");
+	    }
+	    else {
+	    	alert("We encounter some errors while adding that criminal"); 
+	    }
+	}).catch(error => {
+		alert(error.response.data.message);
+		// console.log(error);
+		if ( error.statusCode == 406){
+			// alert(error.message);
 		}
-		else { 
-			return response("No file uploaded here",401);
-		}*/
+	});
 
-	}, 
+		// console.log("Pressed on the button");
+// this.$modal.show('show-information', {});
 
-	/*async handleAttachmentAdd(evt){
-		let file = evt.attachment.file
-		let form = new FormData()
-		form.append('Content-Type', file.type)
-		form.append('image', file)
-		const resp = await this.$store.dispatch('imageUpload', form)
-		evt.attachment.setUploadProgress(100)
-		console.log(resp)
-		evt.attachment.setAttributes({
-			url: resp.data.url,
-			href: resp.data.url
+/*this.$modal.confirm().then( res => {
+	axios.post(this.endpoint,  this.form)
+	.then(response => {
+		console.log(response.status);
+	}).catch(error => {
+		console.log(error);
+	});
+
+}).catch( rej => {
+		// I click cancel button
+	});*/
+
+},
+
+uploadFile(e){
+	if (e.attachment.file) {
+		let date = new Date()
+		let day = date.toISOString().slice(0, 10)
+		let name = date.getTime() + "-" + e.attachment.file.name
+		let id = [auth.currentUser.uid, day, name].join("/")
+		let upload = storage.ref().child(id).put(e.attachment.file)
+		upload.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
+			e.attachment.setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
 		})
-	},*/
-
-	handleAttachmentRemove(file,url){
-		console.log("Trying to delete");
-		console.log(file);
-		axios.delete(this.remove_attachment_endpoint, { file : file })
-			 .then(response => {
-				console.log(response);
-			}).catch(error => {
-				console.log(error);
-			});
-	},
-	onAvatarChange(e){
-		let files = e.target.files || e.dataTransfer.files;
-		if (!files.length)
-			return;
-		this.createImage(files[0]);
-	},
-
-	createImage(file) {
-		let reader = new FileReader();
-		let vm = this;
-		reader.onload = (e) => {
-			vm.form.avatar = e.target.result;
-		};
-		reader.readAsDataURL(file);
-	},
-
-	showMap(){
-		this.$modal.show("show-map");
-	},
-
-	accept_file(val){
-		console.log(val);
-	},
-	show_criminals_information(){},
-	resetForm(){
-		console.log('Reseting the form')
-        var self = this; //you need this because *this* will refer to Object.keys below`
-
-        //Iterate through each object field, key is name of the object field`
-        Object.keys(this.form).forEach(function(key,index) {
-        	self.form[key] = '';
-        });
-
-	},
-	registerCriminal(){
-		// console.log(this.endpoint);	
-		axios.post(this.endpoint,{
-			form : this.form 
-		}).then(response => {
-			if ( response.status == 200){
-				alert("Successfully Registered This Criminal");
-		        this.resetForm(); //clear form automatically after successful request
-			}
-			else {
-				alert("We encounter some errors while adding that criminal"); 
-			}
-		}).catch(error => {
-			alert(error.response.data.message);
-			// console.log(error);
-			if ( error.statusCode == 406){
-				// alert(error.message);
-			}
-		});
-
-			// console.log("Pressed on the button");
-	// this.$modal.show('show-information', {});
-
-	/*this.$modal.confirm().then( res => {
-		axios.post(this.endpoint,  this.form)
-		.then(response => {
-			console.log(response.status);
-		}).catch(error => {
-			console.log(error);
-		});
-
-	}).catch( rej => {
-			// I click cancel button
-		});*/
-
-	},
-
-	uploadFile(e){
-		if (e.attachment.file) {
-			let date = new Date()
-			let day = date.toISOString().slice(0, 10)
-			let name = date.getTime() + "-" + e.attachment.file.name
-			let id = [auth.currentUser.uid, day, name].join("/")
-			let upload = storage.ref().child(id).put(e.attachment.file)
-			upload.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
-				e.attachment.setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+		upload.then(ref => {
+			ref.ref.getDownloadURL().then(url => {
+				e.attachment.setAttributes({ url, id })
 			})
-			upload.then(ref => {
-				ref.ref.getDownloadURL().then(url => {
-					e.attachment.setAttributes({ url, id })
-				})
-			})
-		}
-	},
+		})
+	}
+},
 }
 
 };	
@@ -475,7 +503,7 @@ methods : {
 }
 
 .trix-content{
-	height: 250px;
+	height: 500px;
 	overflow-y: auto;
 }
 

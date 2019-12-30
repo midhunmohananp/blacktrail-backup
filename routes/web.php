@@ -2,7 +2,7 @@
 
 /* We need pages for this in the landing page 
 for the bounty hunters
-1.dmin Criminals in your area..
+admin Criminals in your area..
 */
 
 /*
@@ -61,7 +61,7 @@ Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
 Route::get("register","AuthController@registerForm")->name('register');
-
+	
 Route::get("/role","AuthController@postRole");
 
 
@@ -77,7 +77,7 @@ Route::get('register/success','ViewsController@registration_success')->name('con
 
 
 /**
-* User profile for the logged on user.
+* User profile for the logged on 	user.
 */
 Route::group([	
 	'middleware' => 'auth', 

@@ -129,19 +129,21 @@ class Criminal extends Model
 	public static function saveCriminal($request, $file_name = 'default_avatar.jpg'){
 		return Criminal::create([
 			'first_name'         =>             $request->input("form.first_name"),
-			'last_name'         =>              $request->input("form.last_name"),
+			'middle_name'        =>             $request->input("form.middle_name"),
+			'last_name'          =>             $request->input("form.last_name"),
 			'alias'              =>             $request->input("form.alias"),
 			'country_id'         =>             $request->input("form.country_id"),
 			'last_name'          =>             $request->input("form.last_name"),
-			'middle_name'        =>             $request->input("form.middle_name"),
 			'posted_by'          =>             $request->input("form.posted_by"),
 			'contact_number'     =>             $request->input("form.contact_number"),
 			'status'             =>             $request->input("form.status"),
 			'photo'				 => 			$file_name
 		])->profile()->create([
-			'country_last_seen'     =>        $request->input("form.last_seen"),
-			'bounty'                =>        $request->input("form.bounty"),
-			'complete_description'  =>        $request->input("form.complete_description")
+			'last_seen'	     	 =>        		$request->input("form.last_seen"),
+			'bounty'                =>        	$request->input("form.bounty"),
+			'complete_description'  =>        	$request->input("form.complete_description")
 		]);
+	
 	}
+
 }

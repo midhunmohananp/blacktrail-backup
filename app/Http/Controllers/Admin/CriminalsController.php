@@ -52,6 +52,8 @@ class CriminalsController extends Controller
     /*Maka add na ta but what lacks is that dli lang kadawat og pictures. */
     public function store_criminal(Request $request)
     {
+
+
         /*
         If user is not logged on. or that he's not an adminstrator to the app
         */
@@ -60,22 +62,32 @@ class CriminalsController extends Controller
        // return response('You are not authorized', 401);
         }
 
+
         $this->validateInputs(request()->input());
-        
-        if(!is_null(request()->input('form.avatar'))){
+
+        /*if there's an avatar*/
+        if( !is_null(request()->input('form.avatar') )){
+
           $image = request()->input('form.avatar');
+          
           $file_name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];          
-           \Image::make(request()->input('form.avatar'))->resize(200,200)->save(public_path('/assets/images/').$file_name);
-           Criminal::saveCriminal(request(),$file_name);
-           return response()->json(['success' => 'You have successfully registered this criminal'],200);
-       } else {
-           Criminal::saveCriminal(request());  
-           return response()->json(['success' => 'You have successfully registered this criminal'],200);
-                        //  return response()->json([
-                        //     'success' => true,
-                        //     'id' => $file->id
-                        // ], 200);
-       }
+
+          \Image::make(request()->input('form.avatar'))->resize(200,200)->save(public_path('/assets/images/').$file_name);
+
+          Criminal::saveCriminal($request,$file_name);
+
+          return response()->json(['success' => 'You have successfully registered this criminal'],200);
+
+
+      } else {
+         Criminal::saveCriminal(request());  
+     
+         return response()->json(['success' => 'You have successfully registered this criminal'],200);
+     /*    return response()->json([
+            'success' => true,
+            'id' => $file->id
+        ], 200);*/
+    }
 
 /*
 if (request()->wantsJson()) {
@@ -136,7 +148,7 @@ if (request()->wantsJson()) {
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $criminal
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\response
      */
     public function update($id)
     {
@@ -157,9 +169,12 @@ if (request()->wantsJson()) {
     }
 
     protected function validateInputs(){
-       return Validator::make(request()->input('form'), [
-            // 'avatar'                    => 'required',
-        'alias'                     => 'required|min:2',
+     return Validator::make(request()->input('form'), [
+        'first_name'                => 'required|min:2',
+        'middle_name'                => 'required|min:2',
+        'last_name' => 'required|min:2',
+        'avatar'                    => 'required',
+        'alias'                     => 'required|min:2|single_word',
         'currency'                  => 'required|numeric',
         'bounty'                    =>  'required|numeric',
         'full_name'                 => 'required|string|min:120',
@@ -170,7 +185,8 @@ if (request()->wantsJson()) {
         'country_id'                => 'required|numeric' ,
         'body'                      => 'required'
     ]);
-   }
+
+ }
 
 
 }

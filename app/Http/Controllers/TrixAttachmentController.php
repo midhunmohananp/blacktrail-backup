@@ -23,7 +23,9 @@ class TrixAttachmentController extends Controller
 		}
 
 		$attachment = request()->file->store('/', $request->disk ?? 'public');		
+		
 		$url = Storage::disk($request->disk ?? config('laravel-trix.storage_disk'))->url($attachment);
+		
 		TrixAttachment::create([
 			'field' => $request->field,
 			'attachable_type' => 'App\CriminalInfo',
@@ -39,8 +41,11 @@ class TrixAttachmentController extends Controller
 	}
 
 	public function destroyAttachment(){
+
 		return response()->json(request()->all());
+		
 		$url  = request()->input();
+		
 		$attachment = TrixAttachment::where('attachment', basename($url))->first();
 		return response()->json(optional($attachment)->purge());
 	}
