@@ -142,9 +142,10 @@ class Criminal extends Model
 			'last_seen'	     	 =>        		$request->input("form.country.label"),
 			'country_last_seen'	 =>				$request->input("form.country_id"),
 			'bounty'             =>        		$request->input("form.bounty"),
+			'currency' => $request->input("form.currency"),
 			'complete_description'  =>        	$request->input("form.complete_description")
 		]);
-	
+
 	}
 
 }

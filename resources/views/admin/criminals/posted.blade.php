@@ -25,8 +25,7 @@
 
 	</div>
 	@forelse ($criminals as $criminal)
-
-	<criminals-view inline-template :criminals="{{  $criminal }}">
+	<criminals-view :criminals="{{ $criminal }}" inline-template>
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
@@ -42,11 +41,10 @@
 		</article>
 	</criminals-view>
 
-	{{-- <criminal-view :criminals="{{ $criminal }}"></criminal-view> --}}
 	@empty
 
 	<h3>No Criminals are added yet..</h3>
-	
+
 	@endforelse
 
 	{{ $criminals->links() }}

@@ -50,26 +50,33 @@
 </div>
 </template>
 <script>
-import CrimesList from './CrimesList.vue';
-import urlDomain from './scripts/endpoints.js';
-import { publicPath, user, app } from './scripts/api.js';
-import ViewActionLayout from './ViewActionLayout.vue' ;
-import AdminButtons from './AdminButton.vue' ;
-import UserButtons from './UserButton.vue' ;
-import ChatBox from './modals/ChatBox.vue';
-import _ from 'lodash';
-export default {
-	props: ['criminals','criminalId'], 	
-	name: 'CriminalView',
-	components : { 
-		AdminButtons,
-		ChatBox,
-		UserButtons
-	// CrimesList, 
-},
-data(){
-	return {
-			// criminalDetails : this.criminals,
+	import CrimesList from './CrimesList.vue';
+	import urlDomain from './scripts/endpoints.js';
+	import { publicPath, user, app } from './scripts/api.js';
+	import ViewActionLayout from './ViewActionLayout.vue' ;
+	import AdminButtons from './AdminButton.vue' ;
+	import UserButtons from './UserButton.vue' ;
+	import ChatBox from './modals/ChatBox.vue';
+	import _ from 'lodash';
+	export default {
+		props: ['criminalId'], 	
+		props : { 
+			criminals  : {
+				type : Object,
+				required : true
+			}
+		},
+
+		name: 'CriminalView',
+		components : { 
+			AdminButtons,
+			ChatBox,
+			UserButtons
+		// CrimesList, 
+	},
+	data(){
+		return {
+		// criminalDetails : this.criminals,
 		// criminalId :  $route.params.id ,
 		// crimes : this.criminals.crimes
 	}
@@ -154,15 +161,15 @@ computed : {
 		},
 
 
-	criminalsDetails() {
+		criminalsDetails() {
 	// _.head(this.criminalDetails) ;
 
 	_.sortBy(this.criminals, value => {
 	// console.log(value);
 	return value ; 
-	});
+});
 
-	},
+},
 
 criminalInfo(criminalsInfo){
 	_.sortBy(this.criminals, value => {
