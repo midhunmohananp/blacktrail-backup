@@ -139,8 +139,9 @@ class Criminal extends Model
 			'status'             =>             $request->input("form.status"),
 			'photo'				 => 			$file_name
 		])->profile()->create([
-			'last_seen'	     	 =>        		$request->input("form.last_seen"),
-			'bounty'                =>        	$request->input("form.bounty"),
+			'last_seen'	     	 =>        		$request->input("form.country.label"),
+			'country_last_seen'	 =>				$request->input("form.country_id"),
+			'bounty'             =>        		$request->input("form.bounty"),
 			'complete_description'  =>        	$request->input("form.complete_description")
 		]);
 	

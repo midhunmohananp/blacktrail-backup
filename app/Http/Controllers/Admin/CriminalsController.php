@@ -73,7 +73,7 @@ class CriminalsController extends Controller
           $file_name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];          
 
           \Image::make(request()->input('form.avatar'))->resize(200,200)->save(public_path('/assets/images/').$file_name);
-
+          
           Criminal::saveCriminal($request,$file_name);
 
           return response()->json(['success' => 'You have successfully registered this criminal'],200);

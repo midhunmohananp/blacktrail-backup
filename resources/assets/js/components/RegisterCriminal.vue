@@ -267,14 +267,11 @@ methods : {
 
 
 	uploadAttachment(file,progressCallback,successCallback){
-		
 		if(file == undefined){
-		
 			return;
-		
 		}
 
-		console.log('uploading!');
+		console.log('uploading!');	
 		
 		let formData = new FormData();
 		
@@ -314,6 +311,7 @@ methods : {
 		}).catch((error) => {
 			console.log('FAILURE!!', error);
 		});
+
 	},
 
 	handleAttachmentAdd(event){
@@ -392,13 +390,14 @@ handleAttachmentRemove(file,url){
 	console.log("Trying to delete");
 	console.log(file);
 
-	/*
+	
 	axios.delete(this.remove_attachment_endpoint, { file : file })
 	.then(response => {
 		console.log(response);
 	}).catch(error => {
 		console.log(error);
-	});*/
+	});
+	
 
 
 
@@ -444,18 +443,14 @@ registerCriminal(){
 		form : this.form 
 	}).then(response => {
 		if ( response.status == 200){
-	        this.resetForm(); //clear form automatically after successful request
 	        alert("Successfully Registered This Criminal");
+	        this.resetForm(); //clear form automatically after successful request
 	    }
 	    else {
 	    	alert("We encounter some errors while adding that criminal"); 
 	    }
 	}).catch(error => {
-		alert(error.response.data.message);
-		// console.log(error);
-		if ( error.statusCode == 406){
-			// alert(error.message);
-		}
+	    	alert("We encounter some errors while adding that criminal, try to check your inputs"); 
 	});
 
 		// console.log("Pressed on the button");
