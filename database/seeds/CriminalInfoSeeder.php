@@ -74,8 +74,6 @@ class CriminalInfoSeeder extends Seeder
     protected function removeCriminalsWhichAreNonAdults(){
       $minorCriminals = Criminal::whereDate("birthdate", '>','2001')->get();
       dd($minorCriminals);
-
-
     }
 
     protected function updateCriminalsWithNoBountyOrCurrency(){ 

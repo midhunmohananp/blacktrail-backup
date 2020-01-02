@@ -3,7 +3,7 @@ import api from './api';
 
 const urlDomain = api.app ; 
 const url_for_saving_photos  = urlDomain + '/api/v1/attachments'; 
-const url_for_removing_photos  = urlDomain + '/api/v1/attachments'; 
+const url_for_removing_photos  = urlDomain + '/api/v1/attachments' ; 
 const add_bounty_url  = urlDomain + '/api/v1/bounty/add'; 
 const fixerApi  = urlDomain + 'api/v1/bounty/update/fixer'; 
 const currencyLayerApi  = urlDomain + '/api/v1/bounty/update'; 

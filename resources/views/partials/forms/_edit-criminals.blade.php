@@ -76,10 +76,11 @@
 				</div>
 
 				<div class="flex inline-block">
+					
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthdate
 						</label>
-						<input type="text" value="{{ $criminal->profile->birthdate->format('d/m/Y') }}" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Date/Month/Year" required>
+						<input type="text" value="{{ $criminal->profile->birthdate }}" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Date/Month/Year" required>
 					</div>
 
 					<div id="input-group" class="ml-4 w-3/5">	
@@ -106,13 +107,13 @@
 				<div class="flex inline-block">
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Description
-{{-- 	<VueTrix
-			class="editor1" 
-			inputId="editor1"
-			@trix-attachment-remove="handleAttachmentRemove"
-			@trix-attachment-add="handleAttachmentAdd"
-			v-model="form.complete_description"
-			/> --}}
+						<VueTrix
+						class="editor1" 
+						inputId="editor1"
+				{{-- 		@trix-attachment-remove="handleAttachmentRemove"
+						@trix-attachment-add="handleAttachmentAdd" --}}
+						v-model="form.complete_description"
+						/>
 					</label>
 				</div>
 			</div>

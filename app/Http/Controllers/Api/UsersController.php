@@ -48,9 +48,6 @@ class UsersController extends Controller
 		if (is_null($password) || is_null($confirm_password)) {
 			return response()->json(['error' => 'Then no need to setup'], 401);
 		}
-		else { 
-
-		}
 
 		/*if the two passwords don't match then issue a response*/
 		if ( $password !=  $confirm_password) {

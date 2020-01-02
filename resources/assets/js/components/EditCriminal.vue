@@ -1,32 +1,40 @@
 <!-- the content files are in  -->
 <script>
-import api from "./scripts/api.js";
-import urls from "./scripts/endpoints.js";
-export default {
-	props : ['criminal','admins','countries'],
-	components : { 
-		// UploadImage 
-	}, 
-	methods : {
-		fetchCountries(){
+	import api from "./scripts/api.js";
+	import urls from "./scripts/endpoints.js";
+	import Places from 'vue-places';
+	import VueTrix from "vue-trix";
+	import _ from "lodash"; 
+	export default { 
+			
+			props : ['criminal','admins','countries'],
+			
+			components : { 
+				'VueTrix' : VueTrix,
+				'places' : Places, 
+			}, 
+			methods : {
+				fetchCountries(){
 
-		}
-	},
+				}
+			},
 
-	data(){
-		return { 
-			country : this.criminal.country_id,
-			form : {
-				maxFiles: 1,
-				complete_description : "",
-				currency : 1,
-				placeholder:  "Well..",
-				alias : "",
-				status : 1 , 
-				bounty : "",
-				last_seen : "",
-				contact_person : api.user.id , 
-				criminals_name : "",
+			data(){
+				return { 
+					country : this.criminal.country_id,
+					form : {
+						maxFiles: 1,
+
+						complete_description : this.criminal.profile.complete_description,
+
+						currency : 1,
+						placeholder:  "Well..",
+						alias : "",
+						status : 1 , 
+						bounty : "",
+						last_seen : "",
+						contact_person : api.user.id , 
+						criminals_name : "",
 				// contact_number : api.user.phone_number , 
 				contact_number : "",
 				attachments : [],

@@ -68,21 +68,25 @@ class CriminalsController extends Controller
         /*if there's an avatar*/
         if( !is_null(request()->input('form.avatar') )){
 
-          $image = request()->input('form.avatar');
-          
-          $file_name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];          
+            $save_path = public_path('assets/images/');
+            
+            if (!file_exists($save_path)) {
+                mkdir($save_path, 666, true);
+            }
+            
+            $image = request()->input('form.avatar');
+            $file_name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];         
 
-          \Image::make(request()->input('form.avatar'))->resize(200,200)->save(public_path('/assets/images/').$file_name);
-          
-          Criminal::saveCriminal($request,$file_name);
+            \Image::make(request()->input('form.avatar'))->resize(200,200)->save($save_path.$file_name);
 
-          return response()->json(['success' => 'You have successfully registered this criminal'],200);
+            Criminal::saveCriminal($request,$file_name);
 
+            return response()->json(['success' => 'You have successfully registered this criminal'],200);
 
-      } else {
-         Criminal::saveCriminal(request());  
-     
-         return response()->json(['success' => 'You have successfully registered this criminal'],200);
+        } else {
+           Criminal::saveCriminal(request());  
+
+           return response()->json(['success' => 'You have successfully registered this criminal'],200);
      /*    return response()->json([
             'success' => true,
             'id' => $file->id
@@ -169,7 +173,7 @@ if (request()->wantsJson()) {
     }
 
     protected function validateInputs(){
-     return Validator::make(request()->input('form'), [
+       return Validator::make(request()->input('form'), [
         'first_name'                => 'required|min:2',
         'middle_name'                => 'required|min:2',
         'last_name' => 'required|min:2',
@@ -186,7 +190,7 @@ if (request()->wantsJson()) {
         'body'                      => 'required'
     ]);
 
- }
+   }
 
 
 }

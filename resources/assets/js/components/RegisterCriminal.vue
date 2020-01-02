@@ -12,7 +12,7 @@
 				<div class="mt-4 w-1/2">
 					<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Name
 					</label>
-					<input v-model="form.last_name" name="last_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="last_name" placeholder="Last Name" value="" >	
+					<input v-model="form.last_name" name="last_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="last_name" placeholder="Last Name" 	value="" >	
 				</div>
 			</div>
 
@@ -166,7 +166,7 @@
 			return { 
 				image : "",
 				form : {
-					complete_description : null,
+					complete_description : "",
 					alias : "",
 					first_name : "",
 					last_name : "",
@@ -250,14 +250,14 @@ computed : {
 methods : { 
 
 	isNumber: function(evt) {
-      evt = (evt) ? evt : window.event;
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        evt.preventDefault();;
-      } else {
-        return true;
-      }
-    },
+		evt = (evt) ? evt : window.event;
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+			evt.preventDefault();;
+		} else {
+			return true;
+		}
+	},
 
 	handleFile(file){
 		if (!this.withFiles) {
@@ -386,20 +386,16 @@ methods : {
 	})
 },*/
 
-handleAttachmentRemove(file,url){
+handleAttachmentRemove(file){
 	console.log("Trying to delete");
-	console.log(file);
-
-	
-	axios.delete(this.remove_attachment_endpoint, { file : file })
+	// console.log(file.attachment.attachment.attributes.values.url);
+	let url = file.attachment.attachment.attributes.values.url;
+	axios.delete(this.remove_attachment_endpoint, url)	
 	.then(response => {
 		console.log(response);
 	}).catch(error => {
 		console.log(error);
 	});
-	
-
-
 
 },
 onAvatarChange(e){
@@ -426,6 +422,7 @@ accept_file(val){
 	console.log(val);
 },
 show_criminals_information(){},
+
 resetForm(){
 	console.log('Reseting the form')
     var self = this; //you need this because *this* will refer to Object.keys below`
@@ -443,14 +440,14 @@ registerCriminal(){
 		form : this.form 
 	}).then(response => {
 		if ( response.status == 200){
-	        alert("Successfully Registered This Criminal");
+			alert("Successfully Registered This Criminal");
 	        this.resetForm(); //clear form automatically after successful request
 	    }
 	    else {
 	    	alert("We encounter some errors while adding that criminal"); 
 	    }
 	}).catch(error => {
-	    	alert("We encounter some errors while adding that criminal, try to check your inputs"); 
+		alert("We encounter some errors while adding that criminal, try to check your inputs"); 
 	});
 
 		// console.log("Pressed on the button");

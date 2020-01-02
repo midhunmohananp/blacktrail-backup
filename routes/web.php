@@ -5,17 +5,17 @@ for the bounty hunters
 admin Criminals in your area..
 */
 
-/*
+/*	
 Route::get("/test/email/send",function(){
 Mail::send('')
 });*/
-
+	
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
-	'middleware' => 'isAdmin', 
+	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function () {
-	Route::get("stats","DashboardController@stats")->name("admin.statistics");
+Route::get("stats","DashboardController@stats")->name("admin.statistics");
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 
