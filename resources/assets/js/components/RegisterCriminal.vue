@@ -8,19 +8,16 @@
 					</label>
 					<input v-model="form.first_name" name="first_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="first_name" placeholder="First Name" value="" >	
 				</div>
-
 				<div class="mt-4 w-1/2">
 					<label for="criminals_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Name
 					</label>
 					<input v-model="form.last_name" name="last_name" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="last_name" placeholder="Last Name" 	value="" >	
 				</div>
 			</div>
-
 			<div class="mb-2">
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Alias / Aka: </label>
 				<input v-model="form.alias" name="alias" type="text" class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="pin" autocomplete="name" placeholder="Alias" required>
 			</div>	
-
 			<div class="mb-2">
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">If found, Report this to:
 				</label>
@@ -113,11 +110,12 @@
 
 
 		<div class="mb-2 w-full">
-			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
+			<label for="name" class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
 			</label>
 			<VueTrix
 			class="editor1" 
 			inputId="editor1"
+			@trix-change="handleEditorChange"
 			@trix-attachment-remove="handleAttachmentRemove"
 			@trix-attachment-add="handleAttachmentAdd"
 			v-model="form.complete_description"
@@ -243,7 +241,7 @@ computed : {
 	},
 
 	remove_attachment_endpoint(){
-		return urls.url_for_removing_photos;
+		return api.app + '/api/v1/attachments/' ;
 	}
 },
 
@@ -272,15 +270,10 @@ methods : {
 		}
 
 		console.log('uploading!');	
-		
 		let formData = new FormData();
-		
 		formData.append('file', file);
-		
-		formData.append('attachable_type','App\CriminalInfo');
-		
+		formData.append('attachable_type','App\CriminalInfo');		
 		formData.append('field','complete_description');
-		
 		axios.post(this.send_attachment_endpoint, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -298,42 +291,39 @@ methods : {
 			},
 		}).then((response) => {
 			progressCallback(100); 
-			// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
-			let attachment = response.data;
-			
-			var attributes = {
-				url: attachment.url,
-				href: attachment.url +"?content-disposition=attachment"
+				// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
+				let attachment = response.data;
+				var attributes = {
+					url: attachment.url,
+					href: attachment.url +"?content-disposition=attachment"
+				}
+				successCallback(attributes);
+			}).catch((error) => {
+				console.log('FAILURE!!', error);
+			});
+
+		},
+
+		handleAttachmentAdd(event){
+			console.log(event);
+
+			var attachment = event.attachment.attachment;
+
+			if(attachment.file == undefined){
+				return;
 			}
 
-			successCallback(attributes);
+			this.uploadAttachment(attachment.file, setProgress, setAttributes)
 
-		}).catch((error) => {
-			console.log('FAILURE!!', error);
-		});
+			function setProgress(progress) {
+				attachment.setUploadProgress(progress)
+			}
 
-	},
+			function setAttributes(attributes) {
+				attachment.setAttributes(attributes)
+			}
 
-	handleAttachmentAdd(event){
-		console.log(event);
-
-		var attachment = event.attachment.attachment;
-
-		if(attachment.file == undefined){
-			return;
-		}
-
-		this.uploadAttachment(attachment.file, setProgress, setAttributes)
-
-		function setProgress(progress) {
-			attachment.setUploadProgress(progress)
-		}
-
-		function setAttributes(attributes) {
-			attachment.setAttributes(attributes)
-		}
-		
-		return ;
+			return ;
 
 	/*var attachment = event.attachment;
 	console.log(attachment);
@@ -386,18 +376,22 @@ methods : {
 	})
 },*/
 
+handleEditorChange(file){
+console.log('file',file);
+},
+
 handleAttachmentRemove(file){
 	console.log("Trying to delete");
-	// console.log(file.attachment.attachment.attributes.values.url);
-	let url = file.attachment.attachment.attributes.values.url;
-	axios.delete(this.remove_attachment_endpoint, url)	
-	.then(response => {
+	let url = file.attachment.attachment.attributes.values.url.split("/").pop();
+	console.log(url);
+	axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
 		console.log(response);
 	}).catch(error => {
 		console.log(error);
 	});
-
 },
+
+
 onAvatarChange(e){
 	let files = e.target.files || e.dataTransfer.files;
 	if (!files.length)

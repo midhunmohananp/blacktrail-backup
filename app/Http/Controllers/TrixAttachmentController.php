@@ -41,11 +41,13 @@ class TrixAttachmentController extends Controller
 	}
 
 	public function destroyAttachment($url){
-		// return response()->json(request()->all());
-		dd($url);
-		// $url  = request()->input();
-		
+		// dd($url);
+	/*	
+		return response()->json(request()->all());
+		$url  = request()->input();
+		*/
 		$attachment = TrixAttachment::where('attachment', basename($url))->first();
 		return response()->json(optional($attachment)->purge());
+
 	}
 }

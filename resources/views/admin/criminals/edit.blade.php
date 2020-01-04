@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
- <edit-criminal inline-template :admins="{{ $admins }}" :countries="{{ $countries }}" :criminal="{{ $criminal }}">
- 		@include("partials.forms._edit-criminals")
+
+<edit-criminal inline-template :admins="{{ $admins }}" :countries="{{ $countries }}" :criminal="{{ $criminal }}">
+ 	@include("partials.forms._edit-criminals")
 </edit-criminal>
+
 @endsection

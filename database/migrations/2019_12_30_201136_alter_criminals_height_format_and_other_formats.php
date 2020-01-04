@@ -14,7 +14,6 @@ class AlterCriminalsHeightFormatAndOtherFormats extends Migration
     public function up()
     {
         Schema::table('criminal_profiles', function (Blueprint $table) {
-            //
         });
     }
 
@@ -26,7 +25,7 @@ class AlterCriminalsHeightFormatAndOtherFormats extends Migration
     public function down()
     {
         Schema::table('criminal_profiles', function (Blueprint $table) {
-            //
+
         });
     }
 }

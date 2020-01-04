@@ -13,13 +13,11 @@ class AlterUsersTableAddedUsernameChangedNameToDisplayName extends Migration
      */
     public function up()
     {
-
-
-     Schema::table('users', function (Blueprint $table) {
-        $table->string('username', 40)->after("id");
-        $table->renameColumn('name', 'display_name');
-    });    
- }
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('username', 40)->after("id");
+            $table->renameColumn('name', 'display_name');
+        });    
+    }
 
     /**
      * Reverse the migrations.

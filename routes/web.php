@@ -1,6 +1,6 @@
 <?php
 
-/* We need pages for this in the landing page 
+/* We need pages for this in the landin	g page 
 for the bounty hunters
 admin Criminals in your area..
 */
@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin',
 	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function () {
-Route::get("stats","DashboardController@stats")->name("admin.statistics");
+	Route::get("stats","DashboardController@stats")->name("admin.statistics");
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 

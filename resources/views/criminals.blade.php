@@ -18,7 +18,7 @@
 	</div>
 	
 	@forelse ($criminals as $criminal)	
-		<criminals-view :criminals="{{ json_encode($criminals) }}" inline-template> 
+		<criminals-view :criminals="'{{ json_encode($criminals) }}'" inline-template> 
 			<article class="timeline-feeds">	
 				<div class="flex" id="userProfile">	
 					<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
