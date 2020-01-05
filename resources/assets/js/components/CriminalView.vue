@@ -23,18 +23,18 @@
 							<p class="mt-2 font-bold text-2xl">Notable Crimes:
 							</p>
 							<!-- @foreach ($criminal->crimes as $crime)  -->
-							<!-- Crimes List -->
+								<!-- Crimes List -->
 
-				<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-				<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
-				</div>
-			-->
+					<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
+					</div>
+				-->
 
-			<div id="crimesList">
-				<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+				<div id="crimesList">
+					<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+						<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+					</div>
 				</div>
-			</div>
 			<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
 		</div>
 		<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
@@ -96,7 +96,8 @@ import _ from 'lodash';
 	},
 	methods : {
 		deleteUser(id){
-			axios.delete()
+			console.log(id);
+			axios.delete(this.remove_criminal_endpoint, { params : { id :  id } })
 				 .then(response => {
 					console.log(response);
 				})
@@ -130,7 +131,7 @@ import _ from 'lodash';
 	},
 
 	check_if_the_currently_logged_on_user_is_the_creator(){
-		console.log("check_if_the_currently_logged_on_user_is_the_creator... starts here.");
+		console.log("	... starts here.");
 	}
 
 },
@@ -158,6 +159,11 @@ beforeRouteLeave(){
 
 
 computed : { 
+
+	remove_criminal_endpoint(){
+		return `api/v1//user/delete` ; 
+	},
+
 	normalUser(){
 		return this.userRole === 3 || this.userRole === 4 || this.userRole === 5 ; 
 	},

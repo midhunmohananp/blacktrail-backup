@@ -6,6 +6,7 @@ use App\Country;
 use App\User;
 use Validator ; 
 use App\Criminal ;
+use App\Crime ; 
 use Illuminate\Support\Facades\Input;
 // use Illuminate\Validation\Validator ; 
 use Storage ; 
@@ -136,10 +137,12 @@ if (request()->wantsJson()) {
         $ownerId = Criminal::where("id",$criminal)->select('posted_by')->first();
         $user = auth()->user()->id ; 
         abort_unless($user === $ownerId->posted_by, 403);
-        $criminal = Criminal::with('profile','country')->findOrFail($criminal);
+        $criminal = Criminal::with('profile','country','crimes')->findOrFail($criminal);
         $countries = Country::select('id','name')->get();
         $admins = User::admins()->select("display_name","id")->get();
-        return view("admin.criminals.edit",compact("criminal",'countries','admins'));
+        $crimes = Crime::select('criminal_offense')->get();
+        return view("admin.criminals.edit",compact("crimes", "criminal",'countries','admins'));
+    
     }
 
     public function remove_photo($image){

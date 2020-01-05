@@ -25,11 +25,17 @@
 
 	</div>
 	@forelse ($criminals as $criminal)
- 	<criminals-view :criminals="{{ $criminal }}" inline-template>
+ 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" >
+					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
+
+				@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+				@else
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+				@endif
 				</router-link>
 				<div class="flex-1">
 					@verbatim

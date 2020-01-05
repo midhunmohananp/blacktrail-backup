@@ -17,7 +17,7 @@
 		
 	@forelse ($criminals as $criminal)
 
-	<criminals-view inline-template :criminals="{{  $criminal }}">
+	<criminals-view inline-template :criminals="{{ strip_tags($criminal) }}">
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">

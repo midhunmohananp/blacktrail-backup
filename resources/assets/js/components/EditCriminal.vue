@@ -1,18 +1,18 @@
 <template>
 	<section class="w-full ml-12">
-		<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black ml-6">Edit Criminal Page</p>
+		<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black ml-6">Edit Criminal Page
+		</p>
 		<div class="bg-white p-6 shadow-md w-3/4">
 			<form id="setup-billing-form" action="user/billing" method="POST">
 				<div class="input-group mb-6">
 					<h3 class="text-lg font-sans">Update Criminal Information of {{ criminal.full_name }}</h3>
-				</div>
+				</div>	
 				<div class="flex inline-block mt-4">
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminals' Full / Display Name
 						</label>	
 						<input type="text" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" :value="criminal.full_name" autocomplete="name" placeholder="5000" required>
 					</div>
-
 					<div id="input-group" class="ml-2 w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
 							Alias
@@ -20,6 +20,7 @@
 						<input type="text" :value="criminal.alias" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
 					</div>
 				</div>
+
 				<div class="flex inline-block">
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name
@@ -61,92 +62,84 @@
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthplace
 						</label>
-						<input type="text" :value="criminal.profile.birthplace" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
-					</div>
-
-					<div id="input-group" class="ml-4 w-3/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Seen in 
-						</label>
-						<input type="text" :value="criminal.profile.last_seen" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
-					</div>
+						<places
+						v-model="form.birthplace"
+						class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin"
+						placeholder="Enter the full location details"
+						@change="val => { form.birthplace = val }">
+					</places>
 				</div>
 
-				<div class="flex inline-block">
-					
-					<div id="input-group" class="w-3/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthdate
-						</label>
-						<input type="text" :value="criminal.profile.birthdate" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Date/Month/Year" required>
-					</div>
-
-					<div id="input-group" class="ml-4 w-3/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Eye Color 
-						</label>
-						<input type="text" :value="criminal.profile.eye_color" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
-					</div>
+				<div id="input-group" class="ml-4 w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Seen in 
+					</label>
+					<input type="text" :value="criminal.profile.last_seen" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+				</div>
+			</div>	
+			<div class="flex inline-block">
+				<div id="input-group" class="w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthdate
+					</label>
+					<datepicker input-class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" :value="criminal.profile.birthdate" format="YYYY-M-D" name="date2"></datepicker>
+				</div>
+				<div id="input-group" class="ml-4 w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Eye Color 
+					</label>
+					<input type="text" :value="criminal.profile.eye_color" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+				</div>
+			</div>
+			<div class="flex inline-block">
+				<div id="input-group" class="w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Weight In Kilos
+					</label>
+					<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="any number like 50" required>
 				</div>
 
-				<div class="flex inline-block">
-					<div id="input-group" class="w-3/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Weight In Kilos
-						</label>
-						<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="any number like 50" required>
-					</div>
-
-					<div id="input-group" class="ml-4 w-3/5">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Height(in cm)
-						</label>
-						<input placeholder="168cm" type="text" :value="criminal.profile.height_in_feet_and_inches" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" required>
-					</div>
+				<div id="input-group" class="ml-4 w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Height(in cm)
+					</label>
+					<input placeholder="168cm" type="text" :value="criminal.profile.height_in_feet_and_inches" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" required>
 				</div>
+			</div>
 
-				<div class="flex inline-block">
-					<div id="input-group" class="w-full">	
-						<label for="name" class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Description
-							<VueTrix
-							class="editor1" 
-							inputId="editor1"
-							@trix-attachment-remove="handleAttachmentRemove"
-							@trix-attachment-add="handleAttachmentAdd"
-							v-model="form.complete_description"
-							/>
-						</label>
-					</div>
-				</div>
-
-				<div class="mt-4 flex inline-block">
-					<div id="input-group" class="w-full">	
-						<button class="bg-blue text-white p-4 w-full">Submit</button>
-					</div>
-				</div>
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes
+			</label>
 			
+			<div class="flex inline-block" v-for="(input,k) in inputs" :key="k">
+				<div v-if="criminal.crimes "></div>
 
-</form>
-			<!-- {{-- <form method="POST" action="#" class="font-basic ml-6 mt-2 p-2">
-			<h3>Edit Criminal : {{  criminal.full_name }}</h3>
-			<div class="flex">
-				<div class="mt-4">
-					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Display Name</label>
-					<input name="full_name" :value="{{  criminal.full_name }}" type="text" class="bg-grey-lighter w-3/5 mb-2 p-2 leading-normal" name="full_name" placeholder="Criminal Name">	
-				</div>	
-				
-				<div class="mt-4">
-					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Alias</label>
-					<input name="full_name" :value="{{  criminal.alias }}" type="text" class="bg-grey-lighter w-3/5 mb-2 p-2 leading-normal" name="full_name" placeholder="Criminal Name" >	
-				</div>	
+				<select class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
+					<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
+				</select>
+				<div id="input-group" class="ml-4 w-3/5">			
+					<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
+				</div>
+				<span>
+					<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)"></i>
+					<i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
+				</span>
+			</div>
+			
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
+			</label>
+			<div class="flex inline-block">
+				<VueTrix
+				class="editor1" 
+				inputId="editor1"
+				@trix-change="handleEditorChange"
+				@trix-attachment-remove="handleAttachmentRemove"
+				@trix-attachment-add="handleAttachmentAdd"
+				v-model="form.complete_description"
+				/>
 			</div>
 
-			<div class="mt-4">
-				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name</label>
-				<input name="full_name" :value="{{  criminal.first_name }}" type="text" class="bg-grey-lighter w-1/2 mb-2 p-2 leading-normal" name="full_name" placeholder="Criminal Name" >	
-			</div>		
-
-			<div class="mt-4">
-				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Middle Name</label>
-				<input name="full_name" :value="{{ criminal.middle_name }}" type="text" class="bg-grey-lighter w-1/2 mb-2 p-2 leading-normal" name="full_name" placeholder="Middle Name" >	
+			<div class="mt-2 w-3/4">
+				<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
 			</div>
-		</form> -->
-	</div>
+			
+		</form>
+	</div>	
+</div>
 </section>
 </template>
 <script>
@@ -154,103 +147,203 @@ import api from "./scripts/api.js";
 import urls from "./scripts/endpoints.js";
 import Places from 'vue-places';
 import VueTrix from "vue-trix";
+import datepicker from 'vue-date-picker';
 import _ from "lodash"; 
-	export default { 
-		props : ['criminal','admins','countries'],
-		components : { 
-			'VueTrix' : VueTrix,
-			'places' : Places, 
-		}, 
-		methods : {
-			fetchCountries(){
-
-			}
+export default { 
+	props : ['crimes','criminal','admins','countries'],
+	components : { 
+		'VueTrix' : VueTrix,
+		'places' : Places, 
+		'datepicker' : datepicker
+	}, 
+	methods : {
+		add(index) {
+			this.inputs.push({ name: '' });
 		},
+		remove(index) {
+			this.inputs.splice(index, 1);
+		},
+		handleAttachmentAdd(event){
+			console.log(event);
 
-		data(){
-			return { 
-				country : this.criminal.country_id,
-				form : {
-					status : 0, 
-					maxFiles: 1,
-					complete_description : this.criminal.profile.complete_description,
-					currency : 1,
-					placeholder:  "Well..",
-					alias : "",
-					status : 1 , 
-					bounty : "",
-					last_seen : "",
-					contact_person : api.user.id , 
-					criminals_name : "",
-				// contact_number : api.user.phone_number , 
-					contact_number : "",
-					attachments : [],
-					country_id : 4 , 
-					uploadUrl: urls.urlSaveCriminal,
-				},
-				posted_by : this.criminal.posted_by,
-				max_files: { // total # of files allowed to be uploaded
-					type: Number,
-					required: false,
-					default: 10
+			var attachment = event.attachment.attachment;
+
+			if(attachment.file == undefined){
+				return;
+			}
+
+			this.uploadAttachment(attachment.file, setProgress, setAttributes)
+
+			function setProgress(progress) {
+				attachment.setUploadProgress(progress)
+			}
+
+			function setAttributes(attributes) {
+				attachment.setAttributes(attributes)
+			}
+
+			return ;
+
+		/*var attachment = event.attachment;
+		console.log(attachment);
+		if (attachment.file){		
+			const data = attachment;
+			const config = {
+				onUploadProgress: progressEvent => {
+					var progress = progressEvent.loaded / progressEvent.total * 100;
+					attachment.setUploadProgress(progress);
 				}
+			}
 
-	/*		input_id: { // Id of upload control
-	type: String,
-	required: false,
-	default: "default"
-	},
-	url: { // upload url
-	type: String,
-	required: true,
-	default: null
-	},
-	name: { // name to use for FormData
-	type: String,
-	required: false,
-	default: 'images[]'
-	},
-	max_batch: { // # of files to upload within one request
-	type: Number,
-	required: false,
-	default: 0
-	},
-	max_files: { // total # of files allowed to be uploaded
-	type: Number,
-	required: false,
-	default: 10
-	},
-	max_filesize: { // max files size in KB
-	type: Number,
-	required: false,
-	default: 8000
-	},
-	resize_enabled: { // resize image prior to preview/upload
-	type: Boolean,
-	required: false,
-	default: false
-	},
-	resize_max_width: { // resize max width
-	type: Number,
-	required: false,
-	default: 800
-	},
-	resize_max_height: { // resize max height
-	type: Number,
-	required: false,
-	default: 600
-	},
-	button_html: { // text/html for button
-	type: String,
-	required: false,
-	default: 'Upload Images'
-	},
-	button_class: { // classes for button
-	type: String,
-	required: true,
-	default: 'bg-grey-darker p-2'
-	}
-	*/
+			axios.post(this.send_attachment_endpoint,data,config)
+			.then((response) => {
+				console.log("Response is:");
+				console.log(response);
+				if (response.status === 201) {
+					setTimeout(function() {
+						var url = response.data;
+						attachment.setAttributes({ url: url, href: url });
+					}, 30)
+				}
+				console.log(response.data);
+			}).catch(error => console.log(error));
+				attachment.setUploadProgress(10);
+				setTimeout(function(e) {
+					console.log("Set TimeOut:");
+					console.log(e);
+					// var url = xhr.responseText;
+					// return attachment.setAttributes({ url: url, href: url });
+				}, 30)
+		}
+		else { 
+			return response("No file uploaded here",401);
+		}*/
+
+	}, 
+
+/*async handleAttachmentAdd(evt){
+let file = evt.attachment.file
+let form = new FormData()
+form.append('Content-Type', file.type)
+form.append('image', file)
+const resp = await this.$store.dispatch('imageUpload', form)
+evt.attachment.setUploadProgress(100)
+console.log(resp)
+evt.attachment.setAttributes({
+	url: resp.data.url,
+	href: resp.data.url
+})
+},*/
+
+handleEditorChange(file){
+	console.log('file',file);
+},
+
+handleAttachmentRemove(file){
+	console.log("Trying to delete");
+	let url = file.attachment.attachment.attributes.values.url.split("/").pop();
+	console.log(url);
+	axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
+		console.log(response);
+	}).catch(error => {
+		console.log(error);
+	});
+},
+
+
+},
+
+data(){
+	return { 
+
+		inputs: [
+		{
+			name: ''
+		}
+		],
+		country : this.criminal.country_id,
+		form : {
+			birthplace : "",
+			status : 0, 
+			maxFiles: 1,
+			complete_description : this.criminal.profile.complete_description,
+			currency : 1,
+			placeholder:  "Well..",
+			alias : "",
+			status : 1 , 
+			bounty : "",
+			last_seen : "",
+			contact_person : api.user.id , 
+			criminals_name : "",
+			// contact_number : api.user.phone_number , 
+			contact_number : "",
+			attachments : [],
+			country_id : 4 , 
+			uploadUrl: urls.urlSaveCriminal,
+		},
+		posted_by : this.criminal.posted_by,
+			max_files: { // total # of files allowed to be uploaded
+				type: Number,
+				required: false,
+				default: 10
+			}
+
+/*		input_id: { // Id of upload control
+type: String,
+required: false,
+default: "default"
+},
+url: { // upload url
+type: String,
+required: true,
+default: null
+},
+name: { // name to use for FormData
+type: String,
+required: false,
+default: 'images[]'
+},
+max_batch: { // # of files to upload within one request
+type: Number,
+required: false,
+default: 0
+},
+max_files: { // total # of files allowed to be uploaded
+type: Number,
+required: false,
+default: 10
+},
+max_filesize: { // max files size in KB
+type: Number,
+required: false,
+default: 8000
+},
+resize_enabled: { // resize image prior to preview/upload
+type: Boolean,
+required: false,
+default: false
+},
+resize_max_width: { // resize max width
+type: Number,
+required: false,
+default: 800
+},
+resize_max_height: { // resize max height
+type: Number,
+required: false,
+default: 600
+},
+button_html: { // text/html for button
+type: String,
+required: false,
+default: 'Upload Images'
+},
+button_class: { // classes for button
+type: String,
+required: true,
+default: 'bg-grey-darker p-2'
+}
+*/
 }
 }	
 };

@@ -23,6 +23,7 @@ class UsersController extends Controller
 	/*delete user*/
 	public function delete_user(){
 		$user_id = intval(request('user_id'));
+		dd($user_id);
 		$user = DB::table('users')->where('id', '=', $user_id)->delete();
 		return response()->json($user);
 	}
@@ -55,7 +56,7 @@ class UsersController extends Controller
 		}
 		// if the passwords match 
 		else { 
-	
+
 			if(Hash::check($password, $logged_on_users_password)) {
 				return response()->json(['error' => 'Try using a different password since you have the same inputted password'], 401);
 			} else { 
@@ -73,10 +74,10 @@ class UsersController extends Controller
 				if(request()->input('form.avatar')){
 
 					$image = request()->input('form.avatar');
-				
+
 					$photo = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
 					\Image::make(request()->input('form.avatar'))->resize(100,100)->save(public_path('avatars\users').$photo);
-				
+
 				}
 
 			// return response(request()->all());

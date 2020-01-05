@@ -135,11 +135,13 @@
 	import api from './scripts/api.js';
 	import Places from 'vue-places';
 	import VueTrix from "vue-trix";
+	import datepicker from 'vue-date-picker';
 	import _ from "lodash"; 
 	export default { 
 		components : { 
 			'VueTrix' : VueTrix,
 			'places' : Places, 
+		    'datepicker' : datepicker
 		},
 		watch : { 
 			question:function(newQuestion, oldQuestion){
@@ -306,15 +308,12 @@ methods : {
 
 		handleAttachmentAdd(event){
 			console.log(event);
-
 			var attachment = event.attachment.attachment;
-
 			if(attachment.file == undefined){
 				return;
 			}
 
 			this.uploadAttachment(attachment.file, setProgress, setAttributes)
-
 			function setProgress(progress) {
 				attachment.setUploadProgress(progress)
 			}
@@ -427,6 +426,7 @@ resetForm(){
     });
 
 },
+
 registerCriminal(){
 	// console.log(this.endpoint);	
 

@@ -6,8 +6,8 @@
 
 @section('content')
 
-<edit-criminal inline-template :admins="{{ $admins }}" :countries="{{ $countries }}" :criminal="{{ $criminal }}">
+{{-- <edit-criminal> --}}
  	@include("partials.forms._edit-criminals")
-</edit-criminal>
+{{-- </edit-criminal> --}}
 
 @endsection
