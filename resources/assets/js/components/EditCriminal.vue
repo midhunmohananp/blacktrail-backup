@@ -90,9 +90,9 @@
 			</div>
 			<div class="flex inline-block">
 				<div id="input-group" class="w-3/5">	
-					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Weight In Kilos
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Weight In Kilos / Lbs ( Just specify )
 					</label>
-					<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="any number like 50" required>
+					<input type="text" class="hover:bg-grey-lightest bg-grey-lighter mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="any number like 50" required>
 				</div>
 
 				<div id="input-group" class="ml-4 w-3/5">	
@@ -101,88 +101,129 @@
 					<input placeholder="168cm" type="text" :value="criminal.profile.height_in_feet_and_inches" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" required>
 				</div>
 			</div>
-
-			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes
-			</label>
 			
-			<div class="flex inline-block" v-for="(input,k) in inputs" :key="k">
-				<div v-if="criminal.crimes "></div>
-
-				<select class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
-					<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
-				</select>
-				<div id="input-group" class="ml-4 w-3/5">			
-					<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
-				</div>
+			<div class="w-full flex">
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes
+				</label>
 				<span>
-					<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)"></i>
-					<i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
+					<i class="fas fa-plus-circle h-4 w-4 text-grey-darker" @click="add(k)" v-show="k == inputs.length-1">
+					</i>
 				</span>
 			</div>
 			
-			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
-			</label>
-			<div class="flex inline-block">
-				<VueTrix
-				class="editor1" 
-				inputId="editor1"
-				@trix-change="handleEditorChange"
-				@trix-attachment-remove="handleAttachmentRemove"
-				@trix-attachment-add="handleAttachmentAdd"
-				v-model="form.complete_description"
-				/>
+			<div class="w-full flex inline-block" v-for="(input,k) in inputs" :key="k">
+				<!-- if there's no crimes for that guy -->
+				<div v-if="criminal.crimes.length === 0" class="flex inline-block w-full">
+					<select v-model="inputs.crime_id" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
+						<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
+					</select>
+					<div id="input-group" class="ml-4 w-3/5">			
+						<input type="text" v-model="inputs.name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
+					</div>
+					<span>
+						<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">
+						</i>
+						<i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1">
+						</i>
+					</span>
+				</div>
+				<div class="w-full inline-block" v-else>
+					<div v-for="crimes in criminal.crimes">
+						<!-- <p>{{ crimes.criminal_offense }} </p> -->
+						<div class="flex inline-block">
+							<select class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
+								<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
+							</select>
+							<div class="flex inline-block">
+								<div id="input-group" class="ml-4 w-3/5">			
+									<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
+								</div>
+								<span class="mr-2">
+									<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">
+									</i>
+									<i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1">
+									</i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="mt-2 w-3/4">
-				<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
-			</div>
-			
-		</form>
-	</div>	
-</div>
+			<!-- 	<div v-if="criminal.crimes.length > 0">
+					<p>less than 1</p>
+				</div>
+				<div v-else>
+					
+				</div> -->
+
+
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details
+				</label>
+				<div class="flex inline-block">
+					<VueTrix
+					class="editor1" 
+					inputId="editor1"
+					@trix-change="handleEditorChange"
+					@trix-attachment-remove="handleAttachmentRemove"
+					@trix-attachment-add="handlleAttachmentAdd"
+					v-model="form.complete_description"
+					/>
+				</div>
+
+				<div class="mt-2 w-3/4">
+					<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
+				</div>
+
+			</form>
+		</div>	
+	</div>
 </section>
 </template>
 <script>
-import api from "./scripts/api.js";
-import urls from "./scripts/endpoints.js";
-import Places from 'vue-places';
-import VueTrix from "vue-trix";
-import datepicker from 'vue-date-picker';
-import _ from "lodash"; 
-export default { 
-	props : ['crimes','criminal','admins','countries'],
-	components : { 
-		'VueTrix' : VueTrix,
-		'places' : Places, 
-		'datepicker' : datepicker
-	}, 
-	methods : {
-		add(index) {
-			this.inputs.push({ name: '' });
-		},
-		remove(index) {
-			this.inputs.splice(index, 1);
-		},
-		handleAttachmentAdd(event){
-			console.log(event);
+	import api from "./scripts/api.js";
+	import urls from "./scripts/endpoints.js";
+	import Places from 'vue-places';
+	import VueTrix from "vue-trix";
+	import datepicker from 'vue-date-picker';
+	import _ from "lodash"; 
+	export default { 
+		props : ['crimes','criminal','admins','countries'],
+		components : { 
+			'VueTrix' : VueTrix,
+			'places' : Places, 
+			'datepicker' : datepicker
+		}, 
+		methods : {
+			isEmpty(obj) {
+				return !obj || Object.keys(obj).length === 0;
+			},
+			add(index) {
+				this.inputs.push({ name: '' });
+			},
+			remove(index) {
+				this.inputs.splice(index, 1);
+			},
+			handleAttachmentAdd(event){
+				console.log(event);
 
-			var attachment = event.attachment.attachment;
+				var attachment = event.attachment.attachment;
 
-			if(attachment.file == undefined){
-				return;
-			}
+				if(attachment.file == undefined){
+					return;
+				}
 
-			this.uploadAttachment(attachment.file, setProgress, setAttributes)
+				this.uploadAttachment(attachment.file, setProgress, setAttributes)
 
-			function setProgress(progress) {
-				attachment.setUploadProgress(progress)
-			}
+				function setProgress(progress) {
+					attachment.setUploadProgress(progress)
+				}
 
-			function setAttributes(attributes) {
-				attachment.setAttributes(attributes)
-			}
+				function setAttributes(attributes) {
+					attachment.setAttributes(attributes)
+				}
 
-			return ;
+				return ;
 
 		/*var attachment = event.attachment;
 		console.log(attachment);
@@ -255,9 +296,9 @@ handleAttachmentRemove(file){
 
 data(){
 	return { 
-
 		inputs: [
 		{
+			crime_id : 0, 
 			name: ''
 		}
 		],
@@ -349,7 +390,7 @@ default: 'bg-grey-darker p-2'
 };
 </script>
 <style>
-.trix-content{
+.trix-content {
 	height: 500px;
 	overflow-y: auto;
 }
