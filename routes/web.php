@@ -1,6 +1,7 @@
 <?php
 
-/* We need pages for this in the landin	g page 
+/*
+We need pages for this in the landin	g page 
 for the bounty hunters
 admin Criminals in your area..
 */
@@ -8,7 +9,8 @@ admin Criminals in your area..
 /*	
 Route::get("/test/email/send",function(){
 Mail::send('')
-});*/
+});
+*/
 	
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 

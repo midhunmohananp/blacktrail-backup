@@ -124,7 +124,7 @@
 
 
 		<div class="mb-2 w-3/4">
-			<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
+			<button type="submit" :disabled="isLoading" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
 		</div>
 	</form>	
 
@@ -165,28 +165,29 @@
 		data(){
 			return { 
 				image : "",
+				isLoading : null , 
 				form : {
-					complete_description : "",
-					alias : "",
-					first_name : "",
-					last_name : "",
-					country: {
-						label: null,
-						data: {},
-					},
-					maxFiles: 1,
-					criminals_name : "",
-					currency : 1,
-					avatar : "",
-					placeholder:  "Well..",
-					status : 1 , 
-					bounty : "",
-					posted_by : api.user.id , 
-			// contact_number : api.user.phone_number , 
-			contact_number : "",
-			attachments : [],
-			country_id : 1, 
-			uploadUrl: urls.urlSaveCriminal,
+						complete_description : "",
+						alias : "",
+						first_name : "",
+						last_name : "",
+						country: {
+							label: null,
+							data: {},
+						},
+						maxFiles: 1,
+						criminals_name : "",
+						currency : 1,
+						avatar : "",
+						placeholder:  "Well..",
+						status : 1 , 
+						bounty : "",
+						posted_by : api.user.id , 
+					// contact_number : api.user.phone_number , 
+					contact_number : "",
+					attachments : [],
+					country_id : 1, 
+					uploadUrl: urls.urlSaveCriminal,
 		},
 		withFiles: { type: Boolean, default: true },
 		input_id: { // Id of upload control
@@ -266,117 +267,128 @@ methods : {
 	},
 
 
-	uploadAttachment(file,progressCallback,successCallback){
-		if(file == undefined){
+uploadAttachment(file,progressCallback,successCallback){
+	if(file == undefined){
+		return;
+	}
+
+	console.log('uploading!');	
+	let formData = new FormData();
+
+	formData.append('file', file);
+	
+	formData.append('attachable_type','App\CriminalInfo');		
+	
+	formData.append('field','complete_description');
+		
+	axios.post(this.send_attachment_endpoint, formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+		onUploadProgress: (progressEvent) => {
+			const totalLength = progressEvent.lengthComputable
+			? progressEvent.total
+			: progressEvent.target.getResponseHeader('content-length') ||
+			progressEvent.target.getResponseHeader('x-decompressed-content-length');
+			console.log('onUploadProgress', totalLength);
+			if (totalLength !== null) {
+				const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
+				progressCallback(progressData);
+			}
+		},
+	}).then((response) => {
+		progressCallback(100); 
+			// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
+			let attachment = response.data;
+			var attributes = {
+				url: attachment.url,
+				href: attachment.url +"?content-disposition=attachment"
+			}
+			successCallback(attributes);
+		}).catch((error) => {
+			console.log('FAILURE!!', error);
+		});
+
+	},
+
+	handleAttachmentAdd(event){
+		console.log(event);
+		var attachment = event.attachment.attachment;
+		if(attachment.file == undefined){
 			return;
 		}
 
-		console.log('uploading!');	
-		let formData = new FormData();
-		formData.append('file', file);
-		formData.append('attachable_type','App\CriminalInfo');		
-		formData.append('field','complete_description');
-		axios.post(this.send_attachment_endpoint, formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			},
-			onUploadProgress: (progressEvent) => {
-				const totalLength = progressEvent.lengthComputable
-				? progressEvent.total
-				: progressEvent.target.getResponseHeader('content-length') ||
-				progressEvent.target.getResponseHeader('x-decompressed-content-length');
-				console.log('onUploadProgress', totalLength);
-				if (totalLength !== null) {
-					const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
-					progressCallback(progressData);
-				}
-			},
-		}).then((response) => {
-			progressCallback(100); 
-				// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
-				let attachment = response.data;
-				var attributes = {
-					url: attachment.url,
-					href: attachment.url +"?content-disposition=attachment"
-				}
-				successCallback(attributes);
-			}).catch((error) => {
-				console.log('FAILURE!!', error);
-			});
-
-		},
-
-		handleAttachmentAdd(event){
-			console.log(event);
-			var attachment = event.attachment.attachment;
-			if(attachment.file == undefined){
-				return;
-			}
-
-			this.uploadAttachment(attachment.file, setProgress, setAttributes)
-			function setProgress(progress) {
-				attachment.setUploadProgress(progress)
-			}
-
-			function setAttributes(attributes) {
-				attachment.setAttributes(attributes)
-			}
-
-			return ;
-
-	/*var attachment = event.attachment;
-	console.log(attachment);
-	if (attachment.file){		
-		const data = attachment;
-		const config = {
-			onUploadProgress: progressEvent => {
-				var progress = progressEvent.loaded / progressEvent.total * 100;
-				attachment.setUploadProgress(progress);
-			}
+		this.uploadAttachment(attachment.file, setProgress, setAttributes)
+		
+		function setProgress(progress) {
+			attachment.setUploadProgress(progress)
 		}
 
-		axios.post(this.send_attachment_endpoint,data,config)
-		.then((response) => {
-			console.log("Response is:");
-			console.log(response);
-			if (response.status === 201) {
-				setTimeout(function() {
-					var url = response.data;
-					attachment.setAttributes({ url: url, href: url });
-				}, 30)
-			}
-			console.log(response.data);
-		}).catch(error => console.log(error));
-			attachment.setUploadProgress(10);
-			setTimeout(function(e) {
-				console.log("Set TimeOut:");
-				console.log(e);
-				// var url = xhr.responseText;
-				// return attachment.setAttributes({ url: url, href: url });
-			}, 30)
+		function setAttributes(attributes) {
+			attachment.setAttributes(attributes)
+		}
+
+		return ;
+
+/*var attachment = event.attachment;
+console.log(attachment);
+if (attachment.file){		
+	const data = attachment;
+	const config = {
+		onUploadProgress: progressEvent => {
+			var progress = progressEvent.loaded / progressEvent.total * 100;
+			attachment.setUploadProgress(progress);
+		}
 	}
-	else { 
-		return response("No file uploaded here",401);
-	}*/
+
+	axios.post(this.send_attachment_endpoint,data,config)
+	.then((response) => {
+		console.log("Response is:");
+		console.log(response);
+		if (response.status === 201) {
+			setTimeout(function() {
+				var url = response.data;
+				attachment.setAttributes({ url: url, href: url });
+			}, 30)
+		}
+		console.log(response.data);
+	}).catch(error => console.log(error));
+		attachment.setUploadProgress(10);
+		setTimeout(function(e) {
+			console.log("Set TimeOut:");
+			console.log(e);
+			// var url = xhr.responseText;
+			// return attachment.setAttributes({ url: url, href: url });
+		}, 30)
+}
+else { 
+	return response("No file uploaded here",401);
+}*/
 
 }, 
 
 /*async handleAttachmentAdd(evt){
-	let file = evt.attachment.file
-	let form = new FormData()
-	form.append('Content-Type', file.type)
-	form.append('image', file)
-	const resp = await this.$store.dispatch('imageUpload', form)
-	evt.attachment.setUploadProgress(100)
-	console.log(resp)
-	evt.attachment.setAttributes({
-		url: resp.data.url,
-		href: resp.data.url
-	})
+let file = evt.attachment.file
+let form = new FormData()
+form.append('Content-Type', file.type)
+form.append('image', file)
+const resp = await this.$store.dispatch('imageUpload', form)
+evt.attachment.setUploadProgress(100)
+console.log(resp)
+evt.attachment.setAttributes({
+	url: resp.data.url,
+	href: resp.data.url
+})
 },*/
 
 handleEditorChange(file){
-console.log('file',file);
+// file.preventDefault(); 
+
+if (!this.withFiles) {
+	file.preventDefault();
+}
+
+// console.log('file',file);
 },
 
 handleAttachmentRemove(file){
@@ -428,14 +440,16 @@ resetForm(){
 },
 
 registerCriminal(){
-	// console.log(this.endpoint);	
-
-	axios.post(this.endpoint,{
-		form : this.form 
-	}).then(response => {
-		if ( response.status == 200){
-			alert("Successfully Registered This Criminal");
-	        this.resetForm(); //clear form automatically after successful request
+	// e.preventDefault();
+	this.isLoading = true
+	setTimeout(() => {
+		this.isLoading = false
+		axios.post(this.endpoint,{
+			form : this.form 
+		}).then(response => {
+			if ( response.status == 200){
+				alert("Successfully Registered This Criminal");
+	        	this.resetForm(); //clear form automatically after successful request
 	    }
 	    else {
 	    	alert("We encounter some errors while adding that criminal"); 
@@ -443,6 +457,9 @@ registerCriminal(){
 	}).catch(error => {
 		alert("We encounter some errors while adding that criminal, try to check your inputs"); 
 	});
+	}, 1000)
+
+	
 
 		// console.log("Pressed on the button");
 // this.$modal.show('show-information', {});

@@ -166,7 +166,7 @@
 					inputId="editor1"
 					@trix-change="handleEditorChange"
 					@trix-attachment-remove="handleAttachmentRemove"
-					@trix-attachment-add="handlleAttachmentAdd"
+					@trix-attachment-add="handleAttachmentAdd"
 					v-model="form.complete_description"
 					/>
 				</div>
