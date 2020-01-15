@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Validator ; 
+use Validator;
 use App\TrixAttachment ; 
-use Storage ; 
-use Response ; 
+use Storage;
+use Response;
 class TrixAttachmentController extends Controller
 {	
 	/*storing attached files in trix..*/

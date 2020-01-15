@@ -9,6 +9,13 @@ class TrixAttachment extends Model
 {
 	protected $guarded = [];
 
+	protected $fillable = [
+        'field',
+        'attachable_type',
+        'attachment',
+        'disk',
+    ];
+
 	public function purge()
 	{
 		Storage::disk($this->disk)->delete($this->attachment);

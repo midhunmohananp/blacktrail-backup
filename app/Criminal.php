@@ -2,8 +2,22 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
 class Criminal extends Model
 {
+
+    protected $fillable = [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'alias',
+        'country_id',
+        'posted_by',
+        'contact_number',
+        'status',
+        'photo',
+    ];
 
 	protected $guarded = [];
 
@@ -106,7 +120,7 @@ class Criminal extends Model
 
 
 	public function full_name(){
-		return $this->first_name ."" .$this->last_name ; 
+		return $this->first_name ." " .$this->last_name ;
 	}
 
 	/**
@@ -126,14 +140,13 @@ class Criminal extends Model
 		return $this->first_name ." " .$this->last_name ; 
 	}*/
 
-	public static function saveCriminal($request, $file_name = 'default_avatar.jpg'){
+	public static function saveCriminal(Request $request, string $file_name = 'default_avatar.jpg'){
 		return Criminal::create([
 			'first_name'         =>             $request->input("form.first_name"),
 			'middle_name'        =>             $request->input("form.middle_name"),
 			'last_name'          =>             $request->input("form.last_name"),
 			'alias'              =>             $request->input("form.alias"),
 			'country_id'         =>             $request->input("form.country_id"),
-			'last_name'          =>             $request->input("form.last_name"),
 			'posted_by'          =>             $request->input("form.posted_by"),
 			'contact_number'     =>             $request->input("form.contact_number"),
 			'status'             =>             $request->input("form.status"),
