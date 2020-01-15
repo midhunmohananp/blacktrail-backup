@@ -1,7 +1,6 @@
 <?php
-
+	
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,9 +12,12 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['prefix' => 'v1'], function(){
+	Route::post("/attachments","TrixAttachmentController@store");
+	Route::delete("/attachments/{url}","TrixAttachmentController@destroyAttachment");
+
 	Route::get('/groups', 'GroupsController@getAll');
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
-
+	
 	/*retrieving respondent of the criminal's information*/
 	Route::get("/respondent/criminal","Api\CriminalsController@fetch_respondent");
 	Route::get("/respond/criminal/{criminal}","ChatController@send_chat");

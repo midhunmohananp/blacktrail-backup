@@ -58,17 +58,15 @@
 
 
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Country Last seen : <em class="font-bold roman">{{  $criminal->profile->last_seen }}</em></p>
-								</div>
-
-
-								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Last seen at : <em class="font-bold roman">{{  $criminal->profile->last_seen }}</em></p>
 								</div>
 
-
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">{{  $criminal->profile->birthdate->toFormattedDateString() }}</em></p>
+									<p class="text-md text-normal mr-4">Birthdate : 
+										<em class="font-bold roman">
+											{{ Carbon\Carbon::parse($criminal->profile->birthdate)->format('d-m-Y i') }}
+										</em>
+									</p>
 								</div>
 							</div>
 
@@ -85,7 +83,7 @@
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
 								</div>
-								
+
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Body Frame : <em class="font-bold roman">{{ ucwords($criminal->profile->body_frame ) }}</em></p>
 								</div>
@@ -98,10 +96,12 @@
 									<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
 									</p>
 								</div>
+								<div class="row mb-3">
+									<p class="text-md text-normal mr-4">Birthplace: <em class="font-bold roman">{{ ucwords($criminal->profile->birthplace) }}</em>
+									</p>
+								</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -140,19 +140,12 @@
 			<div class="shadow-md bg-white p-4 mt-4">
 				<div class="">	
 					<div class="ml-4">	
-						<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-							More Details..  Show here the details that are in the trix editor.
-						</p>
+						<div v-html="`{{ $criminal->profile->complete_description }}`" class="font-basic ml-2 tracking-normal  mb-4 mt-4 font-normal mr-2">
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-{{-- 
-		<div class="flex">
-			<p>Show the Crimes for a crimnal</p>
-			<p>Also the photos</p>
-		</div> --}}
-
 	</div>
 </criminal-profile>
 @endsection

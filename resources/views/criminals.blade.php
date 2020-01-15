@@ -16,13 +16,20 @@
 		</p>
 		@include('partials.filter',['countries'=> $countries])		
 	</div>
+	
 	@forelse ($criminals as $criminal)	
-		<criminals-view inline-template :criminals="{{  $criminal }}">
-			<article class="timeline-feeds">	
-				<div class="flex" id="userProfile">	
-					<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
-						<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" >
-					</router-link>
+	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template> 
+		<article class="timeline-feeds">	
+			<div class="flex" id="userProfile">	
+				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
+					@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
+					{{-- <p>Amazing</p> --}}
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto"  alt="Criminals View" >
+
+					@else
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+					@endif
+				</router-link>
 				{{-- showing the names of the criminals --}}
 				<div class="flex-1">
 					@verbatim
@@ -33,9 +40,9 @@
 			</div>
 		</article>
 	</criminals-view>
-		{{-- @include("partials.criminals-view", ['criminals' => $criminal]) --}}
+	{{-- @include("partials.criminals-view", ['criminals' => $criminal]) --}}
 	@empty
-		<h3>No Criminals are added yet..</h3>
+	<h3>No Criminals are added yet..</h3>
 	@endforelse
 
 	{{ $criminals->links() }}

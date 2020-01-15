@@ -27,11 +27,11 @@
   <div id="app">
     <div class="m-auto">
       @if(session()->has('logoutMessage'))
-      <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
+        <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
       @endif 
 
       @if(session()->has('confirmation_success_message'))
-      <flash-message message="{{ trans('flash.confirmation_success') }}"></flash-message>
+        <flash-message message="{{ trans('flash.confirmation_success') }}"></flash-message>
       @endif
       
       @if(session()->has('flash-message'))

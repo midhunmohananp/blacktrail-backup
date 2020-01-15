@@ -8,7 +8,6 @@
 		</button>	
 	<!-- 	<button v-show="this.userRole = true" class="w-full bg-red p-3 text-white border-none border-2 hover:text-white hover:border-grey-lightest mt-4 ml-2 hover:bg-green-second" @click="requestPolice">Request for Police Assistance
 	</button> -->
-
 	<chat-box :id="id" :criminalName="criminals"></chat-box>
 	<offer-bounty :id="id" :criminals="criminals"></offer-bounty>
 </section>
@@ -32,10 +31,12 @@ export default {
 	},
 
 	methods : { 
+		
 		redirectToProfile(id){
 			// console.log(this.criminal_id);
 			window.location.href = window.App.apiDomain + "/criminals/" + this.criminal_id ;
 		},
+
 		reportCriminalLocation(){
 			this.$modal.show("chat-box");
 			console.log("opening chat..");

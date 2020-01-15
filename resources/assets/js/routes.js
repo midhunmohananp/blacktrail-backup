@@ -7,7 +7,14 @@ let routes = [
 	name : 'criminalView',
 	component : CriminalView,	
 	props : true 
+},
+{
+	path : '/criminal',
+	component : CriminalView,	
+	props : true 	
+	// name : 'criminalView',
 }
+
 /*{
 	path : 'user/:userId', 
 	name : 'chatView',

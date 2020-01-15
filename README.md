@@ -5,6 +5,8 @@
 
 - People will use it to add more bounty to criminals they deem really dangerous to their neighborhood
 
+
+
 ### Features 
 
 1. Chat feature from ordinary people to connect to law enforcement agencies.

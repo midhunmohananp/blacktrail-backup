@@ -5,7 +5,8 @@ use App\Criminal ;
 use App\User ; 
 use App\Exceptions\UserRegistrationException; 
 use Rule ; 
-use App\Country ; 
+use App\Country;
+ 
 class CriminalsController extends Controller
 {
 
@@ -29,7 +30,6 @@ class CriminalsController extends Controller
 	public function storeCriminal(User $user)
 	{
 		
-		dd(request()->all());
 		
 		/*If user is not logged on. or that he's not an adminstrator to the app*/
 		if (auth()->check() === false || $user->isAdmin() === false) {

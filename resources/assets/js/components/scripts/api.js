@@ -7,8 +7,10 @@ export const app 							=	   window.App.apiDomain;
 export const urlSaveCriminal 				= 	   window.App.addCriminalUrl; 
 export const url_for_saving_photos			=      window.App.savePhotosUrl; 
 export const resourcePath			 		=      window.App.resourcePath; 
+export const csrfToken			 		=     	   window.App.csrfToken; 
 
 export default {
+	csrfToken : csrfToken, 
 	user : user ,
 	algoliaId , 
 	algoliaKey ,

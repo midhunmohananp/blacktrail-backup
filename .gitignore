@@ -16,3 +16,5 @@ project.md
 composer.
 resources/crud-generator
 test-app.md
+public/js/app.js
+public/assets/images

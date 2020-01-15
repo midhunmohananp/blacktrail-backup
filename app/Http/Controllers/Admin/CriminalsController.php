@@ -1,31 +1,34 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\User;
-use Validator ; 
+use Illuminate\Support\Str;
+use Validator ;
 use App\Criminal ;
+use App\Crime ; 
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 // use Illuminate\Validation\Validator ; 
-
+use Storage ; 
 class CriminalsController extends Controller
 {
-    /**
-     * Display a listing of the resource
-.     *
-     * @return \Illuminate\Http\Response
-     */
-public function index()
-{
-    return view("criminals");
-}
+	    /**
+	     * Display a listing of the resource
+	.     *
+	     * @return \Illuminate\Http\Response
+	     */
+	public function index()
+	{
+		return view("criminals");
+	}
 
 
-public function showData(Request $request)
-{
+	public function showData(Request $request)
+	{
 
-}
+	}
 
 
     /**
@@ -50,43 +53,67 @@ public function showData(Request $request)
     }
 
     /*Maka add na ta but what lacks is that dli lang kadawat og pictures. */
-    public function store_criminal(User $user)
+    public function store_criminal(Request $request)
     {
         /*
-        If user is not logged on. or that he's not an adminstrator to the app
+        If user is not logged on. or that he's not an administrator to the app
         */
-        if (auth()->check() === false && !auth()->user()->isAdmin()) {
+        if (auth()->check() === false || !auth()->user()->isAdmin()) {
             abort(401, 'Unauthorized.');
-       // return response('You are not authorized', 401);
+            // return response('You are not authorized', 401);
         }
-        
-        dd(request()->all());
 
-        $validator = Validator::make(request()->input('form'), [
-            'full_name' => 'required|string|min:120',
-            'contact_person'            => 'required|numeric',
-            'contact_number'            => 'required|string',
-            'last_seen'                 => 'required|string',
-            'status'                    => 'required|numeric',
-            'country_id'                => 'required|numeric',
-            'body'                      => 'required'
+        $this->validate($request, [
+            'form.first_name' => 'required|min:2',
+            'form.middle_name' => 'nullable|min:2',
+            'form.last_name' => 'required|min:2',
+            'form.avatar' => 'nullable',
+            'form.alias' => 'required|min:2|single_word',
+            'form.currency' => 'required|string',
+            'form.bounty' =>  'required|numeric',
+            'form.full_name' => 'nullable|string|min:20',
+            'form.posted_by' => 'required|numeric',
+            'form.contact_number' => 'required|string',
+            'form.last_seen' => 'required|string',
+            'form.status' => 'required|numeric',
+            'form.country_id' => 'required|numeric' ,
+            'form.body' => 'nullable'
         ]);
 
-        $criminal = Criminal::create([
-            'full_name'         =>             request()->input("form.criminals_name"),
-            // 'last_name'          =>             request()->input("form.last_name"),
-            // 'middle_name'        =>             request()->input("form.middle_name"),
-            'alias'              =>             request()->input("form.alias"),
-            'posted_by'          =>             request()->input("form.contact_person"),
-            'contact_number'     =>             request()->input("form.contact_number"),
-            'status'             =>             request()->input("form.status"),
-            'country_id'         =>             request()->input("form.country_id"),
-        ])->profile()->create([
-            'last_seen'               =>                request()->input("form.last_seen"),
-            'bounty'                  =>        request()->input("form.bounty"),
-            'complete_description'    =>        "<div><!--block--><strong>Fill all description of the criminal that are not listed above such as :</strong><br><br>1. Height :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div>"
-        ]);
-            return response()->json($criminal, 201);
+        $formData = $request->input('form');
+
+        //$this->validateInputs(request()->input());
+
+        /*if there's an avatar*/
+        if( $request->hasFile('form.avatar') ){ //!is_null(request()->input('form.avatar')
+
+            $save_path = public_path('assets/images/');
+            
+            if (!file_exists($save_path)) {
+                mkdir($save_path, 666, true);
+            }
+            
+            $image = $request->file('form.avatar'); //request()->input('form.avatar');
+            $file_name = Str::slug($formData['last_name'] . $formData['first_name']) . time().'.' . $image->getClientOriginalExtension();
+
+            Image::make(request()->input('form.avatar'))
+                ->resize(200,200)
+                ->save($save_path.$file_name);
+
+            Criminal::saveCriminal($request, $file_name);
+
+            return response()->json(['success' => 'You have successfully registered this criminal'],200);
+
+        } else {
+
+           Criminal::saveCriminal($request);
+
+           return response()->json(['success' => 'You have successfully registered this criminal'],200);
+     /*    return response()->json([
+            'success' => true,
+            'id' => $file->id
+        ], 200);*/
+    }
 
 /*
 if (request()->wantsJson()) {
@@ -131,10 +158,17 @@ if (request()->wantsJson()) {
         $ownerId = Criminal::where("id",$criminal)->select('posted_by')->first();
         $user = auth()->user()->id ; 
         abort_unless($user === $ownerId->posted_by, 403);
-        $criminal = Criminal::with('profile','country')->findOrFail($criminal);
+        $criminal = Criminal::with('profile','country','crimes')->findOrFail($criminal);
         $countries = Country::select('id','name')->get();
         $admins = User::admins()->select("display_name","id")->get();
-        return view("admin.criminals.edit",compact("criminal",'countries','admins'));
+        $crimes = Crime::select('criminal_offense')->get();
+        return view("admin.criminals.edit",compact("crimes", "criminal",'countries','admins'));
+    
+    }
+
+    public function remove_photo($image){
+    	Storage::disk('s3')->delete('images/'. $image);
+    	return back()->withSuccess('Image was deleted successfully');
     }
 
     /**
@@ -142,14 +176,12 @@ if (request()->wantsJson()) {
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $criminal
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\response
      */
     public function update($id)
     {
-
-        $criminal = Criminal::findOrFail($id);
+        $criminal = Criminal::findOrFail($id);        
         dd($criminal);
-
     }
 
     /**
@@ -163,6 +195,26 @@ if (request()->wantsJson()) {
         $criminal = Criminal::findOrFail($id);
         $criminal->delete() ;
     }
+
+    protected function validateInputs(){
+       return Validator::make(request()->input('form'), [
+            'first_name'                => 'required|min:2',
+            'middle_name'                => 'required|min:2',
+            'last_name' => 'required|min:2',
+            'avatar'                    => 'required',
+            'alias'                     => 'required|min:2|single_word',
+            'currency'                  => 'required|numeric',
+            'bounty'                    =>  'required|numeric',
+            'full_name'                 => 'required|string|min:120',
+            'posted_by'                 => 'required|numeric',
+            'contact_number'            => 'required|string',
+            'last_seen'                 => 'required|string',
+            'status'                    => 'required|numeric',
+            'country_id'                => 'required|numeric' ,
+            'body'                      => 'required'
+    ]);
+
+   }
 
 
 }

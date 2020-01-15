@@ -11,13 +11,11 @@
 @section('scripts')
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script>	
-	
-
 	$(function(){
 		console.log(window.App.apiDomain);
 		window.setTimeout(function () {
 			location.href = window.App.apiDomain;
-		}, 8000);
+		}, 3000);
 	});
 </script>
 @endsection

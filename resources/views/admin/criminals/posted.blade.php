@@ -1,12 +1,12 @@
 @extends('layouts.master')	
-
 @section('title', 'Criminals that are posted by you')
-
 @section('content')
 <section class="w-1/3">
 	@include("modals.register-criminal")
+	
 	<p class="ml-2 font-basic tracking-normal text-2xl mb-1 mt-4 font-normal text-black mr-2">Criminals Posted by you
 	</p>
+
 	
 	<div class="flex ml-2 w-3/4">
 		<a href="{{ route('admin.criminals.new-form') }}" class="button flex bg-blue py-4 px-4 pb-2 pt-2 mt-1 font-basic text-white text-sm rounded-sm hover:bg-orange mr-2">
@@ -25,12 +25,17 @@
 
 	</div>
 	@forelse ($criminals as $criminal)
-
-	<criminals-view inline-template :criminals="{{  $criminal }}">
+ 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" >
+					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
+
+				@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+				@else
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+				@endif
 				</router-link>
 				<div class="flex-1">
 					@verbatim
@@ -41,14 +46,9 @@
 			</div>
 		</article>
 	</criminals-view>
-
-	{{-- <criminal-view :criminals="{{ $criminal }}"></criminal-view> --}}
 	@empty
-
 	<h3>No Criminals are added yet..</h3>
-	
 	@endforelse
-
 	{{ $criminals->links() }}
 
 </section>

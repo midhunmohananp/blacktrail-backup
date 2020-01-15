@@ -1,0 +1,237 @@
+[33mcommit 02bb6fd449b713a21c155ee0c072c8e3e4add04d[m[33m ([m[1;36mHEAD -> [m[1;32mfixing-the-adding-of-the-criminals[m[33m, [m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Mon Jan 6 07:55:13 2020 +0800
+
+    editing criminals information updated, we can now see the listing of all crimes
+
+[33mcommit 7f7bd73c61d47e9be3f2908475c2c5d04634892a[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Sat Jan 4 17:37:26 2020 +0800
+
+    we can now delete an attachment from the trix-editor, but when we reset the trix-editor field it would delete the attachments
+
+[33mcommit b7c8e06e2ce1dac66772de11684eaa7dbdcffb2e[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Thu Jan 2 18:27:18 2020 +0800
+
+    updated the trix attachment controller
+
+[33mcommit 68bcc7511ae559830598d5f4febadc029d9582fa[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Tue Dec 31 10:44:37 2019 +0800
+
+    There's a problem rendering a prop to a blade view
+
+[33mcommit 6695ff288f8e7eef67222904b339ac711fa972d0[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Tue Dec 31 09:36:54 2019 +0800
+
+    removed the assets/images to the folder to be added, also modified the contents
+
+[33mcommit e1218413048adb3c34c2d0a5393e2b19871bc297[m
+Author: Abrham Bas <abrhambas01@github.com>
+Date:   Mon Dec 30 23:52:43 2019 +0800
+
+    we can't add new criminals yet / insert these into the db
+
+[33mcommit e6a4be9693ab7223c8be7c57bb561502d6ed3d31[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Fri Dec 20 13:02:54 2019 +0800
+
+    moved the images folder to assets/images directory in public directory
+
+[33mcommit ee486e254984a60edc3916a5a28121ea458ad46f[m
+Merge: ac6a5b6 5d3f2c1
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Fri Dec 20 11:22:35 2019 +0800
+
+    we can now add criminals but we're not sure if we can display the attachments from the trix-editor
+
+[33mcommit ac6a5b68d773dc63719d8d7acf0a5c0e628bb3ed[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 19 16:25:00 2019 +0800
+
+    we can now upload the trix-attachments to the storage folder but we haven't added the criminals yet only the initial attachment-adding evetn
+
+[33mcommit 5b0b415f75a04349b20e64bd59474a4da7800ba5[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 19 09:38:25 2019 +0800
+
+    Still trying to make uploading of the attachments in trix work
+
+[33mcommit 51a778868142c6a5e66fe513600957390676187c[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Mon Dec 16 08:32:11 2019 +0800
+
+    old way of using XHR request not using axios for attaching trix attachments
+
+[33mcommit 5d3f2c177a2cee38fdc66ea4e592f29171fbbdb8[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sun Dec 15 00:15:49 2019 +0800
+
+    Untrack files in .gitignore
+
+[33mcommit cf36935f0b7c37f25a0d11250846ca490561d5a0[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sat Dec 14 21:54:25 2019 +0800
+
+    Untrack files in .gitignore
+
+[33mcommit bde7c14ea716e870e49f8b765f9864cd7762e252[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sat Dec 14 19:43:18 2019 +0800
+
+    Trix attachments and some files here
+
+[33mcommit f292987957b4e6d89e77531788b93fdbbfca426b[m
+Merge: 52ae5c5 05a13e5
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 12 09:20:59 2019 +0800
+
+    updated the trix editor to be vue-trix
+
+[33mcommit 05a13e581848b4d10d1362a20622bfedd1cdade9[m[33m ([m[1;31morigin/user-profile[m[33m)[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 12 09:01:28 2019 +0800
+
+    this commit should be on different branch ..fixing-the-adding... Trix editor default for now is vue-trix
+
+[33mcommit 68be3e125d11ad1d6739244ed3d5997d2c05cfe2[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 5 23:00:37 2019 +0800
+
+    added a helpers file for passing @trix as a prop, just for testing out
+
+[33mcommit 52ae5c5421629d346e9b9e89a9f884b1ccf4a350[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Dec 5 10:09:05 2019 +0800
+
+    added helper file and some necessary things for the form to work
+
+[33mcommit 590948ceb4e815a807684b7418114118d3fb517c[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Dec 4 20:51:30 2019 +0800
+
+    made the register criminal form show again
+
+[33mcommit 8ede0cabaffab9c150bf8e58d9e8d77971518e50[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Dec 4 19:12:05 2019 +0800
+
+    Errors / Warnings Property or method form is not defined on the instan. also TypeError: Cannot read property on one of the object
+
+[33mcommit 073d8725f6c13bd35f89193f909601d715edab82[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Dec 4 00:35:57 2019 +0800
+
+    added trix fields and also the .vue files for the components, added files for references from the request from the user
+
+[33mcommit 7fd23812b834b55061bbd53fec11118283a7a035[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sun Dec 1 19:35:12 2019 +0800
+
+    changed the default upload media button
+
+[33mcommit cecbc825ef9dca44e5bf038586453ada886d8ae6[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sun Dec 1 00:23:12 2019 +0800
+
+    Created the view and method for veiwing & updating the profile of the current logged on user, but update method isn't fully implemented
+
+[33mcommit 14af856f70a4f48de68ed173bb9a9fb261463e37[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sat Nov 30 10:41:46 2019 +0800
+
+    created the skeleton view/the layout view for chat, also fixed the authcontroller's login redirection, how the redirection works
+
+[33mcommit 88c1571d98cd45374063c1686d1ae83bdd311a7a[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Sat Nov 30 05:24:34 2019 +0800
+
+    fixed the issue wherein vue-trix error isn't found but now vue-trix won't show in the form, this is the updated bug that i've found
+
+[33mcommit 532735dde45b213266d70521e2ba914ff90ecf6d[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Fri Nov 29 01:03:02 2019 +0800
+
+    changed the main trix editor to vue-trix because of some issues
+
+[33mcommit f2f4901925b0b428738c6b0a9d65f1dab131a377[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Nov 28 10:32:18 2019 +0800
+
+    removing unnecessary packages, focusing on the upload image part
+
+[33mcommit f4312e683fa3a1366a708bc49f3a2f6b6ebc5504[m[33m ([m[1;31morigin/redoing-of-the-project[m[33m)[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Nov 27 19:00:30 2019 +0800
+
+    modified the chatheader and the inbox alittle bit
+
+[33mcommit 14e69be150fab05ac200b98d9ca0fead4a75c0a7[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Nov 27 17:12:17 2019 +0800
+
+    created the controller to get the messages between the respondent and the sender
+
+[33mcommit 52aeca3859054d6b3dc3e22854d75182bcf8c952[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Wed Nov 27 12:58:27 2019 +0800
+
+    the chat feature wasn't completely finished, adding criminals hasn't been implemented yet but 50% of the app is done
+
+[33mcommit e7d04dd75851d36868002df8bec469fc49c0eaff[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Mon Nov 25 18:47:16 2019 +0800
+
+    Found the fix for $criminals variable for router-link, still the chat is not yet implemented also the adding of criminals isn't done as stil there is an error for it
+
+[33mcommit 2423cee3e46d83d27d2d4b75c3405e4851596b66[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Mon Nov 25 14:41:01 2019 +0800
+
+    error found that would not display the criminals variable in the view, still trying to find some fix for it.
+
+[33mcommit f72e7fe01a4cb0f05e6a09f500d6c7a0173479fa[m[33m ([m[1;31morigin/updated-files-from-blacktrail[m[33m)[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Fri Nov 22 22:43:53 2019 +0800
+
+    removed the .swp files that are generated with vim from the latest backup
+
+[33mcommit ae8645ec77c102718f704b9bad0dc9f740fd6108[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Fri Nov 22 22:25:05 2019 +0800
+
+    all the updated files are in here
+
+[33mcommit 7887474f7713305301675eea23da8501dba5a522[m
+Author: Abrham Bas <abrhambas02@gmail.com>
+Date:   Fri Nov 15 00:27:12 2019 +0800
+
+    added config files
+
+[33mcommit 7db1aab9d7ab75284e754c4ae5efd65ee509712a[m
+Author: Abrham Bas <abrhambas02@gmail.com>
+Date:   Fri Nov 15 00:15:08 2019 +0800
+
+    the database folder
+
+[33mcommit 527dba6bbf652196f7504ce2af2f31f90a1e308a[m
+Author: Abrham Bas <abrhambas02@gmail.com>
+Date:   Thu Nov 14 23:59:38 2019 +0800
+
+    Copied the contents of the original blacktrail project
+    
+    the app folder from the original folder
+
+[33mcommit 89bf3eb32ae9f762f12c419b274cfeaf586d452b[m
+Author: Abrham Bas <abrham.bas01@gmail.com>
+Date:   Thu Nov 14 22:22:38 2019 +0800
+
+    basic laravel scaffold, nothing fancy
+
+[33mcommit 643220b37a0b492ff2b0c5391f0edb8ef33771c5[m
+Author: Abrham Bas <abrhambas02@gmail.com>
+Date:   Thu Nov 14 22:21:41 2019 +0800
+
+    Initial commit

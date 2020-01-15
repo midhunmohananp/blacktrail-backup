@@ -1,19 +1,20 @@
 <?php
 
-/* We need pages for this in the landing page 
+/*
+We need pages for this in the landin	g page 
 for the bounty hunters
-1.dmin Criminals in your area..
+admin Criminals in your area..
 */
 
-/*
+/*	
 Route::get("/test/email/send",function(){
 Mail::send('')
-});*/
-
-
+});
+*/
+	
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
-	'middleware' => 'isAdmin', 
+	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function () {
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
@@ -62,7 +63,7 @@ Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
 Route::get("register","AuthController@registerForm")->name('register');
-
+	
 Route::get("/role","AuthController@postRole");
 
 
@@ -78,7 +79,7 @@ Route::get('register/success','ViewsController@registration_success')->name('con
 
 
 /**
-* User profile for the logged on user.
+* User profile for the logged on 	user.
 */
 Route::group([	
 	'middleware' => 'auth', 
