@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Validator;
 use App\TrixAttachment ; 
 use Storage;
@@ -9,16 +10,12 @@ class TrixAttachmentController extends Controller
 {	
 	/*storing attached files in trix..*/
 	public function store(Request $request){	
-		// dd(request()->all());	
+
 		$validator = Validator::make(request()->all(), [
 			'file' => 'required|file',
 		]);
 
-		// return response($validator,201);
-
 		if ($validator->fails()){
-			// return response()->json(['message' => "validator fails",406]);
-			// return response()->json(['errors'=>$validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
 			return response()->json(['errors'=> $validator->errors()], 406);
 		}
 
@@ -41,13 +38,14 @@ class TrixAttachmentController extends Controller
 	}
 
 	public function destroyAttachment($url){
-		// dd($url);
-	/*	
-		return response()->json(request()->all());
-		$url  = request()->input();
-		*/
+
 		$attachment = TrixAttachment::where('attachment', basename($url))->first();
+
+		if( now()->minute <= (Carbon::parse($attachment->created_at)->minute + 30) )
+		    return response()->json(['status', 'denied']);
+
 		return response()->json(optional($attachment)->purge());
 
 	}
+
 }
