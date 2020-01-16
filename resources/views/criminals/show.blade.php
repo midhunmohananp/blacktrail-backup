@@ -7,14 +7,14 @@
 	<div class="init-row w-full ">
 		<section class="item ml-2 font-basic" id="pageView">
 			<div class="shadow-md bg-white p-2 mt-4">
-				<div clafss="">	
+				<div class="">
 					<div class="ml-4">	
 						<p class="w-full font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
 							Criminal Profile of {{ $criminal->full_name }} 
 						</p>
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
-								@if(isset(asset('assets/images/'.$criminal->photo)))
+								@if(file_exists(asset('assets/images/'.$criminal->photo)))
 								<img src="{{ asset('assets/images/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
 								@else
 								<img src="{{ asset('assets/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2">
@@ -115,7 +115,7 @@
 
 					<div class="text-center">
 						<div id="avatar" class="inline-block mb-6 w-full" >
-							<p class="font-normal font-display mt-2 text-black text-3xl">Listed Crimes</em></p>
+							<p class="font-normal font-display mt-2 text-black text-3xl"><em>Listed Crimes</em></p>
 						</div>
 					</div>
 

@@ -90,7 +90,7 @@
 				v-model="form.country.label"
 				class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="last_seen"
 				placeholder="Enter the full location details"
-				@change="getLastSeenLocation(val)">
+				@change="getLastSeenLocation">
 			</places>
 		</div>
 
@@ -120,7 +120,7 @@
 			</div>
 
 			<div class="flex inline-block mt-4">
-				<div class="mr-2 w-full">
+				<div class="pr-2 w-full">
 					<label class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details</label>
 					<VueTrix
 							class="editor1 w-full"
@@ -201,7 +201,6 @@
 					country_id : 1,
 					uploadUrl: urls.urlSaveCriminal,
 				},
-				errors: [],
 				withFiles: { type: Boolean, default: true },
 				input_id: { // Id of upload control
 					type: String,
@@ -319,6 +318,7 @@
 							url: attachment.url,
 							href: attachment.url +"?content-disposition=attachment"
 						};
+						console.log(attributes);
 						successCallback(attributes);
 					}).catch((error) => {
 						console.log('FAILURE!!', error);
@@ -404,9 +404,7 @@
 			},
 
 			handleAttachmentRemove(file){
-				console.log("Trying to delete");
 				let url = file.attachment.attachment.attributes.values.url.split("/").pop();
-				console.log(url);
 				axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
 					console.log(response);
 				}).catch(error => {
@@ -424,8 +422,8 @@
 			createImage(file) {
 				let reader = new FileReader();
 				let vm = this;
+				vm.form.avatar = file;
 				reader.onload = (e) => {
-					vm.form.avatar = file;
 					vm.form.avatar_url = e.target.result;
 				};
 				reader.readAsDataURL(file);
@@ -463,26 +461,17 @@
 					this.isLoading = false;
 
 					axios.post(this.endpoint,{
-						form : this.form
+					    form : this.form
 					}).then(response => {
-						if (response.status === 422) {
-							const errorKeys = Object.keys(response.errors);
-
-							errorKeys.forEach((key) => {
-								this.errors[key] = response.errors[key][0];
-							});
-							console.log(this.errors);
-						}
 						if ( response.status === 200){
 							alert("Successfully Registered This Criminal");
-							this.resetForm(); //clear form automatically after successful request
 						}
 						else {
 							alert("We encounter some errors while adding that criminal");
 						}
 					}).catch((error) => {
+						console.error((error));
 						alert("We encounter some errors while adding that criminal, try to check your inputs");
-						console.log(error);
 					});
 				}, 1000);
 
@@ -525,7 +514,7 @@
 
 		}
 
-};	
+	};
 </script>
 <style>
 .vue_component__upload--image{

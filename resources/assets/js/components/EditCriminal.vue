@@ -207,13 +207,13 @@
 			handleAttachmentAdd(event){
 				console.log(event);
 
-				var attachment = event.attachment.attachment;
+				const attachment = event.attachment;
 
-				if(attachment.file == undefined){
+				if(!attachment.file){
 					return;
 				}
 
-				this.uploadAttachment(attachment.file, setProgress, setAttributes)
+				this.uploadAttachment(attachment.file, setProgress, setAttributes);
 
 				function setProgress(progress) {
 					attachment.setUploadProgress(progress)
@@ -222,8 +222,6 @@
 				function setAttributes(attributes) {
 					attachment.setAttributes(attributes)
 				}
-
-				return ;
 
 		/*var attachment = event.attachment;
 		console.log(attachment);
@@ -311,7 +309,6 @@ data(){
 			currency : 1,
 			placeholder:  "Well..",
 			alias : "",
-			status : 1 , 
 			bounty : "",
 			last_seen : "",
 			contact_person : api.user.id , 
