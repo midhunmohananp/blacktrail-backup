@@ -227,7 +227,10 @@
 					required: false,
 					default: 'bg-blue'
 				},
-				localStorage : false ,
+				localStorage : false,
+				requesting: false,
+				creating: false,
+				resetting: false,
 			}
 		},
 		computed : {
@@ -286,6 +289,8 @@
 					return;
 				}
 
+				const _this = this;
+
 				console.log('uploading!');
 				let formData = new FormData();
 
@@ -318,21 +323,28 @@
 							url: attachment.url,
 							href: attachment.url +"?content-disposition=attachment"
 						};
-						console.log(attributes);
+
 						successCallback(attributes);
 					}).catch((error) => {
 						console.log('FAILURE!!', error);
 					});
 
+					_this.requesting = false;
+
 				},
 
 			handleAttachmentAdd(event){
-				console.log(event);
+				if(this.requesting || this.creating || this.resetting){
+					event.preventDefault();
+					return false;
+				}
 				const attachment = event.attachment;
 
 				if(!attachment.file){
 					return;
 				}
+
+				this.requesting = true;
 
 				this.uploadAttachment(attachment.file, setProgress, setAttributes);
 
@@ -404,9 +416,17 @@
 			},
 
 			handleAttachmentRemove(file){
+
+				if(this.requesting || this.creating || this.resetting){
+					file.preventDefault();
+					console.log('preventing remove event');
+					return false;
+				}
+				this.requesting = true;
 				let url = file.attachment.attachment.attributes.values.url.split("/").pop();
 				axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
 					console.log(response);
+					this.requesting = false;
 				}).catch(error => {
 					console.log(error);
 				});
@@ -440,6 +460,7 @@
 			show_criminals_information(){},
 
 			resetForm(){
+				this.resetting = true;
 				console.log('Resetting the form');
 				const self = this; //you need this because *this* will refer to Object.keys below`
 
@@ -459,12 +480,16 @@
 				setTimeout(() => {
 
 					this.isLoading = false;
+					this.requesting = true;
+					this.creating = true;
+					this.resetting = false;
 
 					axios.post(this.endpoint,{
 					    form : this.form
 					}).then(response => {
 						if ( response.status === 200){
 							alert("Successfully Registered This Criminal");
+							this.resetForm();
 						}
 						else {
 							alert("We encounter some errors while adding that criminal");
@@ -473,6 +498,9 @@
 						console.error((error));
 						alert("We encounter some errors while adding that criminal, try to check your inputs");
 					});
+
+					this.requesting = false;
+					this.creating = false;
 				}, 1000);
 
 
