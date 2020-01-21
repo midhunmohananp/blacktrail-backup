@@ -206,7 +206,6 @@
 			},
 			handleAttachmentAdd(event){
 				console.log(event);
-
 				const attachment = event.attachment;
 
 				if(!attachment.file){

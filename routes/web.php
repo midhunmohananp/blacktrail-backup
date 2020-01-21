@@ -23,7 +23,6 @@ Route::group(['prefix' => 'admin',
 
 	/*Chats for a specific criminal..*/
 	Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
-
 	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
 
 /*
