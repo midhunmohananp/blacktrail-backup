@@ -1,5 +1,4 @@
 <template>
-
 	<div class="ml-4 mt-4 p-4 pr-8 w-1/2 bg-white">
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full" enctype="multipart/form-data">
 			<h3>Register Criminal</h3>
@@ -474,9 +473,7 @@
 			registerCriminal(){
 				// e.preventDefault();
 				this.isLoading = true;
-
 				this.form.last_seen = this.form.country.label;
-
 				setTimeout(() => {
 
 					this.isLoading = false;

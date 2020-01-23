@@ -6,8 +6,7 @@
 	
 	<p class="ml-2 font-basic tracking-normal text-2xl mb-1 mt-4 font-normal text-black mr-2">Criminals Posted by you
 	</p>
-
-	
+		
 	<div class="flex ml-2 w-3/4">
 		<a href="{{ route('admin.criminals.new-form') }}" class="button flex bg-blue py-4 px-4 pb-2 pt-2 mt-1 font-basic text-white text-sm rounded-sm hover:bg-orange mr-2">
 			<svg class="fill-current text-white h-6 ml-2 mr-2 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M15 9h-3v2h3v3h2v-3h3V9h-3V6h-2v3zM0 3h10v2H0V3zm0 8h10v2H0v-2zm0-4h10v2H0V7zm0 8h10v2H0v-2z"/>

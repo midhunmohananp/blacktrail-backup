@@ -190,21 +190,22 @@ export default {
 				console.log("not matched");
 			});
 		},
-
+		
 		submitProfile(){
 			// let data = new FormData();
 			axios.put(this.endpoint, { 
 				form : this.form , 
 			}).then(response => {
 				alert(response.data.success);
-				// location.reload();
 				let url = urls.show_profile_endpoint; 
 				location.replace(url);
 				console.log(url); 	
+				// location.reload();
 			}).catch(error => {
 				alert(error.response.data.error);
 			});
 		},
+
 		resetPasswords(){
 			this.password = ''
 			this.checkPassword = ''

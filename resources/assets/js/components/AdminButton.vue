@@ -4,7 +4,7 @@
 		</button>
 		<button class="w-full bg-green-initial p-3 text-white mt-4 ml-2 hover:bg-green-second" @click="edit_profile(id)">Edit Information
 		</button>
-		<button v-show="userHasCapabilityToViewChat" class="w-full bg-white p-3 text-black border-black border-2 hover:text-white rounded-lg mt-4 ml-2 hover:bg-green-second" @click="this.$modal.show('offer-bounty')">Chat / Report Log
+		<button v-show="userHasCapabilityToViewChat" class="w-full bg-white p-3 text-black border-black border-2 hover:t	ext-white rounded-lg mt-4 ml-2 hover:bg-green-second" @click="this.$modal.show('offer-bounty')">Chat / Report Log
 		</button>		
 		<edit-information-modal></edit-information-modal>
 		<chat-box></chat-box>
@@ -27,7 +27,7 @@
 		name: 'AdminButton',
 		data () {
 			return {
-				userHasCapabilityToViewChat  : false, 
+				userHasCapabilityToViewChat  : true, 
 				criminalId : this.id
 			}
 		},

@@ -16,7 +16,7 @@
 						
 
 						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}</p>
-						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty "></p>
+						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty"></p>
 						<!-- <crimes-list :criminals="crimes"></crimes-list> -->
 
 						<div v-if="this.criminals.crimes.length > 0">
@@ -187,12 +187,10 @@ computed : {
 	},
 
 	criminalBounty(){
-		let bounty = this.criminals.profile.bounty ;
+		let bounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
 		return bounty ;
 		 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-		},
-
-
+	},
 		criminalsDetails() {
 	// _.head(this.criminalDetails) ;
 

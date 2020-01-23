@@ -39,7 +39,7 @@
       @endif
 
       <app-header inline-template>
-       @include('partials.main-header')
+        @include('partials.main-header')
      </app-header>
 
      <main class="flex m-auto">
