@@ -103,7 +103,7 @@
 			</div>
 			
 			<div class="w-full flex">
-				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes
+				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Attributes
 				</label>
 				<span>
 					<i class="fas fa-plus-circle h-4 w-4 text-grey-darker" @click="add(k)" v-show="k == inputs.length-1">
@@ -112,13 +112,13 @@
 			</div>
 			
 			<div class="w-full flex inline-block" v-for="(input,k) in inputs" :key="k">
-				<!-- if there's no crimes for that guy -->
+				<!-- if there's no crimes for this person -->
 				<div v-if="criminal.crimes.length === 0" class="flex inline-block w-full">
 					<select v-model="inputs.crime_id" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
 						<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
 					</select>
 					<div id="input-group" class="ml-4 w-3/5">			
-						<input type="text" v-model="inputs.name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
+						<input type="text" v-model="inputs.name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Attribute Details" required>
 					</div>
 					<span>
 						<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">
@@ -174,7 +174,6 @@
 				<div class="mt-2 w-3/4">
 					<button type="submit" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
 				</div>
-
 			</form>
 		</div>	
 	</div>
@@ -293,6 +292,7 @@ handleAttachmentRemove(file){
 
 data(){
 	return { 
+
 		inputs: [
 		{
 			crime_id : 0, 

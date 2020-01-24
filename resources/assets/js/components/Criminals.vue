@@ -4,6 +4,8 @@ export default {
 	props : ['criminals'],
 	data(){
 		return {
+			// showDiv : true , 
+			showChatBox : true , 
 			criminalsList : [],
 			criminal: this.criminals ,
 			apiDomain : window.App.apiDomain

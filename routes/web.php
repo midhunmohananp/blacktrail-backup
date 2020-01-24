@@ -116,7 +116,7 @@ Route::get('confirm/mail/{confirmation_code}','VerificationController@confirm_em
 
 
 // Route::resource('group','GroupController');
-
+	
 
 /**
 * 	____|

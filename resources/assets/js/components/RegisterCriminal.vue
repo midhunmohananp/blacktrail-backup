@@ -479,7 +479,7 @@
 					this.isLoading = false;
 					this.requesting = true;
 					this.creating = true;
-					this.resetting = false;
+					this.resetting = false;	
 
 					axios.post(this.endpoint,{
 					    form : this.form

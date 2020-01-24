@@ -6,7 +6,7 @@
 	
 	<p class="ml-2 font-basic tracking-normal text-2xl mb-1 mt-4 font-normal text-black mr-2">Criminals Posted by you
 	</p>
-		
+
 	<div class="flex ml-2 w-3/4">
 		<a href="{{ route('admin.criminals.new-form') }}" class="button flex bg-blue py-4 px-4 pb-2 pt-2 mt-1 font-basic text-white text-sm rounded-sm hover:bg-orange mr-2">
 			<svg class="fill-current text-white h-6 ml-2 mr-2 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M15 9h-3v2h3v3h2v-3h3V9h-3V6h-2v3zM0 3h10v2H0V3zm0 8h10v2H0v-2zm0-4h10v2H0V7zm0 8h10v2H0v-2z"/>
@@ -24,17 +24,17 @@
 
 	</div>
 	@forelse ($criminals as $criminal)
- 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
+	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
 					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
 
-				@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
+					@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
 					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
-				@else
+					@else
 					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
-				@endif
+					@endif
 				</router-link>
 				<div class="flex-1">
 					@verbatim
@@ -42,6 +42,8 @@
 					<p class="mt-2">aka <em class="font-basic roman">{{ criminal.alias  }}</em></p>
 					@endverbatim
 				</div>
+				<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1</div>
+				{{-- <div class="bg-green px-4 py-4 rounded-full"></div> --}}
 			</div>
 		</article>
 	</criminals-view>

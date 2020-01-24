@@ -89,6 +89,7 @@ import _ from 'lodash';
 	},
 	data(){
 		return {
+			showDiv : true , 
 			// criminalDetails : this.criminals,
 			// criminalId :  $route.params.id ,
 			// crimes : this.criminals.crimes
