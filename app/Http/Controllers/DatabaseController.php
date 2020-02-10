@@ -12,60 +12,59 @@ use App\Skill ;
 use DB ; 
 use Carbon\Carbon ; 
 
-class DatabaseController extends Controller
-{	
+class DatabaseController extends Controller {	
 	/**
 			seeding criminals information 
 			for those 
 			who don't have any profile..
-	**/
-	public function seed_criminals_info(){
+			**/
+			public function seed_criminals_info(){
 		// $criminalsWithNoProfile = Criminal::doesntHave("profile")->get();
-		$criminalsWithNoProfile = Criminal::doesntHave("profile")->pluck('id');
+				$criminalsWithNoProfile = Criminal::doesntHave("profile")->pluck('id');
 		// dd($criminalsWithNoProfile);
 
-		$criminalsWithNoProfile->each(function ($item, $key){
-			$faker = \Faker\Factory::create();
-			$country = $faker->countryCode ;
-			$eye_colors = ["brown", "blue", "green", "amber", "gray","green","hazel","red"] ; 
-			$height =  array("5'0", "5'5", "5'8", "6'0");
+				$criminalsWithNoProfile->each(function ($item, $key){
+					$faker = \Faker\Factory::create();
+					$country = $faker->countryCode ;
+					$eye_colors = ["brown", "blue", "green", "amber", "gray","green","hazel","red"] ; 
+					$height =  array("5'0", "5'5", "5'8", "6'0");
 
-			DB::table('criminal_profiles')->insert([
-				'criminal_id' => intval($item),
-				'birthplace' 	     => $faker->address,
-				'birthdate' 		 => $faker->date($format = 'Y-m-d', '2000-01-01') ,
-				'last_seen'			 => $faker->address,
-				'criminal_id'		 => DB::table('criminals')->get()->random()->id,
-				'country_last_seen'  =>	 DB::table('countries')->get()->random()->id,
-				'last_seen'       	 => $faker->address,
-				'eye_color' =>		  $eye_colors[array_rand($eye_colors)],
-				'height_in_feet_and_inches' => $items[array_rand($items)]  ,
-				'weight_in_kilos' =>	70,
-				'country_of_origin' => function() {
-					$items = array("skinny","medium","fat","muscular");
-					return $items[array_rand($items)];        
-				},
-				'bounty'   => mt_rand(100,10000),
-				'currency' =>  Country::inRandomOrder()->pluck('currency_code')->first(),
-				'complete_description' => "<div><!--block--><strong>Fill all description of the person that are not listed above such as :</strong><br><br>1. Height :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div"
-			]);
-		});
-	}
+					DB::table('criminal_profiles')->insert([
+						'criminal_id' => intval($item),
+						'birthplace' 	     => $faker->address,
+						'birthdate' 		 => $faker->date($format = 'Y-m-d', '2000-01-01') ,
+						'last_seen'			 => $faker->address,
+						'criminal_id'		 => DB::table('criminals')->get()->random()->id,
+						'country_last_seen'  =>	 DB::table('countries')->get()->random()->id,
+						'last_seen'       	 => $faker->address,
+						'eye_color' =>		  $eye_colors[array_rand($eye_colors)],
+						'height_in_feet_and_inches' => $items[array_rand($items)]  ,
+						'weight_in_kilos' =>	70,
+						'country_of_origin' => function() {
+							$items = array("skinny","medium","fat","muscular");
+							return $items[array_rand($items)];        
+						},
+						'bounty'   => mt_rand(100,10000),
+						'currency' =>  Country::inRandomOrder()->pluck('currency_code')->first(),
+						'complete_description' => "<div><!--block--><strong>Fill all description of the person that are not listed above such as :</strong><br><br>1. Height :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div"
+					]);
+				});
+			}
 
-	public function setting_criminals_current_display_name_to_null()
-	{
-		return DB::table('criminals')
-		->whereNotNull('display_name')
-		->update(['display_name' => NULL]);
+			public function setting_criminals_current_display_name_to_null()
+			{
+				return DB::table('criminals')
+				->whereNotNull('display_name')
+				->update(['display_name' => NULL]);
 		// dd($criminals);
-	}
+			}
 
 	// ->  seeding criminals who have no countries
-	public function seed_criminals_who_have_no_countries(){
+			public function seed_criminals_who_have_no_countries(){
 		// finding criminals that have no countries
-		$criminalsWithCountriesAreNull = CriminalInfo::doesntHave('countries')->get();
-		dd($criminalsWithCountriesAreNull);
-		
+				$criminalsWithCountriesAreNull = CriminalInfo::doesntHave('countries')->get();
+				dd($criminalsWithCountriesAreNull);
+
 		/*	$country_ids = Country::pluck("id")->toArray();
 
 		$id = array_random($country_ids);

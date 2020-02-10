@@ -23,7 +23,7 @@
 							<p class="mt-2 font-bold text-2xl">Notable Crimes:
 							</p>
 							<!-- @foreach ($criminal->crimes as $crime)  -->
-								<!-- Crimes List -->
+							<!-- Crimes List -->
 
 					<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
 					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
@@ -35,20 +35,20 @@
 						<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
 					</div>
 				</div>
-			<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
-		</div>
-		<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
-			No Crimes were listed for this criminal yet.
-		</div>
-		<!-- soon use slots here named or scoped  -->
-		<div v-show="userRole === 1 || userRole === 2">
-			<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
-		</div>
-		<div v-show="normalUser">
-			<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
+				<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
+			</div>
+			<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
+				No Crimes were listed for this criminal yet.
+			</div>
+			<!-- soon use slots here named or scoped  -->
+			<div v-show="userRole === 1 || userRole === 2">
+				<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
+			</div>
+			<div v-show="normalUser">
+				<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 </section>
 <div v-show="this.criminals === null">
@@ -65,12 +65,12 @@ import AdminButtons from './AdminButton.vue' ;
 import UserButtons from './UserButton.vue' ;
 import ChatBox from './modals/ChatBox.vue';
 import _ from 'lodash';
-	export default {
-		name: 'CriminalView',
-		props : { 
-			criminals  : {
-				type : Object,
-				required : false
+export default {
+	name: 'CriminalView',
+	props : { 
+		criminals  : {
+			type : Object,
+			required : false
 				// default  : null 
 			},
 
@@ -99,12 +99,12 @@ import _ from 'lodash';
 		deleteUser(id){
 			console.log(id);
 			axios.delete(this.remove_criminal_endpoint, { params : { id :  id } })
-				 .then(response => {
-					console.log(response);
-				})
-				.catch(error => { 
-					console.log(error);
-				});
+			.then(response => {
+				console.log(response);
+			})
+			.catch(error => { 
+				console.log(error);
+			});
 
 		},
 
@@ -114,9 +114,9 @@ import _ from 'lodash';
 
 		fetchCrimes(){
 		// we have criminal_id here. -> 3
-			axios.get(this.fetchCriminalsInfoEndpoint)
-			.then(response => { console.log(response); })
-			.catch(error => { console.log(error); });
+		axios.get(this.fetchCriminalsInfoEndpoint)
+		.then(response => { console.log(response); })
+		.catch(error => { console.log(error); });
 	},
 
 	offerBounty(){
@@ -176,9 +176,6 @@ computed : {
 	fetchCriminalsInfoEndpoint(){
 		return app +'/api/v1/criminals/'+this.criminals.id;
 	},
-
-
-
 	userRole(){
 		return user.role_id ;
 	},
@@ -191,7 +188,7 @@ computed : {
 		let bounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
 		return bounty ;
 		 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-	},
+		},
 		criminalsDetails() {
 	// _.head(this.criminalDetails) ;
 

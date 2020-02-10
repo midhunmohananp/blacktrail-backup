@@ -10,9 +10,9 @@ class AddMercuriusUserFields extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            // $table->string('avatar')->nullable()->after('email');
+        // $table->string('avatar')->nullable()->after('email');
             $table->boolean('is_online')->default(true);
-            $table->boolean('be_notified')->default(true);
+            $table->boolean('be_notified')->default(true);       
         });
     }
 
@@ -31,5 +31,6 @@ class AddMercuriusUserFields extends Migration
             $table->dropColumn('is_online');
             $table->dropColumn('be_notified');
         });
+        
     }
 }

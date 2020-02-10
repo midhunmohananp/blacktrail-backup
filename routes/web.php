@@ -1,7 +1,7 @@
 <?php
 
 /*
-We need pages for this in the landin	g page 
+We need pages for this in the landing page 
 for the bounty hunters
 admin Criminals in your area..
 */
@@ -132,7 +132,7 @@ This is just used to modify records in the database.
 // Routes that manipulate the database..
 include "routes.db.php";
 // testing slots..
-Route::get("slots","ViewsController@slots");
+Route::get("slots","ViewsC	ontroller@slots");
 
 /*testing views..*/
 Route::get("/dashboard",function()
@@ -147,7 +147,6 @@ Route::get("/dashboard",function()
 
 Route::post("/login",'AuthController@postLogin')->name('postLogin');
 Route::get('/logout','AuthController@logout')->name('logout');
-
 Route::post('/register',[
 	'as' => 'postRegister',
 	'uses' => 'AuthController@postRegister'
@@ -156,10 +155,9 @@ Route::post('/register',[
 
 Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
-
 Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get("messages/t/{respondent}","MessageController@sendMessage");
 
 /*Mailables*/
 

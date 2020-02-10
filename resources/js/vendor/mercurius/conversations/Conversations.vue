@@ -116,9 +116,11 @@ export default {
 
 
     computed: {
+        
         sortedData() {
             return _.orderBy(this.conversations, 'created_at', 'desc');
         },
+
         filterData() {
             return this.sortedData.filter(c => {
                 return c.user.toLowerCase()

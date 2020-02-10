@@ -15,7 +15,7 @@ class RenameCriminalsInfoTable extends Migration
     {
         $from = 'criminal_infos';
         $to = 'criminal_profiles';
-        Schema::rename($from, $to);
+        // Schema::rename($from, $to);
     }
 
     /**

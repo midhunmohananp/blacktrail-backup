@@ -1,7 +1,8 @@
 window._ = require('lodash');
 window.Pusher = require('pusher-js');
 import axios from 'axios';
-import Vue from 'vue' ;
+import Vue from 'vue' ;	
+import $ from 'jquery';
 // import VueInputMultiple from 'vue-input-multiple';
 import VueRouter from 'vue-router';
 import moment from 'moment' ; 
@@ -12,6 +13,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
 window.Vue = Vue ; 
+window.$ = require('jquery');
 window.axios = axios ;	
 window.axios.defaults.headers.common = {
 	'X-Requested-With': 'XMLHttpRequest'

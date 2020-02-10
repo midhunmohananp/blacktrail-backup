@@ -63,7 +63,8 @@
 
 
 								<div class="row mb-3">
-									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">{{  Carbon::createFromTimestamp($criminal->profile->birthdate->toDateTimeString()) }}
+									<p class="text-md text-normal mr-4">Birthdate : <em class="font-bold roman">
+										{{ \Carbon::createFromTimestamp($criminal->profile->birthdate->toDateTimeString()) }}
 									</em>
 								</p>
 							</div>
@@ -95,11 +96,8 @@
 								<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
 								</p>
 							</div>
-
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -123,14 +121,11 @@
 						<div class="item w-1/2" id="basic-profile-section">
 							@forelse ($criminal->crimes as $crime)
 							<p class="font-normal text-md"><em class="font-bold text-xl roman">{{ $crime->criminal_offense }}</em> - {{  $crime->pivot->crime_description }}</p>
-
 							@empty
 							<p>No crimes were listed..</p>
 							@endforelse
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -140,15 +135,10 @@
 				<div class="ml-4">	
 					<p class="font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
 						More Details..  Show here the details that are in the trix editor.
-
-
-
 					</p>
 				</div>
 			</div>
 		</div>
-
-
 	</section>
 {{-- 
 		<div class="flex">
@@ -158,5 +148,4 @@
 
 	</div>
 </criminal-profile>
-
 @stop

@@ -42,16 +42,17 @@ class MercuriusUsersTableSeeder extends Seeder
         ], [
             'display_name'   => $name,
             'role_id'        => mt_rand(1,3),  
+            'status' => 1
             'username'       => $faker->userName,
             'email'          => $faker->unique()->safeEmail,
-        'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
-        'country_id'     => DB::table('countries')->get()->random()->id,
-        'role_id'        => mt_rand(1,3),      
-        'avatar'         => 'vendor/mercurius/img/avatar/'.$avatar,
-        'password'       => bcrypt('password'),
-        'remember_token' => null,
-    ]);
+                'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+                'remember_token' => str_random(10),
+                'country_id'     => DB::table('countries')->get()->random()->id,
+                'role_id'        => mt_rand(1,3),      
+                'avatar'         => 'vendor/mercurius/img/avatar/'.$avatar,
+                'password'       => bcrypt('password'),
+                'remember_token' => null,
+            ]);
         
     }
 

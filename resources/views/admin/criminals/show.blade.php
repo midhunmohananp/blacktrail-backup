@@ -13,8 +13,6 @@
 						<p class="w-full font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
 							Criminal Profile of {{ $criminal->full_name }} 
 						</p>
-
-
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								<img src="{{ asset('assets/images/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
@@ -64,7 +62,7 @@
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Birthdate : 
 										<em class="font-bold roman">
-											{{ Carbon\Carbon::parse($criminal->profile->birthdate)->format('d-m-Y i') }}
+											{{ \Carbon\Carbon::parse($criminal->profile->birthdate)->format('d-m-Y i') }}
 										</em>
 									</p>
 								</div>
@@ -148,4 +146,5 @@
 		</section>
 	</div>
 </criminal-profile>
+
 @endsection

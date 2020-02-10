@@ -31,7 +31,6 @@ export default {
 	},
 
 	methods : { 
-		
 		redirectToProfile(id){
 			// console.log(this.criminal_id);
 			window.location.href = window.App.apiDomain + "/criminals/" + this.criminal_id ;
@@ -49,9 +48,12 @@ export default {
 			this.$modal.show("offer-bounty"); 
 		}
 	},
+
 	computed : { 
 		chatUrl(){
-			return '/respond/criminal/' + this.criminal_id;
+			// return '/messages/t/' +this.users_name_respondent;
+			return '/messages';
+			// return '/respond/criminal/' + this.criminal_id;
 		},
 		userRole(){
 			roleId = user.role_id === 3 ? true : false;
