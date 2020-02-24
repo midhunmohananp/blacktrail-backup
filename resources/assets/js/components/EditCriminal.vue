@@ -128,15 +128,15 @@
 					</span>
 				</div>
 				<div class="w-full inline-block" v-else>
-					<div v-for="crimes in criminal.crimes">
+					<div v-for="(ccrime,i) in criminal.crimes">
 						<!-- <p>{{ crimes.criminal_offense }} </p> -->
 						<div class="flex inline-block">
-							<select class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
-								<option v-for="crimes in crimes">{{ crimes.criminal_offense }} </option>
+							<select v-model="criminal.crimes[i].criminal_offense" class="hover:bg-grey-lightest bg-grey-lighter w-1/3 mb-2 p-2 leading-normal">
+								<option v-for="crime in crimes" :value="crime.criminal_offense">{{ crime.criminal_offense }} </option>
 							</select>
-							<div class="flex inline-block">
-								<div id="input-group" class="ml-4 w-3/5">			
-									<input type="text" :value="criminal.profile.weight_in_kilos" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
+							<div class="flex inline-block w-full">
+								<div id="input-group" class="ml-4 w-full">			
+									<input type="text" :value="ccrime.description" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Crime Details" required>
 								</div>
 								<span class="mr-2">
 									<i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">

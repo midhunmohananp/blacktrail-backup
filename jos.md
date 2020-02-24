@@ -29,9 +29,7 @@ export default {
 and inside of the publish blog component make the `form.editorContent` the prop passed or a default value.
 
 But without a global store/state you are stuck with props.
-
 UPDATE: Showing what a publish blog component might look like
-
 
 PublishBlog.vue
 ```

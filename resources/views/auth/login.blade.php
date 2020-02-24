@@ -41,10 +41,10 @@
 			</div>
 		@endif
 
-		@if ($errors->has('email'))
-				<span class="help-block text-red ">
-					<strong>{{ $errors->first('email') }}</strong>
-				</span> 
+
+
+		@if (session()->has('flash'))
+		<div class="alert alert-success m-xs-b-4">Message sent!</div>
 		@endif
 
 		<div class="mb-6" class="text-center">

@@ -11,6 +11,7 @@ class CrimesSeeder extends Seeder
   public function run()
   {
         Crime::truncate() ; 
+        
         $faker = \Faker\Factory::create();
         
         collect([

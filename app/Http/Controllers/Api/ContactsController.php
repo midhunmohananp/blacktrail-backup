@@ -18,7 +18,9 @@ class ContactsController extends Controller
 	/*Getting Messages for the specific user*/
 	public function getMessagesFor($user){
 		$user = request()->input("user");
+		
 		$messages = DB::table('messages')->where("from",$user)->orWhere("to",$user)->get();
+	
 		return response()->json($messages);
 	}
 

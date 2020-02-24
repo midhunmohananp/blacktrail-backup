@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'], function(){
 	Route::post("/attachments","TrixAttachmentController@store");
 	Route::delete("/attachments/{url}","TrixAttachmentController@destroyAttachment");
-
 	Route::get('/groups', 'GroupsController@getAll');
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
 	

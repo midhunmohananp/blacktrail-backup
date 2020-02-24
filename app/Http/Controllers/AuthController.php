@@ -33,19 +33,16 @@ class AuthController extends Controller
 		]);
 
 		$pin = request()->get('pin');
-		
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
 
 		$remember_me = request()->get('remember');
-
 		$password = request()->get('password');
-
 		$user = User::where("${field}",'=',$pin)->first();
 		
-		if ( is_null($user->confirmed_at) || $user->status == "0"){
+
+		if ( $user->confirmed_at == NULL || $user->status == "0"){
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
-		
 		else {
 			if (Auth::attempt([$field => $pin ,'password' => $password])){
     // dd(auth()->user()->role_id);
@@ -56,7 +53,7 @@ class AuthController extends Controller
 					case 3 : return redirect()->to('/');
 				}
 			} else {
-				dd('Auth failed!');
+				return redirect()->back()->with(['flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.']);
 			}
 		}
 	}

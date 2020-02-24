@@ -36,14 +36,13 @@ class CriminalInfoSeeder extends Seeder
     }
 
     protected function updateCriminalsWhoHaveNoProfile(){
-
       $criminalsWithNoProfile = Criminal::doesntHave("profile")->get();
       
       $criminalsWithNoProfile->each(function ($item,$key){
       
         dump($key);
 
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create();  
 
         $date = Carbon::createFromDate(2000, 3, 21);
 
@@ -68,6 +67,7 @@ class CriminalInfoSeeder extends Seeder
           'currency'                   =>    $this->getCurrencyCode() ,
         ]);
       });
+
     }
 
       // age >=2001

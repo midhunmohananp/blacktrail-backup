@@ -20,7 +20,9 @@ class CrimeCriminalSeeder extends Seeder
     public function updateCrimeDetailsthatAreEmpty()
     {
       $faker = \Faker\Factory::create();
+
       $crimes = CrimeCriminal::whereNull('crime_id')->get();
+      
       $crimes->each(function($item,$key){
                   // dd($item);
         $faker = \Faker\Factory::create();
