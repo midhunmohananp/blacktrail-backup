@@ -20,7 +20,8 @@ export default {
 			},
 			country : this.criminal.country_id,	
 			form : {
-				avatar : api.publicPath + `\assets\images\avatar.jpg`,
+				empty_string : '',
+				avatar : this.avatarImage,
 				full_name : this.criminal.full_name ,
 				eye_color : this.criminal.profile.eye_color,
 				alias : this.criminal.alias,
@@ -39,7 +40,6 @@ export default {
 				maxFiles: 1,
 				currency : 1,
 				bounty : this.criminal.profile.bounty,
-				// contact_number : api.user.phone_number , 
 				attachments : [],
 				country_id : 4 , 
 				uploadUrl: urls.urlSaveCriminal,
@@ -305,9 +305,8 @@ handleAttachmentRemove(file){
 },
 computed : { 
 	avatarImage(){
-		return `public/assets/images/${this.criminal.photo}`;
-	}
-
+		return api.publicPath +"\" +'assets\images\avatar.jpg'
+	},
 },
 mounted(){
 	this.addItem(); 
