@@ -1,10 +1,7 @@
 <template>
-
-
-
 </template>
-
 <script>
+
 export default {
 
   name: 'EditProfile',
@@ -14,7 +11,7 @@ export default {
 
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>

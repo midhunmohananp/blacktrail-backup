@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class Criminal extends Model
 {
-
     protected $fillable = [
         'first_name',
         'middle_name',

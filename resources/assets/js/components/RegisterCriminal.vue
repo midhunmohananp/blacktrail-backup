@@ -66,8 +66,8 @@
 					</label>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-6" v-if="form.avatar_url">
-								<img :src="form.avatar_url" class="img-responsive" height="70" width="90" alt="Criminal Photo">
+							<div class="col-md-6" v-if="form.avatar">
+								<img :src="form.avatar" class="img-responsive" height="70" width="90" alt="Criminal Photo">
 							</div>
 							<div class="col-md-6">
 								<input type="file" name="avatar" id="avatar" v-on:change="onAvatarChange" class="form-control">
@@ -93,107 +93,106 @@
 			</places>
 		</div>
 
-			<div class="flex inline-block mt-4">
-				<div class="mr-2 w-1/2">
-					<label for="status" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Status</label>
-					<select v-model="form.status" name="status" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="status">
-						<option value="0">Captured</option>
-						<option value="1">At Large</option>
-					</select>
-				</div>
-
-				<div class="mr-2 w-1/2">
-					<label for="country" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Country of Origin</label>
-					<select v-model="form.country_id" name="country" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="country">
-						<option v-for="country in countries" :value="country.id">{{  country.name }}</option>
-					</select>
-				</div>
-
+		<div class="flex inline-block mt-4">
+			<div class="mr-2 w-1/2">
+				<label for="status" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Status</label>
+				<select v-model="form.status" name="status" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="status">
+					<option value="0">Captured</option>
+					<option value="1">At Large</option>
+				</select>
 			</div>
 
-			<div class="flex inline-block mt-4">
-				<div class="mr-2 w-full">
-					<label for="bound_value" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound value</label>
-					<textarea name="bound_value" id="bound_value" v-model="form.complete_description" class="h-64 bg-grey-lighter w-full mb-2 p-2 leading-normal"></textarea>
-				</div>
+			<div class="mr-2 w-1/2">
+				<label for="country" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Country of Origin</label>
+				<select v-model="form.country_id" name="country" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="country">
+					<option v-for="country in countries" :value="country.id">{{  country.name }}</option>
+				</select>
 			</div>
+		</div>
 
-			<div class="flex inline-block mt-4">
-				<div class="pr-2 w-full">
-					<label class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details</label>
-					<VueTrix
-							class="editor1 w-full"
-							inputId="editor1"
-							@trix-change="handleEditorChange"
-							@trix-attachment-remove="handleAttachmentRemove"
-							@trix-attachment-add="handleAttachmentAdd"
-							v-model="form.complete_description"
-					/>
-				</div>
+		<div class="flex inline-block mt-4">
+			<div class="mr-2 w-full">
+				<label for="bound_value" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound value</label>
+				<textarea name="bound_value" id="bound_value" v-model="form.complete_description" class="h-64 bg-grey-lighter w-full mb-2 p-2 leading-normal"></textarea>
 			</div>
+		</div>
 
-			<div class="mt-4 w-full text-center">
-				<button type="submit" :disabled="isLoading" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
+		<div class="flex inline-block mt-4">
+			<div class="pr-2 w-full">
+				<label class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details</label>
+				<VueTrix
+				class="editor1 w-full"
+				inputId="editor1"
+				@trix-change="handleEditorChange"
+				@trix-attachment-remove="handleAttachmentRemove"
+				@trix-attachment-add="handleAttachmentAdd"
+				v-model="form.complete_description"
+				/>
 			</div>
+		</div>
 
-		</form>
-	</div>
+		<div class="mt-4 w-full text-center">
+			<button type="submit" :disabled="isLoading" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
+		</div>
+
+	</form>
+</div>
 
 </template>
 <script>
-	import urls from './scripts/endpoints.js';
-	import api from './scripts/api.js';
-	import Places from 'vue-places';
-	import VueTrix from "vue-trix";
-	import datepicker from 'vue-date-picker';
-	import _ from "lodash"; 
-	export default { 
-		components : { 
-			'VueTrix' : VueTrix,
-			'places' : Places, 
-		    'datepicker' : datepicker
+import urls from './scripts/endpoints.js';
+import api from './scripts/api.js';
+import Places from 'vue-places';
+import VueTrix from "vue-trix";
+import datepicker from 'vue-date-picker';
+import _ from "lodash"; 
+export default { 
+	components : { 
+		'VueTrix' : VueTrix,
+		'places' : Places, 
+		'datepicker' : datepicker
+	},
+	watch : { 
+		question:function(newQuestion, oldQuestion){
 		},
-		watch : { 
-			question:function(newQuestion, oldQuestion){
 
-			}
+		
+	},
+	props :  {
+		admins : { 
+			type : Array,
+			default : null
 		},
-		props :  {
-			admins : { 
-				type : Array,
-				default : null
-			},
-			countries : { 
-				type : Array,
-				default : []
-			},
-			editor : {	
-				type : Object,
-				default : null
-			}
+		countries : { 
+			type : Array,
+			default : []
 		},
-		data(){
-			return { 
-				image : "",
-				isLoading : null , 
-				form : {
-					complete_description : "",
-					alias : "",
-					first_name : "",
-					last_name : "",
-					country: {
-						label: null,
-						data: {},
-					},
-					maxFiles: 1,
-					criminals_name : "",
-					currency : 1,
-					avatar : null,
-					avatar_url: '',
-					placeholder:  "Well..",
-					status : 1 ,
-					bounty : "",
-					posted_by : api.user.id ,
+		editor : {	
+			type : Object,
+			default : null
+		}
+	},
+	data(){
+		return { 
+			image : "",
+			isLoading : null , 
+			form : {
+				avatar : null , 
+				complete_description : "",
+				alias : "",
+				first_name : "",
+				last_name : "",
+				country: {
+					label: null,
+					data: {},
+				},
+				maxFiles: 1,
+				criminals_name : "",
+				currency : 1,
+				placeholder:  "Well..",
+				status : 1 ,
+				bounty : "",
+				posted_by : api.user.id ,
 					// contact_number : api.user.phone_number ,
 					contact_number : "",
 					attachments : [],
@@ -230,6 +229,7 @@
 				requesting: false,
 				creating: false,
 				resetting: false,
+
 			}
 		},
 		computed : {
@@ -257,11 +257,20 @@
 				return urls.url_for_saving_photos;
 			},
 
+
+			avatarUrl(){
+
+			},
+
 			remove_attachment_endpoint(){
 				return api.app + '/api/v1/attachments/' ;
 			}
 		},
 		methods : {
+			myFunction: function () {	
+				this.myImage = "https://www.tutorialsplane.com/wp-content/uploads/2018/02/27867786_1714460465242017_6847995972742989230_n.jpg";
+			},
+
 			getLastSeenLocation(val) {
 				this.form.country.label = val;
 			},
@@ -332,28 +341,28 @@
 
 				},
 
-			handleAttachmentAdd(event){
-				if(this.requesting || this.creating || this.resetting){
-					event.preventDefault();
-					return false;
-				}
-				const attachment = event.attachment;
+				handleAttachmentAdd(event){
+					if(this.requesting || this.creating || this.resetting){
+						event.preventDefault();
+						return false;
+					}
+					const attachment = event.attachment;
 
-				if(!attachment.file){
-					return;
-				}
+					if(!attachment.file){
+						return;
+					}
 
-				this.requesting = true;
+					this.requesting = true;
 
-				this.uploadAttachment(attachment.file, setProgress, setAttributes);
+					this.uploadAttachment(attachment.file, setProgress, setAttributes);
 
-				function setProgress(progress) {
-					attachment.setUploadProgress(progress)
-				}
+					function setProgress(progress) {
+						attachment.setUploadProgress(progress)
+					}
 
-				function setAttributes(attributes) {
-					attachment.setAttributes(attributes)
-				}
+					function setAttributes(attributes) {
+						attachment.setAttributes(attributes)
+					}
 
 		/*var attachment = event.attachment;
 		console.log(attachment);
@@ -390,7 +399,7 @@
 			return response("No file uploaded here",401);
 		}*/
 
-		},
+	},
 
 		/*async handleAttachmentAdd(evt){
 		let file = evt.attachment.file
@@ -404,9 +413,9 @@
 			url: resp.data.url,
 			href: resp.data.url
 		})
-		},*/
+	},*/
 
-			handleEditorChange(file){
+	handleEditorChange(file){
 				// file.preventDefault();
 				if (!this.withFiles) {
 					file.preventDefault();
@@ -439,11 +448,12 @@
 			},
 
 			createImage(file) {
+
 				let reader = new FileReader();
 				let vm = this;
 				vm.form.avatar = file;
 				reader.onload = (e) => {
-					vm.form.avatar_url = e.target.result;
+					vm.form.avatar = e.target.result;
 				};
 				reader.readAsDataURL(file);
 			},
@@ -482,7 +492,7 @@
 					this.resetting = false;	
 
 					axios.post(this.endpoint,{
-					    form : this.form
+						form : this.form
 					}).then(response => {
 						if ( response.status === 200){
 							alert("Successfully Registered This Criminal");
@@ -540,17 +550,17 @@
 		}
 
 	};
-</script>
-<style>
-.vue_component__upload--image{
-	border-radius: 15px;
-	@apply .bg-grey-lighter .w-auto;
-}
+	</script>
+	<style>
+	.vue_component__upload--image{
+		border-radius: 15px;
+		@apply .bg-grey-lighter .w-auto;
+	}
 
-.trix-content{
-	height: 500px;
-	overflow-y: auto;
-}
+	.trix-content{
+		height: 500px;
+		overflow-y: auto;
+	}
 
 /* .trix-toolbar .trix-button-group:not(:first-child) {
 margin-left: -0.1vw;

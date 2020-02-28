@@ -7,7 +7,7 @@ admin Criminals in your area..
 */
 
 /*	
-Route::get("/test/email/send",function(){
+Route::get("/test/email/send",functionf(){
 Mail::send('')
 });
 */
@@ -75,6 +75,9 @@ Route::get('/contacts',"Api\ContactsController@fetch_all_contacts");
 Route::get("currency/convert","CurrencyController@convertCurrencyPage");
 Route::put("currency/convert","CurrencyController@currencyConvert");
 Route::get('register/success','ViewsController@registration_success')->name('confirm.mail');
+Route::get('project',function(){
+	return view('project');
+});
 
 
 /**
@@ -132,7 +135,7 @@ This is just used to modify records in the database.
 // Routes that manipulate the database..
 include "routes.db.php";
 // testing slots..
-Route::get("slots","ViewsC	ontroller@slots");
+Route::get("slots","ViewsController@slots");
 
 /*testing views..*/
 Route::get("/dashboard",function()
@@ -160,8 +163,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get("messages/t/{respondent}","MessageController@sendMessage");
 
 /*Mailables*/
-
 Route::get("mailable","ViewsController@test_mailable");
+
 
 
 /*

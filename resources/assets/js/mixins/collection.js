@@ -7,8 +7,22 @@ export default {
 			countries : []
 		}
 	},
+	computed : { 
+		submitProfile(){
+			return ``;
+		},
+		updateProfile(){
+
+		}
+
+	},
 
 	methods : {
+		updateCriminal(){
+			axios.put()
+		},
+
+
 		registerCriminal(){
 			// e.preventDefault();
 			this.isLoading = true;
