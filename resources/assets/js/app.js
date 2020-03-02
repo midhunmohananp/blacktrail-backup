@@ -67,8 +67,10 @@ Vue.component('update-profile', require('./components/UpdateProfile.vue'));
 1. float the value of the amount bounty into two decimal places. 
 */
 
-Vue.filter("format-bounty",function(value){
-	return (value / 100 ).toFixed(2);
+Vue.filter("capitalize",function(value){
+	if (!value) return ''
+	value = value.toString()
+	return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
 Vue.filter("format-currency",function(value){

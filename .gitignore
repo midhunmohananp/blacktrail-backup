@@ -17,3 +17,4 @@ composer.
 resources/crud-generator
 test-app.md
 public/js/app.js
+resources/assets/js/components/marc.html

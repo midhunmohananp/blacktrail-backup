@@ -30,8 +30,8 @@ class Criminal extends Model
 	*/
 	public function profile()
 	{
-				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
 		return $this->hasOne(CriminalInfo::class,'criminal_id','id');
+				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
 	}
 
 	public function getFullNameAttribute()

@@ -11,7 +11,7 @@ Route::get("/test/email/send",functionf(){
 Mail::send('')
 });
 */
-	
+
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
 	'middleware' => 'isAdmin', 	
@@ -64,6 +64,10 @@ Route::get("/login",'AuthController@loginForm')->name('login')->middleware("gues
 Route::get("register","AuthController@registerForm")->name('register');
 	
 Route::get("/role","AuthController@postRole");
+
+Route::get('/md',function(){
+	return view('multi_dropdown');
+});
 
 
 /*Implementing chat here..*/

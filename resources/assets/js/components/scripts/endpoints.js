@@ -18,6 +18,8 @@ const update_profile_endpoint = urlDomain + "/user/profiles/update/" + api.user.
 const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update";
 const show_profile_endpoint = urlDomain + "/user/profiles/" + api.user.id;
 const urlSaveCriminal = urlDomain + "/admin/criminals";
+const urlUpdateCriminal = urlDomain + "/admin/criminals";
+
 
 export default { 
 	urlSaveCriminal ,
@@ -35,6 +37,7 @@ export default {
 	update_profile_endpoint,
 	update_profiles_endpoint,
 	show_profile_endpoint,
-	// save_photos_endpoint
+	urlUpdateCriminal
+// save_photos_endpoint
 }
 

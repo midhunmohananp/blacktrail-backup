@@ -1,10 +1,10 @@
 <!DOCTYPE html> 
 <html lang="{{ app()->getLocale() }}"> 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}"> {{-- <meta name="viewport"
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}"> {{-- <meta name="viewport"
 content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1"> --}} {{--
 <meta name="csrf-token" content="{{ csrf_token() }}"> --}} 
 <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title> 
@@ -18,7 +18,7 @@ using microsoft edge as a developer tools..--}} {{-- <script
 src="http://localhost:8098"></script> <script
 src="http://192.168.22.3:8098"></script> --}} 
 <script>  
- window.App = @include("partials.stubs.global-vars") 
+  window.App = @include("partials.stubs.global-vars") 
 </script>      
 @yield('styles') 
 </head>

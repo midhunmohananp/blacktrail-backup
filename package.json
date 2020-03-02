@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies" : {
+    "devDependencies": {
         "axios": "^0.18.0",
         "browser-sync": "^2.26.5",
         "browser-sync-webpack-plugin": "2.0.1",
@@ -29,6 +29,7 @@
         "moment": "^2.24.0",
         "places.js": "^1.16.1",
         "pusher-js": "^4.4.0",
+        "socket.io-client": "^2.3.0",
         "turbolinks": "^5.2.0",
         "vee-validate": "^2.2.15",
         "vue-date-picker": "^2.5.0",

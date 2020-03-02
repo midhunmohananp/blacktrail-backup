@@ -5,23 +5,30 @@ import urls from "./scripts/endpoints.js";
 import Places from 'vue-places';
 import VueTrix from "vue-trix";
 import datepicker from 'vue-date-picker';
-import _ from "lodash"; 
+import _ from "lodash"; 	
+
 export default {
 	props : [ 'crimes', 'criminal', 'admins', 'countries'],
+
 	components : { 
 		'VueTrix' : VueTrix,
 		'places' : Places, 
 		'datepicker' : datepicker
-	}, 
+	},
+
 	data(){
 		return {
-			input: {
-				crimes : [{ crime_offense_id: 2, description: "..."}]
+		/*	withoutPivot : this.criminal.crimes.map((crime, i) => { 
+				const { ...copy, pivot } = crime; return copy; 
+			}),	*/
+			input: {	
+				crimes : this.criminal.crimes 
 			},
+			isLoading : null ,
 			country : this.criminal.country_id,	
-			form : {
+			form : {		
 				empty_string : '',
-				avatar : this.avatarImage,
+				avatar : this.avatarEndpoint ,
 				full_name : this.criminal.full_name ,
 				eye_color : this.criminal.profile.eye_color,
 				alias : this.criminal.alias,
@@ -50,128 +57,141 @@ export default {
 				required: false,
 				default: 10
 			}
-
-			/*		input_id: { // Id of upload control
-			type: String,
-			required: false,
-			default: "default"
-			},
-			url: { // upload url
-			type: String,
-			required: true,
-			default: null
-			},
-			name: { // name to use for FormData
-			type: String,
-			required: false,
-			default: 'images[]'
-			},
-			max_batch: { // # of files to upload within one request
-			type: Number,
-			required: false,
-			default: 0
-			},
-			max_files: { // total # of files allowed to be uploaded
-			type: Number,
-			required: false,
-			default: 10
-			},
-			max_filesize: { // max files size in KB
-			type: Number,
-			required: false,
-			default: 8000
-			},
-			resize_enabled: { // resize image prior to preview/upload
-			type: Boolean,
-			required: false,
-			default: false
-			},
-			resize_max_width: { // resize max width
-			type: Number,
-			required: false,
-			default: 800
-			},
-			resize_max_height: { // resize max height
-			type: Number,
-			required: false,
-			default: 600
-			},
-			button_html: { // text/html for button
-			type: String,
-			required: false,
-			default: 'Upload Images'
-			},
-			button_class: { // classes for button
-			type: String,
-			required: true,
-			default: 'bg-grey-darker p-2'
-			}
-			*/
 		}
-	},
-
+	},	
 	methods : {
-		updateProfile(){
-			this.isLoading = true;
-			this.form.last_seen = this.form.country.label;
+		uploadAttachment(file,progressCallback,successCallback){
+			if(!file){
+				return;
+			}
+			const _this = this;
+			console.log('uploading!');
+			let formData = new FormData();
 
-			setTimeout(() => {
-				this.isLoading = false;
-				this.requesting = true;
-				this.creating = true;
-				this.resetting = false;	
+			formData.append('file', file);
 
-				axios.post(this.endpoint,{
-					form : this.form
-				}).then(response => {
-					if ( response.status === 200){
-						alert("Successfully Registered This Criminal");
-						this.resetForm();
+			formData.append('attachable_type','App\CriminalInfo');
+
+			formData.append('field','complete_description');
+
+			axios.post(this.send_attachment_endpoint, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+				onUploadProgress: (progressEvent) => {
+					const totalLength = progressEvent.lengthComputable
+					? progressEvent.total
+					: progressEvent.target.getResponseHeader('content-length') ||
+					progressEvent.target.getResponseHeader('x-decompressed-content-length');
+					console.log('onUploadProgress', totalLength);
+					if (totalLength !== null) {
+						const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
+						progressCallback(progressData);
 					}
-					else {
-						alert("We encounter some errors while adding that criminal");
-					}
+				},
+			}).then((response) => {
+				progressCallback(100);
+					// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
+					let attachment = response.data;
+					const attributes = {
+						url: attachment.url,
+						href: attachment.url +"?content-disposition=attachment"
+					};
+
+					successCallback(attributes);
 				}).catch((error) => {
-					console.error((error));
-					alert("We encounter some errors while adding that criminal, try to check your inputs");
+					console.log('FAILURE!!', error);
 				});
 
-				this.requesting = false;
-				this.creating = false;
-			}, 1000);
-		},
+				_this.requesting = false;
+			},
 
-		updateUserRoute(){
-			return `/`;
-		},
+			/*Updating a profile.*/
+			updateProfile(){
+				setTimeout(() => {
+					
+					this.isLoading = false;
+					this.requesting = true;
+					this.creating = true;
+					this.resetting = false;	
+					axios.put(this.endpoint, {
+						id : this.criminal.id,
+						form : this.form,
+						input : this.input 
+					}).then(response => {
+						console.log(response);
+						/*if ( response.status === 200){
+							alert("Successfully Registered This Criminal");
+							this.resetForm();
+						}
+						else {
+							alert("We encounter some errors while adding that criminal");
+						}*/
+					}).catch((error) => {
+						console.log(error);
+						// console.error((error));
+						// alert("We encounter some errors while adding that criminal, try to check your inputs");
+					});
 
-		onAvatarChange(e){
-			let files = e.target.files || e.dataTransfer.files;
-			if (!files.length)
-				return;
-			this.createImage(files[0]);
-		},
+					this.requesting = false;
+					this.creating = false;
+				}, 1000);
 
-		createImage(file) {
-			let reader = new FileReader();
-			let vm = this;
-			vm.form.avatar = file;
-			reader.onload = (e) => {
-				vm.form.avatar = e.target.result;
-			};
-			reader.readAsDataURL(file);
-		},
-		isEmpty(obj) {
-			return !obj || Object.keys(obj).length === 0;
-		},
+			},
 
-		addNewCrime(index) {
-			this.input.crimes.push({ criminal_offense_id: 1, criminal_offense_description : "" });
-		},
+			updateUserRoute(){
+				return `/`;
+			},
 
-		removeCrime(input,index) {
-			this.input.crimes.splice(input, index);
-		},
+			onAvatarChange(e){
+				let files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createImage(files[0]);
+			},
+
+
+		/*	async setData(file) {
+				const formData = new FormData();
+				formData.append('type', file.type);
+				formData.append('file', await this.fileToBlob(file.location)); // filereader image object which can be sent to the server
+				formData.append('name', file.new_name);
+				formData.append('url', file.location);
+
+				return formData;
+			},*/
+
+			createImage(file) {
+				let reader = new FileReader();				
+				let vm = this;
+
+				vm.form.avatar = file;
+				
+				reader.onload = (e) => {
+					vm.form.avatar = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			},
+
+			mountAvatar(e){
+				let files = this.form.avatar;
+				if (!files.length)
+					return;
+				this.createImage(files[0]);
+			},
+
+
+			isEmpty(obj) {
+				return !obj || Object.keys(obj).length === 0;
+			},
+
+			addNewCrime() {
+				this.input.crimes.push({ id: 1, description : "" });
+			},
+
+			removeCrime(input,index) {
+				this.input.crimes.splice(input, index);
+			},	
 
 	/*	 	
 	this.inputs.push({
@@ -181,10 +201,6 @@ export default {
 		// this.inputs.push({ criminal_offense_id: 1, criminal_offense_description : "" });
 
 		updateCriminal(){
-
-
-			this.isLoading = true;
-			this.form.last_seen = this.form.country.label;
 			setTimeout(() => {
 				this.isLoading = false;
 				this.requesting = true;
@@ -192,7 +208,8 @@ export default {
 				this.resetting = false;	
 
 				axios.post(this.endpoint,{
-					form : this.form
+					form : this.form,
+					crimes : this.input
 				}).then(response => {
 					if ( response.status === 200){
 						alert("Successfully Registered This Criminal");
@@ -208,6 +225,7 @@ export default {
 				this.requesting = false;
 				this.creating = false;
 			}, 1000);
+			
 		},
 
 		getInputValue(obj, key) {
@@ -303,14 +321,23 @@ handleAttachmentRemove(file){
 	});
 },
 },
+
 computed : { 
-	avatarImage(){
-		return api.publicPath +"\" +'assets\images\avatar.jpg'
+	avatarEndpoint(){
+		return api.storagePath +"\\assets\\images\\avatar.jpg";
 	},
+
+	endpoint(){
+		return urls.urlUpdateCriminal +"/" +this.criminal.id; 
+	},
+	crimeTypes(){
+		return this.crimes 
+	}
+
 },
-mounted(){
-	this.addItem(); 
-},
+	mounted(){
+		this.mountAvatar(this.form.avatar) ;
+	}
 };
 </script>
 

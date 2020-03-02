@@ -90,7 +90,7 @@
 				class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="last_seen"
 				placeholder="Enter the full location details"
 				@change="getLastSeenLocation">
-			</places>
+				</places>
 		</div>
 
 		<div class="flex inline-block mt-4">
@@ -121,7 +121,7 @@
 			<div class="pr-2 w-full">
 				<label class="block tracking-wide text-black-v2 text-xs font-bold mb-2">Complete Background and Details</label>
 				<VueTrix
-				class="editor1 w-full"
+				class="editor1 h-32 w-full"
 				inputId="editor1"
 				@trix-change="handleEditorChange"
 				@trix-attachment-remove="handleAttachmentRemove"
@@ -134,10 +134,8 @@
 		<div class="mt-4 w-full text-center">
 			<button type="submit" :disabled="isLoading" class="p-4 hover:bg-purple bg-blue w-3/4 font-bold text-white">Save Criminal</button>
 		</div>
-
 	</form>
 </div>
-
 </template>
 <script>
 import urls from './scripts/endpoints.js';
@@ -152,12 +150,11 @@ export default {
 		'places' : Places, 
 		'datepicker' : datepicker
 	},
-	watch : { 
-		question:function(newQuestion, oldQuestion){
-		},
 
-		
+	watch : { 
+		question:function(newQuestion, oldQuestion){}
 	},
+
 	props :  {
 		admins : { 
 			type : Array,
@@ -193,374 +190,367 @@ export default {
 				status : 1 ,
 				bounty : "",
 				posted_by : api.user.id ,
-					// contact_number : api.user.phone_number ,
-					contact_number : "",
-					attachments : [],
-					country_id : 1,
-					uploadUrl: urls.urlSaveCriminal,
-				},
-				withFiles: { type: Boolean, default: true },
-				input_id: { // Id of upload control
-					type: String,
-					required: false,
-					default: "default"
-				},
-				mainPhotoUrl: { // upload url
-					type: String,
-					required: true,
-					default: null
-				},
-				morePhotosUrl: { // upload url
-					type: String,
-					required: true,
-					default: null
-				},
-				button_html: { // text/html for button
-					type: String,
-					required: true,
-					text: 'Upload Images or Drag your photos here'
-				},
-				button_class: { // classes for button
-					type: String,
-					required: false,
-					default: 'bg-blue'
-				},
-				localStorage : false,
-				requesting: false,
-				creating: false,
-				resetting: false,
-
-			}
-		},
-		computed : {
-			endpoint(){
-				return urls.urlSaveCriminal   ;
+				// contact_number : api.user.phone_number ,
+				contact_number : "",
+				attachments : [],
+				country_id : 1,
+				uploadUrl: urls.urlSaveCriminal,
 			},
-
-			storePhotosUrl(){
-				return urls.urlSavePhotos   ;
+			withFiles: { type: Boolean, default: true },
+			input_id: { // Id of upload control
+				type: String,
+				required: false,
+				default: "default"
 			},
-
-			removePhotosUrl(){
-				return urls.urlRemovePhotosUrl   ;
+			mainPhotoUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
 			},
-
-			loggedOnUsersName(){
-				return api.user.display_name ;
+			morePhotosUrl: { // upload url
+				type: String,
+				required: true,
+				default: null
 			},
-
-			last_seen(){
-				return this.form.country.label;
+			button_html: { // text/html for button
+				type: String,
+				required: true,
+				text: 'Upload Images or Drag your photos here'
 			},
-
-			send_attachment_endpoint(){
-				return urls.url_for_saving_photos;
+			button_class: { // classes for button
+				type: String,
+				required: false,
+				default: 'bg-blue'
 			},
-
-
-			avatarUrl(){
-
-			},
-
-			remove_attachment_endpoint(){
-				return api.app + '/api/v1/attachments/' ;
-			}
-		},
-		methods : {
-			myFunction: function () {	
-				this.myImage = "https://www.tutorialsplane.com/wp-content/uploads/2018/02/27867786_1714460465242017_6847995972742989230_n.jpg";
-			},
-
-			getLastSeenLocation(val) {
-				this.form.country.label = val;
-			},
-
-			isNumber: function(evt) {
-				evt = (evt) ? evt : window.event;
-				console.log(evt);
-				const charCode = (evt.which) ? evt.which : evt.keyCode;
-				if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-					evt.preventDefault();
-				} else {
-					return true;
-				}
-			},
-
-			handleFile(file){
-				if (!this.withFiles) {
-					e.preventDefault();
-				}
-			},
-
-			uploadAttachment(file,progressCallback,successCallback){
-				if(!file){
-					return;
-				}
-
-				const _this = this;
-
-				console.log('uploading!');
-				let formData = new FormData();
-
-				formData.append('file', file);
-
-				formData.append('attachable_type','App\CriminalInfo');
-
-				formData.append('field','complete_description');
-
-				axios.post(this.send_attachment_endpoint, formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-					onUploadProgress: (progressEvent) => {
-						const totalLength = progressEvent.lengthComputable
-						? progressEvent.total
-						: progressEvent.target.getResponseHeader('content-length') ||
-						progressEvent.target.getResponseHeader('x-decompressed-content-length');
-						console.log('onUploadProgress', totalLength);
-						if (totalLength !== null) {
-							const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
-							progressCallback(progressData);
-						}
-					},
-				}).then((response) => {
-					progressCallback(100);
-						// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
-						let attachment = response.data;
-						const attributes = {
-							url: attachment.url,
-							href: attachment.url +"?content-disposition=attachment"
-						};
-
-						successCallback(attributes);
-					}).catch((error) => {
-						console.log('FAILURE!!', error);
-					});
-
-					_this.requesting = false;
-
-				},
-
-				handleAttachmentAdd(event){
-					if(this.requesting || this.creating || this.resetting){
-						event.preventDefault();
-						return false;
-					}
-					const attachment = event.attachment;
-
-					if(!attachment.file){
-						return;
-					}
-
-					this.requesting = true;
-
-					this.uploadAttachment(attachment.file, setProgress, setAttributes);
-
-					function setProgress(progress) {
-						attachment.setUploadProgress(progress)
-					}
-
-					function setAttributes(attributes) {
-						attachment.setAttributes(attributes)
-					}
-
-		/*var attachment = event.attachment;
-		console.log(attachment);
-		if (attachment.file){
-			const data = attachment;
-			const config = {
-				onUploadProgress: progressEvent => {
-					var progress = progressEvent.loaded / progressEvent.total * 100;
-					attachment.setUploadProgress(progress);
-				}
-			}
-
-			axios.post(this.send_attachment_endpoint,data,config)
-			.then((response) => {
-				console.log("Response is:");
-				console.log(response);
-				if (response.status === 201) {
-					setTimeout(function() {
-						var url = response.data;
-						attachment.setAttributes({ url: url, href: url });
-					}, 30)
-				}
-				console.log(response.data);
-			}).catch(error => console.log(error));
-				attachment.setUploadProgress(10);
-				setTimeout(function(e) {
-					console.log("Set TimeOut:");
-					console.log(e);
-					// var url = xhr.responseText;
-					// return attachment.setAttributes({ url: url, href: url });
-				}, 30)
+			localStorage : false,
+			requesting: false,
+			creating: false,
+			resetting: false,
 		}
-		else {
-			return response("No file uploaded here",401);
-		}*/
-
 	},
+	computed : {	
+		endpoint(){
+			return urls.urlSaveCriminal   ;
+		},
 
-		/*async handleAttachmentAdd(evt){
-		let file = evt.attachment.file
-		let form = new FormData()
-		form.append('Content-Type', file.type)
-		form.append('image', file)
-		const resp = await this.$store.dispatch('imageUpload', form)
-		evt.attachment.setUploadProgress(100)
-		console.log(resp)
-		evt.attachment.setAttributes({
-			url: resp.data.url,
-			href: resp.data.url
-		})
-	},*/
+		storePhotosUrl(){
+			return urls.urlSavePhotos   ;
+		},
 
-	handleEditorChange(file){
-				// file.preventDefault();
-				if (!this.withFiles) {
-					file.preventDefault();
-				}
-				// console.log('file',file);
+		removePhotosUrl(){
+			return urls.urlRemovePhotosUrl   ;
+		},
+
+		loggedOnUsersName(){
+			return api.user.display_name ;
+		},
+
+		last_seen(){
+			return this.form.country.label;
+		},
+
+		send_attachment_endpoint(){
+			return urls.url_for_saving_photos;
+		},
+
+
+		avatarUrl(){
+
+		},
+
+		remove_attachment_endpoint(){
+			return api.app + '/api/v1/attachments/' ;
+		}
+	},
+	methods : {
+		myFunction: function () {	
+			this.myImage = "https://www.tutorialsplane.com/wp-content/uploads/2018/02/27867786_1714460465242017_6847995972742989230_n.jpg";
+		},
+
+		getLastSeenLocation(val) {
+			this.form.country.label = val;
+		},
+
+		isNumber: function(evt) {
+			evt = (evt) ? evt : window.event;
+			console.log(evt);
+			const charCode = (evt.which) ? evt.which : evt.keyCode;
+			if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+				evt.preventDefault();
+			} else {
+				return true;
+			}
+		},
+
+		handleFile(file){
+			if (!this.withFiles) {
+				e.preventDefault();
+			}
+		},
+
+		uploadAttachment(file,progressCallback,successCallback){
+			if(!file){
+				return;
+			}
+
+			const _this = this;
+			console.log('uploading!');
+			let formData = new FormData();
+			formData.append('file', file);
+
+			formData.append('attachable_type','App\CriminalInfo');
+
+			formData.append('field','complete_description');
+
+			axios.post(this.send_attachment_endpoint, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+				onUploadProgress: (progressEvent) => {
+					const totalLength = progressEvent.lengthComputable
+					? progressEvent.total
+					: progressEvent.target.getResponseHeader('content-length') ||
+					progressEvent.target.getResponseHeader('x-decompressed-content-length');
+					console.log('onUploadProgress', totalLength);
+					if (totalLength !== null) {
+						const progressData = Math.round((progressEvent.loaded * 100) / totalLength);
+						progressCallback(progressData);
+					}
+				},
+			}).then((response) => {
+				progressCallback(100);
+					// this bit is not axios way of doing it so I provided a value so it wont keep the loading bar
+					let attachment = response.data;
+					const attributes = {
+						url: attachment.url,
+						href: attachment.url +"?content-disposition=attachment"
+					};
+
+					successCallback(attributes);
+				}).catch((error) => {
+					console.log('FAILURE!!', error);
+				});
+
+				_this.requesting = false;
+
 			},
 
-			handleAttachmentRemove(file){
-
+			handleAttachmentAdd(event){
 				if(this.requesting || this.creating || this.resetting){
-					file.preventDefault();
-					console.log('preventing remove event');
+					event.preventDefault();
 					return false;
 				}
-				this.requesting = true;
-				let url = file.attachment.attachment.attributes.values.url.split("/").pop();
-				axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
-					console.log(response);
-					this.requesting = false;
-				}).catch(error => {
-					console.log(error);
-				});
-			},
+				const attachment = event.attachment;
 
-			onAvatarChange(e){
-				let files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
+				if(!attachment.file){
 					return;
-				this.createImage(files[0]);
-			},
-
-			createImage(file) {
-
-				let reader = new FileReader();
-				let vm = this;
-				vm.form.avatar = file;
-				reader.onload = (e) => {
-					vm.form.avatar = e.target.result;
-				};
-				reader.readAsDataURL(file);
-			},
-
-			showMap(){
-				this.$modal.show("show-map");
-			},
-
-			accept_file(val){
-				console.log(val);
-			},
-
-			show_criminals_information(){},
-
-			resetForm(){
-				this.resetting = true;
-				console.log('Resetting the form');
-				const self = this; //you need this because *this* will refer to Object.keys below`
-
-				//Iterate through each object field, key is name of the object field`
-				Object.keys(this.form).forEach(function(key,index) {
-					self.form[key] = '';
-				});
-
-			},
-
-			registerCriminal(){
-				// e.preventDefault();
-				this.isLoading = true;
-				this.form.last_seen = this.form.country.label;
-				setTimeout(() => {
-
-					this.isLoading = false;
-					this.requesting = true;
-					this.creating = true;
-					this.resetting = false;	
-
-					axios.post(this.endpoint,{
-						form : this.form
-					}).then(response => {
-						if ( response.status === 200){
-							alert("Successfully Registered This Criminal");
-							this.resetForm();
-						}
-						else {
-							alert("We encounter some errors while adding that criminal");
-						}
-					}).catch((error) => {
-						console.error((error));
-						alert("We encounter some errors while adding that criminal, try to check your inputs");
-					});
-
-					this.requesting = false;
-					this.creating = false;
-				}, 1000);
-
-
-
-					// console.log("Pressed on the button");
-			// this.$modal.show('show-information', {});
-
-			/*this.$modal.confirm().then( res => {
-				axios.post(this.endpoint,  this.form)
-				.then(response => {
-					console.log(response.status);
-				}).catch(error => {
-					console.log(error);
-				});
-
-			}).catch( rej => {
-					// I click cancel button
-				});*/
-
-			},
-
-			uploadFile(e){
-				if (e.attachment.file) {
-					let date = new Date();
-					let day = date.toISOString().slice(0, 10);
-					let name = date.getTime() + "-" + e.attachment.file.name;
-					let id = [auth.currentUser.uid, day, name].join("/");
-					let upload = storage.ref().child(id).put(e.attachment.file);
-					upload.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
-						e.attachment.setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-					})
-					upload.then(ref => {
-						ref.ref.getDownloadURL().then(url => {
-							e.attachment.setAttributes({ url, id })
-						})
-					})
 				}
-			},
 
+				this.requesting = true;
+
+				this.uploadAttachment(attachment.file, setProgress, setAttributes);
+
+				function setProgress(progress) {
+					attachment.setUploadProgress(progress)
+				}
+
+				function setAttributes(attributes) {
+					attachment.setAttributes(attributes)
+				}
+
+	/*var attachment = event.attachment;
+	console.log(attachment);
+	if (attachment.file){
+		const data = attachment;
+		const config = {
+			onUploadProgress: progressEvent => {
+				var progress = progressEvent.loaded / progressEvent.total * 100;
+				attachment.setUploadProgress(progress);
+			}
 		}
 
-	};
-	</script>
-	<style>
-	.vue_component__upload--image{
-		border-radius: 15px;
-		@apply .bg-grey-lighter .w-auto;
+		axios.post(this.send_attachment_endpoint,data,config)
+		.then((response) => {
+			console.log("Response is:");
+			console.log(response);
+			if (response.status === 201) {
+				setTimeout(function() {
+					var url = response.data;
+					attachment.setAttributes({ url: url, href: url });
+				}, 30)
+			}
+			console.log(response.data);
+		}).catch(error => console.log(error));
+			attachment.setUploadProgress(10);
+			setTimeout(function(e) {
+				console.log("Set TimeOut:");
+				console.log(e);
+				// var url = xhr.responseText;
+				// return attachment.setAttributes({ url: url, href: url });
+			}, 30)
 	}
+	else {
+		return response("No file uploaded here",401);
+	}*/
 
-	.trix-content{
-		height: 500px;
-		overflow-y: auto;
+},
+
+	/*async handleAttachmentAdd(evt){
+	let file = evt.attachment.file
+	let form = new FormData()
+	form.append('Content-Type', file.type)
+	form.append('image', file)
+	const resp = await this.$store.dispatch('imageUpload', form)
+	evt.attachment.setUploadProgress(100)
+	console.log(resp)
+	evt.attachment.setAttributes({
+		url: resp.data.url,
+		href: resp.data.url
+	})
+},*/
+
+		handleEditorChange(file){
+			// file.preventDefault();
+			if (!this.withFiles) {
+				file.preventDefault();
+			}
+			// console.log('file',file);
+		},
+
+		handleAttachmentRemove(file){
+
+			if(this.requesting || this.creating || this.resetting){
+				file.preventDefault();
+				console.log('preventing remove event');
+				return false;
+			}
+			this.requesting = true;
+			let url = file.attachment.attachment.attributes.values.url.split("/").pop();
+			axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
+				console.log(response);
+				this.requesting = false;
+			}).catch(error => {
+				console.log(error);
+			});
+		},
+
+		onAvatarChange(e){
+			let files = e.target.files || e.dataTransfer.files;
+			if (!files.length)
+				return;
+			this.createImage(files[0]);
+		},
+
+		createImage(file) {
+			let reader = new FileReader();
+			let vm = this;
+			vm.form.avatar = file;
+			reader.onload = (e) => {
+				vm.form.avatar = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		},
+
+		showMap(){
+			this.$modal.show("show-map");
+		},
+
+		accept_file(val){
+			console.log(val);
+		},
+
+		show_criminals_information(){},
+
+		resetForm(){
+			this.resetting = true;
+			console.log('Resetting the form');
+			const self = this; //you need this because *this* will refer to Object.keys below`
+
+			//Iterate through each object field, key is name of the object field`
+			Object.keys(this.form).forEach(function(key,index) {
+				self.form[key] = '';
+			});
+
+		},
+
+		registerCriminal(){
+			// e.preventDefault();
+			this.isLoading = true;
+			this.form.last_seen = this.form.country.label;
+			setTimeout(() => {
+				this.isLoading = false;
+				this.requesting = true;
+				this.creating = true;
+				this.resetting = false;	
+
+				axios.post(this.endpoint,{
+					form : this.form
+				}).then(response => {
+					if ( response.status === 200){
+						alert("Successfully Registered This Criminal");
+						this.resetForm();
+					}
+					else {
+						alert("We encounter some errors while adding that criminal");
+					}
+				}).catch((error) => {
+					console.error((error));
+					alert("We encounter some errors while adding that criminal, try to check your inputs");
+				});
+
+				this.requesting = false;
+				this.creating = false;
+			}, 1000);
+
+
+
+				// console.log("Pressed on the button");
+		// this.$modal.show('show-information', {});
+
+		/*this.$modal.confirm().then( res => {
+			axios.post(this.endpoint,  this.form)
+			.then(response => {
+				console.log(response.status);
+			}).catch(error => {
+				console.log(error);
+			});
+
+		}).catch( rej => {
+				// I click cancel button
+			});*/
+
+		},
+
+		uploadFile(e){
+			if (e.attachment.file) {
+				let date = new Date();
+				let day = date.toISOString().slice(0, 10);
+				let name = date.getTime() + "-" + e.attachment.file.name;
+				let id = [auth.currentUser.uid, day, name].join("/");
+				let upload = storage.ref().child(id).put(e.attachment.file);
+				upload.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
+					e.attachment.setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+				})
+				upload.then(ref => {
+					ref.ref.getDownloadURL().then(url => {
+						e.attachment.setAttributes({ url, id })
+					})
+				})
+			}
+		},
 	}
+};
+</script>
+<style>
+.vue_component__upload--image{
+	border-radius: 15px;as
+	@apply .bg-grey-lighter .w-auto;
+}
+
+.trix-content{
+	height: 500px;
+	overflow-y: auto;
+}
 
 /* .trix-toolbar .trix-button-group:not(:first-child) {
 margin-left: -0.1vw;
