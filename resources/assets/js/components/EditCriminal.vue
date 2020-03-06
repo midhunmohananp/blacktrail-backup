@@ -8,44 +8,50 @@ import datepicker from 'vue-date-picker';
 import _ from "lodash"; 	
 
 export default {
-	props : [ 'crimes', 'criminal', 'admins', 'countries'],
 
+	props : [ 'crimes', 'criminal', 'admins', 'countries'],
 	components : { 
 		'VueTrix' : VueTrix,
 		'places' : Places, 
 		'datepicker' : datepicker
 	},
-
 	data(){
 		return {
-		/*	withoutPivot : this.criminal.crimes.map((crime, i) => { 
+			/*
+			withoutPivot : this.criminal.crimes.map((crime, i) => { 
 				const { ...copy, pivot } = crime; return copy; 
 			}),	*/
 			input: {	
 				crimes : this.criminal.crimes 
 			},
+
+			send_attachment_endpoint : urls.url_for_saving_photos,
 			isLoading : null ,
+			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2',
+			'leading-normal'], 
 			country : this.criminal.country_id,	
 			form : {		
-				empty_string : '',
-				avatar : this.avatarEndpoint ,
 				full_name : this.criminal.full_name ,
-				eye_color : this.criminal.profile.eye_color,
 				alias : this.criminal.alias,
-				birthplace : this.criminal.profile.birthplace,
-				birthdate : this.criminal.profile.birthdate,
 				first_name : this.criminal.first_name,
+				posted_by : this.criminal.posted_by,
 				middle_name : this.criminal.middle_name,
+				birthplace : this.criminal.profile.birthplace,
 				last_name : this.criminal.last_name,
-				status : this.criminal.status, 
-				complete_description : this.criminal.profile.complete_description,
 				contact_number : this.criminal.contact_number,
-				last_seen : this.criminal.profile.last_seen,
-				height_in_cm : this.criminal.profile.height_in_feet_and_inches,
 				contact_person : this.criminal.contact_person , 
+				status : this.criminal.status, 
+				last_seen : this.criminal.profile.last_seen,
+				birthdate : this.criminal.profile.birthdate,
+				eye_color : this.criminal.profile.eye_color,
 				weight : this.criminal.profile.weight_in_kilos,
+				height : this.criminal.profile.height_in_feet_and_inches,
+				country_of_origin : this.criminal.profile.country_of_origin,
+				avatar : this.avatarEndpoint,
+				complete_description : this.criminal.profile.complete_description,
+				height_in_cm : this.criminal.profile.height_in_feet_and_inches,
 				maxFiles: 1,
-				currency : 1,
+				currency : this.criminal.profile.currency,
 				bounty : this.criminal.profile.bounty,
 				attachments : [],
 				country_id : 4 , 
@@ -64,16 +70,13 @@ export default {
 			if(!file){
 				return;
 			}
+
 			const _this = this;
 			console.log('uploading!');
 			let formData = new FormData();
-
 			formData.append('file', file);
-
 			formData.append('attachable_type','App\CriminalInfo');
-
 			formData.append('field','complete_description');
-
 			axios.post(this.send_attachment_endpoint, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -97,19 +100,16 @@ export default {
 						url: attachment.url,
 						href: attachment.url +"?content-disposition=attachment"
 					};
-
 					successCallback(attributes);
 				}).catch((error) => {
 					console.log('FAILURE!!', error);
 				});
-
 				_this.requesting = false;
 			},
 
 			/*Updating a profile.*/
 			updateProfile(){
 				setTimeout(() => {
-					
 					this.isLoading = false;
 					this.requesting = true;
 					this.creating = true;
@@ -120,7 +120,7 @@ export default {
 						input : this.input 
 					}).then(response => {
 						console.log(response);
-						/*if ( response.status === 200){
+					/*	if ( response.status === 200){
 							alert("Successfully Registered This Criminal");
 							this.resetForm();
 						}
@@ -238,12 +238,18 @@ export default {
 		},
 
 		handleAttachmentAdd(event){
-			console.log(event);
+			if(this.requesting || this.creating || this.resetting){
+				event.preventDefault();
+				return false;
+			}
+
 			const attachment = event.attachment;
 
 			if(!attachment.file){
 				return;
 			}
+
+			this.requesting = true;
 
 			this.uploadAttachment(attachment.file, setProgress, setAttributes);
 
@@ -324,20 +330,21 @@ handleAttachmentRemove(file){
 
 computed : { 
 	avatarEndpoint(){
-		return api.storagePath +"\\assets\\images\\avatar.jpg";
+		return api.publicPath.replace(/\\/g, "/");
 	},
 
 	endpoint(){
 		return urls.urlUpdateCriminal +"/" +this.criminal.id; 
 	},
+	
 	crimeTypes(){
 		return this.crimes 
 	}
 
 },
-	mounted(){
-		this.mountAvatar(this.form.avatar) ;
-	}
+mounted(){
+	// this.mountAvatar(this.form.avatar) ;
+}
 };
 </script>
 

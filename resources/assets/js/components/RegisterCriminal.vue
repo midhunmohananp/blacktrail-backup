@@ -3,7 +3,6 @@
 		<form @submit.prevent="registerCriminal" method="POST" class="font-basic pt-4 py-4 ml-3 w-full" enctype="multipart/form-data">
 			<h3>Register Criminal</h3>
 			<div class="flex inline-block mt-4">
-
 				<div class="mr-2 w-1/2">
 					<label for="first_name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name
 					</label>
@@ -36,7 +35,7 @@
 
 			<div class="flex inline-block mt-4">
 				<div class="w-full mr-2">
-					<label for="phone_number" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Contact Number</label>
+					<label for="phone_number" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Contact Person</label>
 					<input v-model="form.contact_number" name="phone_number" type="tel" class="bg-grey-lighter w-full mb-2 p-2 leading-normal" id="phone_number" autocomplete="name" placeholder="Contact Number" required>
 				</div>
 			</div>
@@ -70,7 +69,8 @@
 								<img :src="form.avatar" class="img-responsive" height="70" width="90" alt="Criminal Photo">
 							</div>
 							<div class="col-md-6">
-								<input type="file" name="avatar" id="avatar" v-on:change="onAvatarChange" class="form-control">
+								<input type="file" name="form.avatar" id="avatar" @change="onAvatarChange" class="bg-white p-2 form-control">
+
 							</div>
 						</div>
 					</div>
@@ -86,11 +86,11 @@
 					</svg>
 				</div>
 				<places
-				v-model="form.country.label"
+				v-model="form.last_seen"
 				class="bg-grey-lighter w-3/4 mb-2 p-2 leading-normal" id="last_seen"
 				placeholder="Enter the full location details"
 				@change="getLastSeenLocation">
-				</places>
+			</places>
 		</div>
 
 		<div class="flex inline-block mt-4">
@@ -171,14 +171,15 @@ export default {
 	},
 	data(){
 		return { 
-			image : "",
+			avatar : "",
 			isLoading : null , 
 			form : {
-				avatar : null , 
+				avatar : "",
 				complete_description : "",
 				alias : "",
 				first_name : "",
 				last_name : "",
+				last_seen : "",
 				country: {
 					label: null,
 					data: {},
@@ -228,7 +229,8 @@ export default {
 			resetting: false,
 		}
 	},
-	computed : {	
+	computed : {
+
 		endpoint(){
 			return urls.urlSaveCriminal   ;
 		},
@@ -245,17 +247,8 @@ export default {
 			return api.user.display_name ;
 		},
 
-		last_seen(){
-			return this.form.country.label;
-		},
-
 		send_attachment_endpoint(){
 			return urls.url_for_saving_photos;
-		},
-
-
-		avatarUrl(){
-
 		},
 
 		remove_attachment_endpoint(){
@@ -289,6 +282,7 @@ export default {
 		},
 
 		uploadAttachment(file,progressCallback,successCallback){
+			
 			if(!file){
 				return;
 			}
@@ -340,6 +334,7 @@ export default {
 					event.preventDefault();
 					return false;
 				}
+
 				const attachment = event.attachment;
 
 				if(!attachment.file){
@@ -358,40 +353,40 @@ export default {
 					attachment.setAttributes(attributes)
 				}
 
-	/*var attachment = event.attachment;
-	console.log(attachment);
-	if (attachment.file){
-		const data = attachment;
-		const config = {
-			onUploadProgress: progressEvent => {
-				var progress = progressEvent.loaded / progressEvent.total * 100;
-				attachment.setUploadProgress(progress);
-			}
-		}
+/*var attachment = event.attachment;
+console.log(attachment);
+if (attachment.file){
+const data = attachment;
+const config = {
+onUploadProgress: progressEvent => {
+var progress = progressEvent.loaded / progressEvent.total * 100;
+attachment.setUploadProgress(progress);
+}
+}
 
-		axios.post(this.send_attachment_endpoint,data,config)
-		.then((response) => {
-			console.log("Response is:");
-			console.log(response);
-			if (response.status === 201) {
-				setTimeout(function() {
-					var url = response.data;
-					attachment.setAttributes({ url: url, href: url });
-				}, 30)
-			}
-			console.log(response.data);
-		}).catch(error => console.log(error));
-			attachment.setUploadProgress(10);
-			setTimeout(function(e) {
-				console.log("Set TimeOut:");
-				console.log(e);
-				// var url = xhr.responseText;
-				// return attachment.setAttributes({ url: url, href: url });
-			}, 30)
-	}
-	else {
-		return response("No file uploaded here",401);
-	}*/
+axios.post(this.send_attachment_endpoint,data,config)
+.then((response) => {
+console.log("Response is:");
+console.log(response);
+if (response.status === 201) {
+setTimeout(function() {
+	var url = response.data;
+	attachment.setAttributes({ url: url, href: url });
+}, 30)
+}
+console.log(response.data);
+}).catch(error => console.log(error));
+attachment.setUploadProgress(10);
+setTimeout(function(e) {
+console.log("Set TimeOut:");
+console.log(e);
+// var url = xhr.responseText;
+// return attachment.setAttributes({ url: url, href: url });
+}, 30)
+}
+else {
+return response("No file uploaded here",401);
+}*/
 
 },
 
@@ -409,7 +404,7 @@ export default {
 	})
 },*/
 
-		handleEditorChange(file){
+handleEditorChange(file){
 			// file.preventDefault();
 			if (!this.withFiles) {
 				file.preventDefault();
@@ -418,33 +413,62 @@ export default {
 		},
 
 		handleAttachmentRemove(file){
-
 			if(this.requesting || this.creating || this.resetting){
 				file.preventDefault();
 				console.log('preventing remove event');
 				return false;
 			}
+
 			this.requesting = true;
+
 			let url = file.attachment.attachment.attributes.values.url.split("/").pop();
+
 			axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
 				console.log(response);
 				this.requesting = false;
 			}).catch(error => {
 				console.log(error);
 			});
+
+		},
+
+		onFileChange(e){
+			console.log(e.target.files[0]);
+			this.form.avatar = e.target.files[0];
+		},
+
+		formSubmit(e) {
+			e.preventDefault();
+			let currentObj = this;
+			
+			const config = {
+				headers: { 'content-type': 'multipart/form-data' }
+			}
+
+			let formData = new FormData();
+
+			formData.append('file', this.form.avatar);
+
+			axios.post(this.endpoint, formData, config)
+			.then(function (response) {
+				currentObj.success = response.data.success;
+			}).catch(function (error) {
+				currentObj.output = error;
+			});
 		},
 
 		onAvatarChange(e){
-			let files = e.target.files || e.dataTransfer.files;
+			let files = e.target.files || e.dataTransfer.files;			
 			if (!files.length)
 				return;
+			console.log(e.target.files[0]);
+			this.form.avatar = e.target.files[0];
 			this.createImage(files[0]);
 		},
 
 		createImage(file) {
 			let reader = new FileReader();
 			let vm = this;
-			vm.form.avatar = file;
 			reader.onload = (e) => {
 				vm.form.avatar = e.target.result;
 			};
@@ -476,7 +500,17 @@ export default {
 		registerCriminal(){
 			// e.preventDefault();
 			this.isLoading = true;
-			this.form.last_seen = this.form.country.label;
+			/*
+			let currentObj = this;
+
+			const config = {
+				headers: { 'content-type': 'multipart/form-data' }
+			};
+			
+			let formData = new FormData();
+			
+			formData.append('avatar', this.avatar);
+			*/
 			setTimeout(() => {
 				this.isLoading = false;
 				this.requesting = true;
@@ -484,7 +518,7 @@ export default {
 				this.resetting = false;	
 
 				axios.post(this.endpoint,{
-					form : this.form
+					form : this.form,
 				}).then(response => {
 					if ( response.status === 200){
 						alert("Successfully Registered This Criminal");
@@ -497,7 +531,6 @@ export default {
 					console.error((error));
 					alert("We encounter some errors while adding that criminal, try to check your inputs");
 				});
-
 				this.requesting = false;
 				this.creating = false;
 			}, 1000);
@@ -543,7 +576,7 @@ export default {
 </script>
 <style>
 .vue_component__upload--image{
-	border-radius: 15px;as
+	border-radius: 15px;
 	@apply .bg-grey-lighter .w-auto;
 }
 

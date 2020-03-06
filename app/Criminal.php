@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 
 class Criminal extends Model
 {
-    protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
-        'alias',
-        'country_id',
-        'posted_by',
-        'contact_number',
-        'status',
-        'photo',
-    ];
+	protected $fillable = [
+		'first_name',
+		'middle_name',
+		'last_name',
+		'alias',
+		'country_id',
+		'posted_by',
+		'contact_number',
+		'status',
+		'photo',
+	];
 
 	protected $guarded = [];
 
@@ -31,6 +31,12 @@ class Criminal extends Model
 	public function profile()
 	{
 		return $this->hasOne(CriminalInfo::class,'criminal_id','id');
+				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
+	}
+
+	public function profilePicture()
+	{
+		return $this->hasMany(File::class);
 				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
 	}
 
@@ -49,17 +55,24 @@ class Criminal extends Model
 		return $this->belongsTo(Country::class,'country_id','id');
 	}
 
-
 	/*
 	Update criminals who's posted_by => 0 and change it to id in the users table..
 	*/
+	
 	public static function findOrFailById($id){ 
 		return self::where('id', $id)->firstOrFail();        
 	}
-
+	
 	public static function postedByLoggedOnUser(){
 		return static::where('posted_by','=', auth()->user()->id);
 	}
+
+
+	public function scopeByCurrentUser($query)
+	{
+		return $query->where('posted_by', auth()->user()->id());
+	}
+
 
 	protected function loggedOnUser($value='')
 	{
@@ -96,13 +109,13 @@ class Criminal extends Model
 		return $query->where("status",'=',0);
 	}	
 
-	/**
-	 * status is at large
+	/*
+*	 * status is at large
 	*/
-	public function scopeNotYetCaptured($query)
-	{
-		return $query->where("status",'=',1);
-	}
+public function scopeNotYetCaptured($query)
+{
+	return $query->where("status",'=',1);
+}
 	/*
 	Ranking by most wanted........
 	*/
@@ -140,7 +153,29 @@ class Criminal extends Model
 	}*/
 
 	public static function saveCriminal(Request $request, string $file_name = 'default_avatar.jpg'){
-		return Criminal::create([
+		Criminal::create([
+			'first_name'         =>             $request->input("form.first_name"),
+			'middle_name'        =>             $request->input("form.middle_name"),
+			'last_name'          =>             $request->input("form.last_name"),
+			'alias'              =>             $request->input("form.alias"),
+			'country_id'         =>             $request->input("form.country_id"),
+			'posted_by'          =>             $request->input("form.posted_by"),
+			'contact_number'     =>             $request->input("form.contact_number"),
+			'status'             =>             $request->input("form.status"),
+			'photo'				 => 			$file_name
+		])->profile()->create([
+			'last_seen'	     	 =>        		$request->input('form.last_seen'),
+			'country_last_seen'	 =>				$request->input('form.country_id'),
+			'bounty'             =>        		$request->input('form.bounty'),
+			'currency' => $request->input('form.currency'),
+			'complete_description'  =>        	$request->input('form.complete_description')
+		]);
+		
+	}
+
+	public static function update_criminal(Request $request, string $file_name = 'default_avatar.jpg'){
+
+		return Criminal::updateOrCreate([
 			'first_name'         =>             $request->input("form.first_name"),
 			'middle_name'        =>             $request->input("form.middle_name"),
 			'last_name'          =>             $request->input("form.last_name"),
@@ -159,5 +194,6 @@ class Criminal extends Model
 		]);
 
 	}
+
 
 }

@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
+
 	protected $fillable = ['body'];
+    
     protected $table = 'messages';
-	// protected $appends = ['selfMessage'];
+	
 
-
+    // protected $appends = ['selfMessage'];
 	  /**
      * User has many Messages.
      *
@@ -21,5 +23,4 @@ class Message extends Model
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(User::class,'id','from');
     }
-
 }

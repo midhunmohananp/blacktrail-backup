@@ -2,7 +2,7 @@
 	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black ml-6">Edit Criminal Page
 	</p>
 	<div class="bg-white p-6 shadow-md w-3/4">
-		<form id="setup-billing-form" @submit.prevent="updateProfile"  method="POST">
+		<form id="setup-billing-form" @submit.prevent="updateProfile"  method="POST" enctype=multipart/form-data >
 			<div class="input-group mb-6">
 				<h3 class="text-lg font-sans">Update Criminal Information of {{ criminal.full_name }}</h3>
 			</div>	
@@ -10,13 +10,13 @@
 				<div class="input-group w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Criminals' Full / Display Name
 					</label>	
-					<input type="text" v-model="form.full_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin"  autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="form.full_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin"  autocomplete="name" placeholder="" readonly required>
 				</div>
 				<div class="ml-2 w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
 						Alias
 					</label>
-					<input type="text" v-model="this.criminal.alias" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="this.criminal.alias" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 				</div>
 			</div>
 
@@ -24,19 +24,19 @@
 				<div class="w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">First Name
 					</label>	
-					<input type="text" v-model="form.first_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="form.first_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 				</div>
 				<div class="ml-2 w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
 						Middle Name
 					</label>
-					<input type="text" v-model="form.middle_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="form.middle_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 				</div>
 				<div class="ml-2 w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
 						Last Name
 					</label>
-					<input type="text" v-model="form.last_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="form.last_name" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 				</div>
 			</div>
 
@@ -44,7 +44,13 @@
 				<div class="w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Contact Number**
 					</label>
-					<input type="text" v-model="form.contact_number" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+					<input type="text" v-model="form.contact_number" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
+				</div>
+
+				<div class="w-3/5 ml-2">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Contact Person**
+					</label>
+					<input type="text" v-model="form.contact_person" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 				</div>
 
 				<div class="ml-2 w-3/5">	
@@ -55,8 +61,13 @@
 						<option value="0">Captured</option>							
 					</select>
 				</div>
+				<div class="ml-4 w-3/5">	
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bounty
+					</label>
+					<input type="text" v-model="form.bounty" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
+				</div>
 			</div>
-
+			
 			<div class="flex inline-block">
 				<div class="w-3/5">	
 					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthplace
@@ -72,19 +83,20 @@
 			<div class="ml-4 w-3/5">	
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Last Seen in 
 				</label>
-				<input type="text" v-model="form.last_seen" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+				<input type="text" v-model="form.last_seen" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="" required>
 			</div>
 		</div>	
 		<div class="flex inline-block">
 			<div class="w-3/5">	
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Birthdate
 				</label>
-				<datepicker input-class="{ hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal }" v-model="form.birthdate" format="YYYY-M-D" name="date2"></datepicker>
+				<datepicker :input-class="datepickerClass" v-model="form.birthdate" format="YYYY-M-D" name="date2">
+				</datepicker>
 			</div>
 			<div class="ml-4 w-3/5">	
 				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Eye Color 
 				</label>
-				<input type="text" v-model="form.eye_color | capitalize" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="5000" required>
+				<input type="text" v-model="form.eye_color" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Blue," required>
 			</div>
 		</div>
 
@@ -95,9 +107,9 @@
 				<input type="text" v-model="form.weight" class="hover:bg-grey-lightest bg-grey-lighter mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="any number like 50" required>
 			</div>
 			<div class="ml-4 w-3/5">	
-				<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Height(just specify)
+				<label for="name" class="block uppe rcase tracking-wide text-black-v2 text-xs font-bold mb-2">Height(just specify if it's cm or m or etc.)
 				</label>
-				<input placeholder="168cm" type="text" v-model="form.height_in_cm" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" required>
+				<input placeholder="168cm" type="text" v-model="form.height" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" required>
 			</div>
 		</div>	
 
@@ -110,8 +122,8 @@
 						<div class="col-md-6" v-if="form.avatar">
 							<img :src="form.avatar" class="img-responsive" height="70" width="90" alt="Criminal Photo">
 						</div>
-						<div class="col-md-6">
-							<input type="file" name="avatar" id="avatar" v-on:change="onAvatarChange" class="form-control">
+						<div class="col-md-6 w-1/2">
+							<input type="file" name="avatar" id="avatar" v-on:change="onAvatarChange" class="form-control hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
 						</div>
 					</div>
 				</div>
@@ -119,10 +131,10 @@
 		</div>
 
 		<div class="w-full flex">
-			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes for this Criminal
+			<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">List all the Crimes for this person
 			</label> 
 		</div>
-		
+
 		<!-- if there are crimes for this person -->
 		<div v-if="input.crimes.length">
 			<div v-for="(crime, index) in input.crimes" :key="index">
@@ -132,7 +144,7 @@
 							{{ option.criminal_offense }}
 						</option>
 					</select>
-					<input class="hover:bg-grey-lightest bg-grey-lightest w-full mb-2 p-2 leading-normal w-1/2" type="text" v-model="crime.description"/>
+					<input class="hover:bg-grey-lightest bg-grey-lightest w-full mb-2 p-2 leading-normal w-1/2" required type="text" v-model="crime.description"/>
 					<span class="ml-2"><button @click="$delete(input.crimes, index)"><i class="fas fa-minus-circle"></i></button></span>
 				</div>
 			</div>
@@ -140,8 +152,8 @@
 		</div>
 
 		<!-- if there is none then just display the textbox -->
-		<div v-else>
-			<h3>There are no crimes for this guy</h3>
+		<div class="mb-2 mt-2" v-else>
+			<h3>There are no crimes for this criminal. Click on Add new Crime Button to add one</h3>
 		</div>
 
 		<span>

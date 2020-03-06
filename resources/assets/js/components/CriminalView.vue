@@ -12,10 +12,10 @@
 				<div class="text-center">
 					<div id="avatar" class="inline-block mb-6 w-full" >
 						<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
-						
-
-						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}</p>
-						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty"></p>
+						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}
+						</p>
+						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty">
+						</p>
 						<!-- <crimes-list :criminals="crimes"></crimes-list> -->
 
 						<div v-if="this.criminals.crimes.length > 0">

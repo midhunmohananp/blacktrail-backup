@@ -3,7 +3,7 @@
 * includes Vue and other libraries. It is a great starting point when
 * building robust, powerful web applications using Vue and Laravel.
 */		
-require('./bootstrap');
+require('./bootstrap');	
 /*when using turbolinks in your app.
 These don't mean that it would work since it means one thing these will not work w/ vue-router..
 */

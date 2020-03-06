@@ -16,6 +16,10 @@ class CreateCriminalsTest extends TestCase
 		);
 	}
 	
+	function it_uploads_($value='')
+	{
+		# code...
+	}
 
 }
 

@@ -5,8 +5,9 @@ use App\Criminal ;
 use App\User ; 
 use App\Exceptions\UserRegistrationException; 
 use Rule ; 
+use Carbon;
 use App\Country;
- 
+
 class CriminalsController extends Controller
 {
 
@@ -20,7 +21,7 @@ class CriminalsController extends Controller
 		->paginate(5) ; 
 
 		$countries = Country::all();
-			
+
 		return view('criminals',compact('criminals','countries'));
 	}
 
@@ -35,7 +36,7 @@ class CriminalsController extends Controller
 		if (auth()->check() === false || $user->isAdmin() === false) {
 			abort(401, 'Unauthorized.');
 				// return response('You are not authorized', 401);
-		
+
 		}
 
 
@@ -106,7 +107,6 @@ public function show($criminal)
 {
 		// $user = Criminal::findOrFail($criminal)->with('profile','crimes','country')->get();
 	$criminal = Criminal::with('profile','crimes','country')->findOrFail($criminal);
-		// dd($criminal);
 	return view("criminals.show",['criminal' => $criminal]) ; 
 }
 

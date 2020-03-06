@@ -62,7 +62,7 @@ Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
 Route::get("register","AuthController@registerForm")->name('register');
-	
+
 Route::get("/role","AuthController@postRole");
 
 Route::get('/md',function(){
@@ -123,7 +123,7 @@ Route::get('confirm/mail/{confirmation_code}','VerificationController@confirm_em
 
 
 // Route::resource('group','GroupController');
-	
+
 
 /**
 * 	____|
@@ -145,6 +145,25 @@ Route::get("slots","ViewsController@slots");
 Route::get("/dashboard",function()
 {
 	return '<h3 style="font-size:30px;">Dashboard View</h3>';
+});
+
+Route::get('image-upload',['as'=>'image.upload','uses'=>'ImageUploadController@imageUpload']);
+Route::post('image-upload',['as'=>'image.upload.post','uses'=>'ImageUploadController@imageUploadPost']);
+
+Route::get('upload',function(){
+	return view('uploads');
+});
+
+Route::any('upload', function() 
+{
+	$data = [];
+
+	if (Request::hasFile('file')) {
+		$data['result'] = Imageupload::upload(Request::file('file'));
+		$result = Imageupload::upload(Request::file('file'));
+	}
+
+	return view('uploads')->with($data);
 });
 
 

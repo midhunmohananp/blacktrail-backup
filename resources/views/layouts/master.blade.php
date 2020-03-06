@@ -1,9 +1,9 @@
 <!DOCTYPE html> 
 <html lang="{{ app()->getLocale() }}"> 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}"> {{-- <meta name="viewport"
 content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1"> --}} {{--
 <meta name="csrf-token" content="{{ csrf_token() }}"> --}} 
@@ -31,26 +31,26 @@ src="http://192.168.22.3:8098"></script> --}}
      @endif 
 
      @if(session()->has('confirmation_success_message'))
-     <flash-message message="{{ trans('flash.confirmation_success') }}"></flash-message>
-     @endif
+     <flash-message :message="{{ trans('flash.confirmation_success') }}"></flash-message>
+    @endif
 
-     @if(session()->has('flash-message'))
-     <flash-message message="{{ session('flash-message' ) }}"></flash-message>
-     @endif
-
-     <app-header inline-template>
-      @include('partials.main-header')
-    </app-header>
-
-    <main class="flex m-auto">
-      @if (auth()->check())            
-      @include('partials.sidebar')
+      @if(session()->has('flash-message'))
+      <flash-message message="{{ session('flash-message' ) }}"></flash-message>
       @endif
-      @yield("content")
-    </main>
+
+      <app-header inline-template>
+        @include('partials.main-header')
+      </app-header>
+
+      <main class="flex m-auto">
+        @if (auth()->check())            
+        @include('partials.sidebar')
+        @endif
+        @yield("content")
+      </main>
+    </div>
   </div>
-</div>
-<script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
-@yield("scripts")
+  <script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
+  @yield("scripts")
 </body>
 </html> 

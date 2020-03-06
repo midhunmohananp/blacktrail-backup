@@ -38,9 +38,10 @@ class AuthController extends Controller
 		$remember_me = request()->get('remember');
 		$password = request()->get('password');
 		$user = User::where("${field}",'=',$pin)->first();
-		
 
-		if ( $user->confirmed_at == NULL || $user->status == "0"){
+		// dd($user);
+
+		if ( is_null($user->confirmed_at) || $user->status === "0"){
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
 		else {

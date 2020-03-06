@@ -7,3 +7,4 @@ Route::put("criminals/{criminal}","CriminalsController@update")->name("admin.cri
 Route::delete("criminals/{criminal}","CriminalsController@destroy")->name("admin.criminals.destroy");
 Route::get('/criminals', 'DashboardController@criminalsList')->name('admin.criminals');
 Route::post('/criminals', 'CriminalsController@store_criminal')->name('admin.criminals.store');
+

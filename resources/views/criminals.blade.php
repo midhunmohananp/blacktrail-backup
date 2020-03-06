@@ -24,8 +24,7 @@
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
 					@if(file_exists(public_path('assets/images/'.$criminal->photo))) 
 					{{-- <p>Amazing</p> --}}
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ public_path('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto"  alt="Criminals View" >
-
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/'.$criminal->photo)  }}" id="criminalsPhoto"  alt="Criminals View" >
 					@else
 					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
 					@endif

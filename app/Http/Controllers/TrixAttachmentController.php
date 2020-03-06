@@ -37,12 +37,12 @@ class TrixAttachmentController extends Controller
 		
 	}
 
-	public function destroyAttachment($url){
+	public function destroyAttachment($url){	
 		$attachment = TrixAttachment::where('attachment', basename($url))->first();
-		
+/*
 		if( now()->minute <= (Carbon::parse($attachment->created_at)->minute + 30) )
-		    return response()->json(['status', 'denied']);
-
+			return response()->json(['status', 'denied']);
+*/
 		return response()->json(optional($attachment)->purge());
 
 	}
