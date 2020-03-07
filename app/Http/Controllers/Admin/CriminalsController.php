@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Str;
 use Validator ;
 use App\Criminal ;
+use App\CriminalInfo ;
 use App\Crime ; 
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
@@ -16,7 +17,7 @@ use Storage ;
 class CriminalsController extends Controller
 {
 	    /**
-	     * Display a listing of the resource
+	     * Display a listing of @upthe resource
 	.     *
 	     * @return \Illuminate\Http\Response
 	     */
@@ -168,7 +169,6 @@ if (request()->wantsJson()) {
      */
     public function update(Request $request, Criminal $criminal) 
     {
-
         // $criminal = Criminal::findOrFail($id);        
  /*
         If user is not logged on. or that he's not an administrator to the app
@@ -176,8 +176,7 @@ if (request()->wantsJson()) {
         if (auth()->check() === false || !auth()->user()->isAdmin()) {
           abort(401, 'Unauthorized.');
         } 
-        $c = Criminal::postedByLoggedOnUser()->findOrFail($criminal);
-        
+
         /*we validate if there's an input*/
         $this->validate($request, [
           'form.first_name' => 'required|min:2',
@@ -198,34 +197,51 @@ if (request()->wantsJson()) {
           'form.body' => 'nullable'
         ]);
 
-        // dd(request()); 
-      //   /*if there's an avatar*/
-        if($request->has('form.avatar')){
-           //!is_null(request()->input('form.avatar')
-              // dd("replace existing avatar..");
-          $save_path = public_path('assets\images');
-          if (!file_exists($save_path)) {
-            mkdir($save_path, 666, true);
-          }
+        $criminal = Criminal::findOrFail(request()->input('id'));
 
-          $image = $request->file('form.avatar'); //request()->input('form.avatar');
+        abort_if(auth()->id() != $criminal->posted_by, 403);
+
+        /* if there's an avatar included and to be replaced.*/
+        if(request()->has('form.avatar')){
+          $base64String = request()->input('form.avatar') ;           
           
-          $file_name = Str::slug($formData['last_name'] . $formData['first_name']) . time().'.' . $image->getClientOriginalExtension();
+          $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
+          
+          $imageName = str_random(30) . '.png';
+          
+          $p = Storage::disk('local')->put('' . $imageName, $image, 'public');           
+          
+          Storage::delete($criminal->photo);
 
-          Image::make(request()->input('form.avatar'))
-          ->resize(200,200)
-          ->save($save_path.$file_name);
+          $image_url = Storage::disk()->url($imageName);
 
-        // Criminal::saveCriminal($request, $file_name);
+          $criminal->update([
+            'first_name'         =>             $request->input("form.first_name"),
+            'middle_name'        =>             $request->input("form.middle_name"),
+            'last_name'          =>             $request->input("form.last_name"),
+            'contact_number'     =>             $request->input("form.contact_number"),
+            'contact_person'     =>             $request->input("form.contact_person"),
+            'alias'              =>             $request->input("form.alias"),
+            'country_id'         =>             $request->input("form.country_id"),
+            'posted_by'          =>             $request->input("form.posted_by"),
+            'status'             =>             $request->input("form.status"),
+            'photo'              =>             $imageName
+          ]);          
 
-          return response()->json(['success' => 'You have successfully registered this criminal'],200);
+
+          return response()->json(['success' => 'You have successfully updated this criminal'],201);    
 
         } else {
-         dd("no existing avatar..");
-           // Criminal::saveCriminal($request);
-           // return response()->json(['success' => 'You have successfully registered this criminal'],200);
-       }
-     }
+      // dd("Has No file");
+          Criminal::saveCriminal($request);
+          return response()->json(['success' => 'You have successfully registered this criminal'],200);
+   /*    return response()->json([
+          'success' => true,
+          'id' => $file->id
+        ], 200);*/
+      }
+
+    }
 
 
     /**

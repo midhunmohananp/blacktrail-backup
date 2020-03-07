@@ -282,7 +282,6 @@ export default {
 		},
 
 		uploadAttachment(file,progressCallback,successCallback){
-			
 			if(!file){
 				return;
 			}
@@ -291,11 +290,8 @@ export default {
 			console.log('uploading!');
 			let formData = new FormData();
 			formData.append('file', file);
-
 			formData.append('attachable_type','App\CriminalInfo');
-
 			formData.append('field','complete_description');
-
 			axios.post(this.send_attachment_endpoint, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -500,17 +496,15 @@ handleEditorChange(file){
 		registerCriminal(){
 			// e.preventDefault();
 			this.isLoading = true;
-			/*
+		/*	
 			let currentObj = this;
-
 			const config = {
 				headers: { 'content-type': 'multipart/form-data' }
 			};
-			
+
 			let formData = new FormData();
+			formData.append('avatar', this.avatar);*/
 			
-			formData.append('avatar', this.avatar);
-			*/
 			setTimeout(() => {
 				this.isLoading = false;
 				this.requesting = true;

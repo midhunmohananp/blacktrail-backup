@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use DB ; 
 use Illuminate\Database\Eloquent\Model;
 
 class CriminalInfo extends Model
@@ -11,12 +11,12 @@ class CriminalInfo extends Model
 	protected $guarded = [];
 	protected $dates = ['birthdate'];
 	protected $fillable = [
-        'last_seen',
-        'country_last_seen',
-        'bounty',
-        'currency',
-        'complete_description',
-    ];
+		'last_seen',
+		'country_last_seen',
+		'bounty',
+		'currency',
+		'complete_description',
+	];
 
 	// Define the "age" property accessor.
 	public function getAgeAttribute()
@@ -46,6 +46,26 @@ class CriminalInfo extends Model
 		// belongsTo(RelatedModel, foreignKey = country_id, keyOnRelatedModel = id)
 		return $this->belongsTo(Country::class,'country_last_seen','id');
 	}
+
+	/*Get body frame values.*/
+	 public static function getEnumColumnValues($table, $column) {
+
+	 	$type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '{$column}'"))[0]->Type ;
+
+	 	preg_match('/^enum\((.*)\)$/', $type, $matches);
+
+	 	$enum_values = array();
+	 	foreach( explode(',', $matches[1]) as $value )
+	 	{
+	 		$v = trim( $value, "'" );
+	 		$enum_values = array_add($enum_values, $v, $v);
+	 	}
+	 	
+	 	return $enum_values;
+	 }
+
+
+
 
 	/**
 	* a Criminals Information belongs to Criminal.

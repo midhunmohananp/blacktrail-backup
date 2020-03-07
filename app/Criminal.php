@@ -174,8 +174,8 @@ public function scopeNotYetCaptured($query)
 	}
 
 	public static function update_criminal(Request $request, string $file_name = 'default_avatar.jpg'){
-
-		return Criminal::updateOrCreate([
+		return
+		Criminal::update([
 			'first_name'         =>             $request->input("form.first_name"),
 			'middle_name'        =>             $request->input("form.middle_name"),
 			'last_name'          =>             $request->input("form.last_name"),

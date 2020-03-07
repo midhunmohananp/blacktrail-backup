@@ -104,8 +104,6 @@ Route::get("/2-col",function (){
 	return view("2-col");
 });
 
-
-
 Route::get("/rows",function (){
 	return view("rows");
 });

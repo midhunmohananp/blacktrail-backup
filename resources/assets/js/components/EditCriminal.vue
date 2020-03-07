@@ -8,7 +8,6 @@ import datepicker from 'vue-date-picker';
 import _ from "lodash"; 	
 
 export default {
-
 	props : [ 'crimes', 'criminal', 'admins', 'countries'],
 	components : { 
 		'VueTrix' : VueTrix,
