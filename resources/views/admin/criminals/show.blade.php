@@ -21,7 +21,7 @@
 
 								@if (auth()->user()->isAdmin() && $criminal->posted_by === auth()->user()->id)
 								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-									<a class="text-white hover:text-blue-lighter" href="{{ route('admin.criminals.show',$criminal->id) }}">Edit Profile</a>
+									<a class="text-white hover:text-blue-lighter" href="{{ route('admin.criminals.edit',$criminal->id) }}">Edit Profile</a>
 								</button>
 								@endif
 								

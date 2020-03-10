@@ -7969,6 +7969,10 @@ flex-direction: row; */
   width: 80%;
 }
 
+.w-4\/5x {
+  width: 90%;
+}
+
 .w-1\/6 {
   width: 16.66667%;
 }
@@ -14110,6 +14114,10 @@ flex-direction: row; */
 
   .sm\:w-4\/5 {
     width: 80%;
+  }
+
+  .sm\:w-4\/5x {
+    width: 90%;
   }
 
   .sm\:w-1\/6 {
@@ -20256,6 +20264,10 @@ flex-direction: row; */
     width: 80%;
   }
 
+  .md\:w-4\/5x {
+    width: 90%;
+  }
+
   .md\:w-1\/6 {
     width: 16.66667%;
   }
@@ -26400,6 +26412,10 @@ flex-direction: row; */
     width: 80%;
   }
 
+  .lg\:w-4\/5x {
+    width: 90%;
+  }
+
   .lg\:w-1\/6 {
     width: 16.66667%;
   }
@@ -32542,6 +32558,10 @@ flex-direction: row; */
 
   .xl\:w-4\/5 {
     width: 80%;
+  }
+
+  .xl\:w-4\/5x {
+    width: 90%;
   }
 
   .xl\:w-1\/6 {

@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use App\CriminalInfo; 
 use App\Criminal ; 
 use App\Country ; 
 use Carbon\Carbon ;
+use Faker\Generator as Faker;
 
 class CriminalInfoSeeder extends Seeder
 {
@@ -20,7 +20,7 @@ class CriminalInfoSeeder extends Seeder
     public function run()
     {
 
-      // 1. find criminals who doesn't have any profile->passed
+   /*   // 1. find criminals who doesn't have any profile->passed
       print "Criminals who have no profile";
       $this->updateCriminalsWhoHaveNoProfile() ;
       print "Criminals who have no bounty and a currency";
@@ -31,15 +31,26 @@ class CriminalInfoSeeder extends Seeder
       $this->updateCompleteDescription();
 
       // 4. removing criminals which have birthdates of 2001
-      $this->removeCriminalsWhichAreNonAdults();
+      $this->removeCriminalsWhichAreNonAdults();*/
+
+      $this->updateCriminalsWhoHaveNoContactPerson(); 
+    }
+
+    protected function updateCriminalsWhoHaveNoContactPerson(){
+      $noContactPersonCriminals = Criminal::whereNull('contact_person')->get()->pluck('id');
+      $faker = \Faker\Factory::create();  
+      $noContactPersonCriminals->each(function ($item,$key) use ($faker){  
+        DB::table("criminals")->where('id','=',$item)->update(['contact_person'=> $faker->name]);
+      });
 
     }
+
 
     protected function updateCriminalsWhoHaveNoProfile(){
       $criminalsWithNoProfile = Criminal::doesntHave("profile")->get();
       
       $criminalsWithNoProfile->each(function ($item,$key){
-      
+
         dump($key);
 
         $faker = \Faker\Factory::create();  

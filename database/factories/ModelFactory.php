@@ -11,14 +11,14 @@ $factory->define(App\Criminal::class, function (Faker $faker) {
         'middle_name' => $faker->lastName,
         'last_name' => $faker->lastName,    
         'country_id' => function(){
-           return DB::table('countries')->get()->random()->id;
-       },   
-       'posted_by' => function(){
-           return User::admins()->get()->random()->id;
-       },
-       'status' => 1,
-       'photo' => 'default_avatar.jpg'
-   ];
+         return DB::table('countries')->get()->random()->id;
+     },   
+     'posted_by' => function(){
+         return User::admins()->get()->random()->id;
+     },
+     'status' => 1,
+     'photo' => 'default_avatar.jpg'
+ ];
 });
 
 
@@ -82,9 +82,9 @@ $factory->define(App\Message::class, function (Faker $faker) {
         $to = rand(1, 15);
     } while ($from === $to);
     return [
-            'from' => $from,
-            'to' => $to,
-            'body' => $faker->sentence
+        'from' => $from,
+        'to' => $to,
+        'body' => $faker->sentence
     ];
 });
 
@@ -132,7 +132,7 @@ $factory->define(App\CriminalInfo::class, function (Faker $faker) {
             $currency = \App\Country::inRandomOrder()->first()->pluck('id');
             return $currency;
         },
-        'complete_description' => "<div><!--block--><strong>Fill all description of the criminal that are not listed above such as :</strong><br><br>1. Height :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div>"
+        'complete_description' => "<div><!--block--><strong>Fill all description of the criminal that are not listed above such as :</strong><br><br>1. Crimes Description :&nbsp;<br>2. Weight<br>3. Eye Color<br>4. Body Frame<br>5. Any other details</div>"
     ] ; 
 });
 

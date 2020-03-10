@@ -6,9 +6,8 @@ import Places from 'vue-places';
 import VueTrix from "vue-trix";
 import datepicker from 'vue-date-picker';
 import _ from "lodash"; 	
-
 export default {
-	props : [ 'crimes', 'criminal', 'admins', 'countries'],
+	props : [ 'crimes', 'criminal', 'admins', 'countries','body_types'],
 	components : { 
 		'VueTrix' : VueTrix,
 		'places' : Places, 
@@ -16,30 +15,25 @@ export default {
 	},
 	data(){
 		return {
-			/*
-			withoutPivot : this.criminal.crimes.map((crime, i) => { 
-				const { ...copy, pivot } = crime; return copy; 
-			}),	*/
 			input: {	
 				crimes : this.criminal.crimes 
 			},
-
-			send_attachment_endpoint : urls.url_for_saving_photos,
-			isLoading : null ,
-			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2',
-			'leading-normal'], 
+			send_attachment_endpoint : urls.url_for_saving_photos ,
+			isLoading : null,
+			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2', 'leading-normal'], 
 			country : this.criminal.country_id,	
 			form : {		
+				id : this.criminal.id , 
 				full_name : this.criminal.full_name ,
 				alias : this.criminal.alias,
 				first_name : this.criminal.first_name,
 				posted_by : this.criminal.posted_by,
 				middle_name : this.criminal.middle_name,
 				birthplace : this.criminal.profile.birthplace,
-				last_name : this.criminal.last_name,
+				last_name : 	 this.criminal.last_name,
 				contact_number : this.criminal.contact_number,
 				contact_person : this.criminal.contact_person , 
-				status : this.criminal.status, 
+				status :         this.criminal.status, 
 				last_seen : this.criminal.profile.last_seen,
 				birthdate : this.criminal.profile.birthdate,
 				eye_color : this.criminal.profile.eye_color,
@@ -50,11 +44,12 @@ export default {
 				complete_description : this.criminal.profile.complete_description,
 				height_in_cm : this.criminal.profile.height_in_feet_and_inches,
 				maxFiles: 1,
+				body_frame : this.criminal.profile.body_frame,
 				currency : this.criminal.profile.currency,
 				bounty : this.criminal.profile.bounty,
+				uploadUrl: urls.urlSaveCriminal,
 				attachments : [],
 				country_id : 4 , 
-				uploadUrl: urls.urlSaveCriminal,
 			},
 			posted_by : this.criminal.posted_by,
 			max_files: { // total # of files allowed to be uploaded
@@ -65,6 +60,16 @@ export default {
 		}
 	},	
 	methods : {
+		customFormatter(date) {
+			return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+		},
+
+		/*
+		removeCrime(input,index){
+			console.log(input);
+			// axios.delete(this.remove_crime_endpoint)
+		},*/
+
 		uploadAttachment(file,progressCallback,successCallback){
 			if(!file){
 				return;
@@ -108,34 +113,32 @@ export default {
 
 			/*Updating a profile.*/
 			updateProfile(){
-				setTimeout(() => {
-					this.isLoading = false;
-					this.requesting = true;
-					this.creating = true;
-					this.resetting = false;	
-					axios.put(this.endpoint, {
-						id : this.criminal.id,
-						form : this.form,
-						input : this.input 
-					}).then(response => {
-						console.log(response);
-					/*	if ( response.status === 200){
-							alert("Successfully Registered This Criminal");
-							this.resetForm();
-						}
-						else {
-							alert("We encounter some errors while adding that criminal");
-						}*/
-					}).catch((error) => {
-						console.log(error);
-						// console.error((error));
-						// alert("We encounter some errors while adding that criminal, try to check your inputs");
-					});
+				if ( this.input.crimes.length > 0 ){
+					setTimeout(() => {
+						this.isLoading = false;
+						this.requesting = true;
+						this.creating = true;
+						this.resetting = false;	
+						axios.put(this.endpoint, {
+							id : this.criminal.id,
+							form : this.form,
+							input : this.input.crimes
+						}).then(response => {
+							console.log(response);
+							window.location.replace("/admin/criminals/"+this.criminal.id);
+						}).catch((error) => {
+							console.log(error);
+			// console.error((error));
+			// alert("We encounter some errors while adding that criminal, try to check your inputs");
+		});
 
-					this.requesting = false;
-					this.creating = false;
-				}, 1000);
-
+						this.requesting = false;
+						this.creating = false;
+					}, 1000);
+				}
+				else { 
+					this.$swal('You cannot proceed if you don\'t add Crimes for this Criminal now');
+				}
 			},
 
 			updateUserRoute(){
@@ -163,9 +166,7 @@ export default {
 			createImage(file) {
 				let reader = new FileReader();				
 				let vm = this;
-
 				vm.form.avatar = file;
-				
 				reader.onload = (e) => {
 					vm.form.avatar = e.target.result;
 				};
@@ -184,8 +185,8 @@ export default {
 				return !obj || Object.keys(obj).length === 0;
 			},
 
-			addNewCrime() {
-				this.input.crimes.push({ id: 1, description : "" });
+			addNewCrime(){
+				this.input.crimes.push({ id: 1, complete_description : "" });
 			},
 
 			removeCrime(input,index) {
@@ -316,9 +317,12 @@ handleEditorChange(file){
 },
 
 handleAttachmentRemove(file){
-	console.log("Trying to delete");
+	// console.log(file);
+	// console.log("Trying to delete",file);
 	let url = file.attachment.attachment.attributes.values.url.split("/").pop();
+	
 	console.log(url);
+
 	axios.delete(this.remove_attachment_endpoint + `${url}`).then(response => {
 		console.log(response);
 	}).catch(error => {
@@ -326,7 +330,6 @@ handleAttachmentRemove(file){
 	});
 },
 },
-
 computed : { 
 	avatarEndpoint(){
 		return api.publicPath.replace(/\\/g, "/");
@@ -335,6 +338,10 @@ computed : {
 	endpoint(){
 		return urls.urlUpdateCriminal +"/" +this.criminal.id; 
 	},
+
+	remove_attachment_endpoint(){
+		return api.app + '/api/v1/attachments/' ;
+	},	
 	
 	crimeTypes(){
 		return this.crimes 

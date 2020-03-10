@@ -23,8 +23,7 @@ class UsersController extends Controller
 	/*delete user*/
 	public function delete_user(){
 		$user_id = intval(request('user_id'));
-		dd($user_id);
-		$user = DB::table('users')->where('id', '=', $user_id)->delete();
+		$user = Criminal::find($user_id)->delete();
 		return response()->json($user);
 	}
 

@@ -23,6 +23,14 @@ class Criminal extends Model
 	protected static $imageFields = [
 		'avatar'
 	];
+
+	public static function boot() {
+		parent::boot();
+		static::deleting(function($criminal) {
+			$criminal->profile()->delete();
+		});
+	}
+	
 	/**
 	* a Criminal has a profile.
 	*
@@ -31,7 +39,7 @@ class Criminal extends Model
 	public function profile()
 	{
 		return $this->hasOne(CriminalInfo::class,'criminal_id','id');
-				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
+		// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
 	}
 
 	public function profilePicture()

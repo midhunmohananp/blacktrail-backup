@@ -37,7 +37,6 @@ methods : {
 				}).catch((error ) =>{
 					console.log(error);
 				})
-
 				
 				Swal(
 					'Deleted!',

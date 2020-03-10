@@ -20,14 +20,17 @@ use Carbon\Carbon;
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								
-								@if(file_exists(public_path('app/'.$criminal->photo)))
-
-									<img src="{{ asset('app/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
-
+								@if(file_exists(public_path($criminal->photo)))
+										@php
+										echo "It exists";
+										@endphp
+								{{-- <img src="{{ asset('app/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@else
+										@php
+										echo "It don't exist";
+										@endphp
 
-									<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2">
-
+								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@endif
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>

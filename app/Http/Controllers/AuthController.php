@@ -8,7 +8,7 @@ use App\User ;
 use Mail ;
 use App\Country ; 
 use Illuminate\Validation\ValidationException;
-
+use Session ; 
 class AuthController extends Controller
 {
 	public function loginForm()
@@ -20,7 +20,7 @@ class AuthController extends Controller
 	{
 		auth()->guard()->logout();
 		request()->session()->invalidate();
-		return redirect()->to('/')->with(['logoutMessage' => 'Logout Successful !']);
+		return redirect()->to('/')->with(['flash' => 'Logout Successful !']);
 	}
 
 	/*Saving the login form.*/
@@ -33,6 +33,7 @@ class AuthController extends Controller
 		]);
 
 		$pin = request()->get('pin');
+
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
 
 		$remember_me = request()->get('remember');

@@ -58,7 +58,6 @@ class DatabaseController extends Controller {
 				->update(['display_name' => NULL]);
 		// dd($criminals);
 			}
-
 	// ->  seeding criminals who have no countries
 			public function seed_criminals_who_have_no_countries(){
 		// finding criminals that have no countries

@@ -1,0 +1,64 @@
+[33m857747c[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on edit-criminals: 8e5bdef Removing a criminal's previous photo when updating is now ok
+[33m0d7c27a[m index on edit-criminals: 8e5bdef Removing a criminal's previous photo when updating is now ok
+[33m8e5bdef[m[33m ([m[1;36mHEAD -> [m[1;32medit-criminals[m[33m, [m[1;31morigin/edit-criminals[m[33m)[m Removing a criminal's previous photo when updating is now ok
+[33m9bdbc7a[m the images for the trix content when showing the criminals information can now be seen
+[33mab19ee3[m Updated files made gitignore effect
+[33m7243b81[m updated one
+[33mfa396a1[m this is my latest commit, latest update
+[33mab86038[m updated the edit criminal form wherein the criminals crimes would be listed
+[33m842bbca[m[33m ([m[1;31mheroku/edit-criminals[m[33m)[m deploying with heroku, first take
+[33m6458c7f[m added files for mercurius and chatify emssenger, chat tba
+[33md650377[m added the green button / circle for user who wants to chat with the current user also added the edit-criminal information
+[33m343afdf[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m the updated version, to be checked
+[33m408dbdd[m most updated commit, working on the list all the crimes part
+[33m706b51d[m Merge pull request #4 from ElmageAce/attachment-handler
+[33mbc68c66[m prevented the resetForm method from triggering the attachment-file-remove event
+[33m5bd1dcf[m Merge pull request #3 from ElmageAce/attachment-handler
+[33m4d326d7[m Altered .gitignore to allow images folder
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m Merge pull request #2 from ElmageAce/attachment-handler
+[33me3cd370[m Removed the form clearing feature, added a makeshift fix for auto triggering of the fileHandler for deleting attachments
+[33m9d48063[m Merge pull request #1 from ElmageAce/data-entry-fix-v1
+[33m6340dae[m Data Entry Fix Made changes to the store_criminal method, altered the form validation, added fillable properties to Criminal, CriminalInfo, TrixAttachment. Made some changes to RegisterCriminal.Vue component
+[33m8702df9[m[33m ([m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m edit criminal is now updated and we should be able to number of crimes of criminals
+[33ma369916[m updated the criminals edit form, also added the defalt route..
+[33m02bb6fd[m editing criminals information updated, we can now see the listing of all crimes
+[33m7f7bd73[m we can now delete an attachment from the trix-editor, but when we reset the trix-editor field it would delete the attachments
+[33mb7c8e06[m updated the trix attachment controller
+[33m68bcc75[m There's a problem rendering a prop to a blade view
+[33m6695ff2[m removed the assets/images to the folder to be added, also modified the contents
+[33me121841[m we can't add new criminals yet / insert these into the db
+[33me6a4be9[m moved the images folder to assets/images directory in public directory
+[33mee486e2[m we can now add criminals but we're not sure if we can display the attachments from the trix-editor
+[33mac6a5b6[m we can now upload the trix-attachments to the storage folder but we haven't added the criminals yet only the initial attachment-adding evetn
+[33m5b0b415[m Still trying to make uploading of the attachments in trix work
+[33m51a7788[m old way of using XHR request not using axios for attaching trix attachments
+[33m5d3f2c1[m Untrack files in .gitignore
+[33mcf36935[m Untrack files in .gitignore
+[33mbde7c14[m Trix attachments and some files here
+[33mb564406[m Update README.md
+[33mf986bfb[m Update README.md
+[33mf292987[m updated the trix editor to be vue-trix
+[33m05a13e5[m[33m ([m[1;31morigin/user-profile[m[33m)[m this commit should be on different branch ..fixing-the-adding... Trix editor default for now is vue-trix
+[33m68be3e1[m added a helpers file for passing @trix as a prop, just for testing out
+[33m52ae5c5[m added helper file and some necessary things for the form to work
+[33m590948c[m made the register criminal form show again
+[33m8ede0ca[m Errors / Warnings Property or method form is not defined on the instan. also TypeError: Cannot read property on one of the object
+[33m073d872[m added trix fields and also the .vue files for the components, added files for references from the request from the user
+[33m7fd2381[m changed the default upload media button
+[33mcecbc82[m Created the view and method for veiwing & updating the profile of the current logged on user, but update method isn't fully implemented
+[33m14af856[m created the skeleton view/the layout view for chat, also fixed the authcontroller's login redirection, how the redirection works
+[33m88c1571[m fixed the issue wherein vue-trix error isn't found but now vue-trix won't show in the form, this is the updated bug that i've found
+[33m532735d[m changed the main trix editor to vue-trix because of some issues
+[33mf2f4901[m removing unnecessary packages, focusing on the upload image part
+[33mf4312e6[m[33m ([m[1;31morigin/redoing-of-the-project[m[33m)[m modified the chatheader and the inbox alittle bit
+[33m14e69be[m created the controller to get the messages between the respondent and the sender
+[33m52aeca3[m the chat feature wasn't completely finished, adding criminals hasn't been implemented yet but 50% of the app is done
+[33me7d04dd[m Found the fix for $criminals variable for router-link, still the chat is not yet implemented also the adding of criminals isn't done as stil there is an error for it
+[33m2423cee[m error found that would not display the criminals variable in the view, still trying to find some fix for it.
+[33mf72e7fe[m[33m ([m[1;31morigin/updated-files-from-blacktrail[m[33m)[m removed the .swp files that are generated with vim from the latest backup
+[33mae8645e[m all the updated files are in here
+[33m7887474[m added config files
+[33m7db1aab[m the database folder
+[33m527dba6[m Copied the contents of the original blacktrail project
+[33m89bf3eb[m basic laravel scaffold, nothing fancy
+[33m643220b[m Initial commit

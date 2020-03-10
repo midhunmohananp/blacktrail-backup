@@ -7,10 +7,12 @@ class All {
 
 	public function compose(View $view)
 	{
+
 		if (auth()->check()){
 			$displayName = auth()->user()->display_name ; 
 			$user_id = auth()->user()->id ; 
 		}
+		
 		else {
 			$displayName = '';
 			$user_id = null;
@@ -20,6 +22,5 @@ class All {
 					'displayName'	=> $displayName ,
 					'user_id'	=>  $user_id
 		]);
-	
 	}
 }

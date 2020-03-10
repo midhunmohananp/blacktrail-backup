@@ -96,15 +96,30 @@ export default {
 	},
 	methods : {
 		deleteUser(id){
-			console.log(id);
-			axios.delete(this.remove_criminal_endpoint, { params : { id :  id } })
-			.then(response => {
-				console.log(response);
-			})
-			.catch(error => { 
-				console.log(error);
+			this.$swal({
+				title: 'Are you sure to delete this criminal?',
+				text: 'All this criminal\'s information will be deleted',
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Yes, delete this guy',
+				cancelButtonText: 'Cancel'
+			}).then((result) => {
+				if (result.value) {
+					axios.delete(this.remove_criminal_endpoint, { params : { user_id :  id } })
+					.then(response => {
+						location.reload(); 
+					})
+					.catch(error => { 
+						console.log(error);
+					});
+				} else if (result.dismiss === Swal.DismissReason.cancel) {
+					this.$swal(
+						'Cancelled',
+						'This criminal wasn\'t deleted',
+						'error'
+						)
+				}
 			});
-
 		},
 
 		showMorePhotos(){
@@ -159,9 +174,8 @@ beforeRouteLeave(){
 
 
 computed : { 
-
 	remove_criminal_endpoint(){
-		return `api/v1//user/delete` ; 
+		return urlDomain.destroyUserUrl; 
 	},
 
 	normalUser(){

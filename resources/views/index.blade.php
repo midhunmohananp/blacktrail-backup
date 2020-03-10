@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-
 @section('title', 'Be a bounty hunter now, Earn money by finding wanted criminals in your area')
-
 
 @section('content')
 
 <div class="px-4 mt-4">
+
+	<flash-message message="Lorem ipsum dolor."></flash-message>
 
 	{{-- If user is authenticated --}}
 	@auth
@@ -63,5 +63,9 @@
 	
 	@endguest
 </div>
+
+
+<flash-message message="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, sequi.">
+</flash-message>
 
 @endsection

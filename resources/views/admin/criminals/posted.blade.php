@@ -2,7 +2,7 @@
 @section('title', 'Criminals that are posted by you')
 @section('content')
 <section class="w-1/3">
-	@include("modals.register-criminal")
+	{{-- @include("modals.register-criminal") --}}
 	
 	<p class="ml-2 font-basic tracking-normal text-2xl mb-1 mt-4 font-normal text-black mr-2">Criminals Posted by you
 	</p>

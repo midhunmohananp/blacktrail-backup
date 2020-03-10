@@ -64,9 +64,6 @@ class CriminalInfo extends Model
 	 	return $enum_values;
 	 }
 
-
-
-
 	/**
 	* a Criminals Information belongs to Criminal.
 	*
@@ -82,4 +79,6 @@ class CriminalInfo extends Model
 	public static function findOrFailById($id){ 
 		return static::where('criminal_id', $id)->firstOrFail();        
 	}
+
+
 }
