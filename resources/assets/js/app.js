@@ -8,12 +8,11 @@ require('./bootstrap');
 These don't mean that it would work since it means one thing these will not work w/ vue-router..
 */
 // var Turbolinks = require('turbolinks');
-
 // Turbolinks.start();
 
 import router from './routes';
 import PayPal from 'vue-paypal-checkout';
-// import UploadImage from 'vue-upload-image';
+// import UploadImage from 'vue-upload-image'eDITc;
 
 window.Vue = require('vue');
 window.$ = require('jquery');

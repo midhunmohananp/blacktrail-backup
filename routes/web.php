@@ -40,9 +40,7 @@ Route::resource("group","GroupController",[
 */
 });
 
-/*For confirming users.. 
-*
-->user confirmation
+/*For confirming users..  ->user confirmation
 
 */
 
@@ -181,7 +179,7 @@ Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
 Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get("messages/t/{respondent}","MessageController@sendMessage");
+Route::get('messages/t/{respondent}',"MessageController@sendMessage")->name('messages.send');
 
 /*Mailables*/
 Route::get("mailable","ViewsController@test_mailable");

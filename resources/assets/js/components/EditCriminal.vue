@@ -18,6 +18,7 @@ export default {
 			input: {	
 				crimes : this.criminal.crimes 
 			},
+			crimesList : [],
 			send_attachment_endpoint : urls.url_for_saving_photos ,
 			isLoading : null,
 			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2', 'leading-normal'], 
@@ -110,7 +111,6 @@ export default {
 				});
 				_this.requesting = false;
 			},
-
 			/*Updating a profile.*/
 			updateProfile(){
 				if ( this.input.crimes.length > 0 ){
@@ -124,7 +124,7 @@ export default {
 							form : this.form,
 							input : this.input.crimes
 						}).then(response => {
-							console.log(response);
+							// console.log(response);
 							window.location.replace("/admin/criminals/"+this.criminal.id);
 						}).catch((error) => {
 							console.log(error);
@@ -140,11 +140,9 @@ export default {
 					this.$swal('You cannot proceed if you don\'t add Crimes for this Criminal now');
 				}
 			},
-
 			updateUserRoute(){
 				return `/`;
 			},
-
 			onAvatarChange(e){
 				let files = e.target.files || e.dataTransfer.files;
 				if (!files.length)
@@ -167,9 +165,11 @@ export default {
 				let reader = new FileReader();				
 				let vm = this;
 				vm.form.avatar = file;
+				
 				reader.onload = (e) => {
 					vm.form.avatar = e.target.result;
 				};
+
 				reader.readAsDataURL(file);
 			},
 
@@ -180,13 +180,12 @@ export default {
 				this.createImage(files[0]);
 			},
 
-
 			isEmpty(obj) {
 				return !obj || Object.keys(obj).length === 0;
 			},
 
 			addNewCrime(){
-				this.input.crimes.push({ id: 1, complete_description : "" });
+				this.input.crimes.push({ id: 1,	 crime_description : "" });
 			},
 
 			removeCrime(input,index) {
@@ -342,6 +341,7 @@ computed : {
 	remove_attachment_endpoint(){
 		return api.app + '/api/v1/attachments/' ;
 	},	
+
 	
 	crimeTypes(){
 		return this.crimes 

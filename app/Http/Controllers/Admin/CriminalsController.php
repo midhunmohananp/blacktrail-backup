@@ -204,10 +204,14 @@ if (request()->wantsJson()) {
 
         /* if there's an avatar included and to be replaced.*/
         if(request()->has('form.avatar')){
+
           $base64String = request()->input('form.avatar');           
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
+          
           $imageName = str_random(30) . '.png';          
+
           $p = Storage::disk('local')->put('' . $imageName, $image, 'public');                    
+          
           Storage::delete($criminal->photo);
           
           $image_url = Storage::disk()->url($imageName);
@@ -244,12 +248,15 @@ if (request()->wantsJson()) {
 
 
             $items = collect(request('input'));
+            
+            dd($items);
 
             $val = $items->pluck('crime_description', 'id')->mapWithKeys(function($item, $key) {
               return [$key => ['crime_description' => $item->pivot->crime_description]];
             });
 
             $cr = $criminal->crimes()->attach($val);
+
             return response($val,201);
 
 

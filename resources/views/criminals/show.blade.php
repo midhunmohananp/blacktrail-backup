@@ -22,12 +22,12 @@ use Carbon\Carbon;
 								
 								@if(file_exists(public_path($criminal->photo)))
 										@php
-										echo "It exists";
+										echo "Avatar found" ; 
 										@endphp
 								{{-- <img src="{{ asset('app/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@else
 										@php
-										echo "It don't exist";
+										echo "Avatar cannot be found";
 										@endphp
 
 								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
@@ -35,6 +35,13 @@ use Carbon\Carbon;
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
+
+								@if (!auth()->user()->isAdmin())
+								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
+									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send',auth()->id()) }}">Report Location</a>
+								</button>
+								@endif
+
 							</div>
 						</div>
 
