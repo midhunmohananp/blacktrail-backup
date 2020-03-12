@@ -3,9 +3,24 @@
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Laravel\Scout\Searchable;
 
 class Criminal extends Model
 {
+
+	use Searchable ; 
+
+ /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+ public function searchableAs()
+ {
+ 	return 'posts_index';
+ }
+
+	
 	protected $fillable = [
 		'first_name',
 		'middle_name',

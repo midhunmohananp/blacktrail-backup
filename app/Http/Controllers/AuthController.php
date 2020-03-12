@@ -37,12 +37,13 @@ class AuthController extends Controller
 		$field = filter_var(request()->get('pin'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';		
 
 		$remember_me = request()->get('remember');
+		
 		$password = request()->get('password');
+
 		$user = User::where("${field}",'=',$pin)->first();
 
-		// dd($user);
 
-		if ( is_null($user->confirmed_at) || $user->status === "0"){
+		if ( $user === NULL || $user->status === "0"){
 			return redirect()->back()->with('flash-message','The account you tried to login was either not yet confirmed by you or activated by one of our admins.');
 		}
 		else {
@@ -92,10 +93,9 @@ class AuthController extends Controller
 		else {
 			try { 
 				$email = request()->get('email');
-
-				 // blacktrail.com/confirm/email/?=jose@mail.comVi2sdebxXIGdHvz04IOB
+		
 				$confirmation_code = str_random(10);
-
+		
 				$user = User::create([
 					'role_id' => request('role_id'),
 					'display_name' => request('display_name'),
@@ -115,10 +115,7 @@ class AuthController extends Controller
 			} catch (UserRegistrationException $u){
 				return response(['Not allowed.'], 405);
 			}
-
 		}
-
-
 	}
 
 

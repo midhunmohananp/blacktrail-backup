@@ -183,7 +183,7 @@
 					{{ option.criminal_offense }}
 				</option>
 			</select>
-			<input class="hover:bg-grey-lightest bg-grey-lightest w-full mb-2 p-2 leading-normal w-1/2" required type="text" v-model="crime.crime_description">
+			<input class="hover:bg-grey-lightest bg-grey-lightest w-full mb-2 p-2 leading-normal w-1/2" required type="text" v-model="crime.pivot.crime_description">
 			<span class="ml-2">
 				<button>
 					<i class="fas fa-minus-circle" @click="removeCrime(input.crimes,index)"></i>

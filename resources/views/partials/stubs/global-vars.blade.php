@@ -12,5 +12,5 @@
 	'algoliaKey' 		  =>  env('ALGOLIA_SECRET'),
 	'addCriminalUrl' 	  =>  route('admin.criminals.store'),
 	'savePhotosUrl' 	  =>  route('admin.photos.uploads'),
-	'resourcePath' 		  =>  resource_path()
+	'resourcePath' 		  =>  resource_path(),
 ]) !!};    

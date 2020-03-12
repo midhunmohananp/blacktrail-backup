@@ -17,11 +17,18 @@ import user from './scripts/api.js';
 import ChatBox from './modals/ChatBox.vue';
 import OfferBounty from './modals/OfferBounty';
 import redirect from '../mixins/redirect';
+import api from './scripts/api.js';
 export default {
+	
 	props : ['id','criminals'],
+	
 	name: 'UserButton',
+
+	
 	mixins : ['redirect'],
+	
 	components:  { ChatBox, OfferBounty },
+
 	data () {
 		return {
 			criminal_id : this.id ,
@@ -51,8 +58,7 @@ export default {
 
 	computed : { 
 		chatUrl(){
-			// return '/messages/t/' +this.users_name_respondent;
-			return '/messages';
+			return api.app + '/messages/t/3'; 
 			// return '/respond/criminal/' + this.criminal_id;
 		},
 		userRole(){

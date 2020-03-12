@@ -25,33 +25,38 @@ src="http://192.168.22.3:8098"></script> --}}
 <body class="bg-grey-lighter-2 tracking-normal font-basic"> 
   <div id="app">
     <div class="m-auto">
-     @if(session()->has('flash'))
-       <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
-     @endif 
 
-     @if(session()->has('confirmation_success_message'))
-       <flash-message :message="{{ trans('flash.confirmation_success') }}"></flash-message>
-     @endif
+     {{-- <flash-message message="Lorem ipsum dolor sit amet."></flash-message> --}}
 
-     @if(session()->has('flash-message'))
-       <flash-message message="{{ session('flash-message' ) }}"></flash-message>
-     @endif
 
-     <app-header inline-template>
-      @include('partials.main-header')
-    </app-header>
+      @if(session()->has('flash'))
+      <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
+      @endif 
 
-    <main class="flex m-auto">
-      @if (auth()->check())            
-      @include('partials.sidebar')
+      @if(session()->has('confirmation_success_message'))
+      <flash-message :message="{{ trans('flash.confirmation_success') }}"></flash-message>
       @endif
-      @yield("content")
-    </main>
-    
-  </div>
-</div>
 
-<script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
-@yield("scripts")
+      @if(session()->has('flash-message'))
+      {{-- this piece of code doesn't work  --}}
+      <flash-message message="{{ session('flash-message' ) }}"></flash-message>
+      @endif
+
+      <app-header inline-template>
+        @include('partials.main-header')
+      </app-header>
+
+      <main class="flex m-auto">
+        @if (auth()->check())            
+        @include('partials.sidebar')
+        @endif
+        @yield("content")
+      </main>
+
+    </div>
+  </div>
+
+  <script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
+  @yield("scripts")
 </body>
 </html> 
